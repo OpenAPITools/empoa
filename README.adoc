@@ -1,0 +1,43 @@
+//tag::vardef[]
+:gh-repo-owner: OpenAPITools
+:gh-repo-name: empoa
+:project-name: Code for Eclipse MicroProfile OpenAPI
+:branch: master
+:twitter-handle: j2r2b
+:license: http://www.apache.org/licenses/LICENSE-2.0
+:license-name: Apache 2.0 License
+
+:git-repository: {gh-repo-owner}/{gh-repo-name}
+:homepage: https://{gh-repo-owner}.github.io/{gh-repo-name}/
+:issues: https://github.com/{git-repository}/issues
+//end::vardef[]
+
+//tag::header[]
+= {project-name}
+Code (implementation, experiments, tools...) for the Eclipse MicroProfile OpenAPI project
+//end::header[]
+
+//tag::description[]
+== Description
+link:http://github.com/eclipse/microprofile-open-api[Eclipse MicroProfile OpenAPI] is a standardisation effort around OpenAPI.
+In particular, it offers an API to model OpenAPI specification (interfaces in the `org.eclipse.microprofile.openapi.models` package and sub-packages).
+
+This repository contains different projects (implementations and utilities) for this API.
+Providing a complete vendor implementation for the Eclipse MicroProfile OpenAPI is out-of-scope.
+
+//end::description[]
+Read more on the link:{homepage}[project home page].
+
+//tag::contact-section[]
+== Get in touch
+
+Use the link:{issues}[issue tracker] on GitHub.
+
+You can also contact me on Twitter: link:https://twitter.com/{twitter-handle}[@{twitter-handle}]
+//end::contact-section[]
+
+//tag::license-section[]
+== License
+
+link:{license}[{license-name}]
+//end::license-section[]

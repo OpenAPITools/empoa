@@ -1,0 +1,229 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "A TODO-Task list application",
+    "description" : "A simple application to handle tasks.",
+    "license" : {
+      "name" : "Eclipse Public License 2.0",
+      "url" : "https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.html"
+    },
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:8080/todoapp"
+  } ],
+  "tags" : [ {
+    "name" : "task",
+    "description" : "Task management"
+  } ],
+  "paths" : {
+    "/task" : {
+      "get" : {
+        "tags" : [ "task" ],
+        "summary" : "Get the list of all tasks",
+        "operationId" : "tasksGetAll",
+        "responses" : {
+          "200" : {
+            "description" : "List of all tasks",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Task"
+                  }
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "Generic error response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "task" ],
+        "summary" : "Create a new task",
+        "operationId" : "tasksCreate",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Task"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "The created task",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Task"
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "Generic error response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/task/{taskId}" : {
+      "get" : {
+        "tags" : [ "task" ],
+        "summary" : "Get a single task based on its id",
+        "operationId" : "tasksRead",
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Task"
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "Generic error response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "task" ],
+        "summary" : "Update an existing task",
+        "operationId" : "tasksUpdate",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Task"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "The updated task",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Task"
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "Generic error response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "task" ],
+        "summary" : "Delete an existing task",
+        "operationId" : "tasksDelete",
+        "responses" : {
+          "204" : {
+            "description" : "Task deleted response"
+          },
+          "default" : {
+            "description" : "Generic error response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "taskId",
+        "in" : "path",
+        "description" : "The id of the task",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "style" : "simple",
+        "explode" : false,
+        "example" : "e1cb23d0-6cbe-4a29-b586-bfa424bc93fd"
+      } ]
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Task" : {
+        "description" : "Object representing a Task",
+        "required" : [ "description" ],
+        "type" : "object",
+        "properties" : {
+          "completed" : {
+            "description" : "indicates if a taks is completed or not",
+            "type" : "boolean"
+          },
+          "description" : {
+            "description" : "description of the task",
+            "type" : "string",
+            "example" : "My important task"
+          },
+          "id" : {
+            "description" : "id of the taks",
+            "type" : "string",
+            "readOnly" : true,
+            "example" : "e1cb23d0-6cbe-4a29-b586-bfa424bc93fd"
+          }
+        }
+      },
+      "Error" : {
+        "description" : "Object representing an error",
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "format" : "int32",
+            "description" : "Error code that identify of the error",
+            "type" : "integer",
+            "example" : 1000
+          },
+          "message" : {
+            "description" : "Short description of the error",
+            "type" : "string",
+            "example" : "Could not perform the task"
+          }
+        }
+      }
+    }
+  }
+}

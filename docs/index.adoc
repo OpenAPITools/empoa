@@ -1,0 +1,163 @@
+:github-readme: ../README.adoc
+
+include::{github-readme}[tags=vardef]
+
+:projectpage: https://github.com/{gh-repo-owner}/{gh-repo-name}
+:listing-caption: Listing
+:xrefstyle: short
+:extended-tck-link: <<EMPOA Extended TCK>>
+
+include::{github-readme}[tags=header]
+
+== URLs
+
+* link:{homepage}[Project home] (this page)
+* link:{projectpage}[GitHub project]
+* link:{issues}[Issue tracker]
+
+TIP: Do you want to improve this page? Please git-link:self[edit it on GitHub, edit].
+
+include::{github-readme}[tags=description]
+
+[[lst-ping-yaml]]
+[source, yaml]
+.A minimal OpenAPI specification (Yaml format)
+----
+include::../empoa-jackson-serializer/src/test/resources/jackson-serializer/yaml/ping.yaml[]
+----
+
+A typical OpenAPI specification as presented in <<lst-ping-yaml>> can be created in Java using Eclipse MicroProfile OpenAPI project with the code presented in <<lst-ping-java>>.
+
+[[lst-ping-java]]
+[source, java]
+.An OpenAPI created with the Eclipse MicroProfile OpenAPI
+----
+include::../empoa-extended-tck/src/main/java/org/openapitools/empoa/extended/tck/specs/PingSpec.java[]
+----
+
+All EMPOA projects (EMPOA stands for **E**clipse **M**icro**P**rofile **O**pen**A**PI) are based on the interfaces representing OpenAPI specifications from the Eclipse MicroProfile OpenAPI project.
+Either by implementing them (see <<implementation>>) or by providing additional features (see <<serializer>> and <<other>>).
+
+[[implementation]]
+=== Implementation projects
+
+Without any implementation on the classpath, the code presented in <<lst-ping-java>> will throw an exception `IllegalStateException` (see <<lst-stacktrace>> for the stacktrace).
+
+[[lst-stacktrace]]
+[source]
+.Stacktrace when working with the Eclipse MicroProfile OpenAPI project without any implementation
+----
+java.lang.IllegalStateException: No OASFactoryResolver implementation found!
+	at org.eclipse.microprofile.openapi.spi.OASFactoryResolver.instance(OASFactoryResolver.java:77)
+	at org.eclipse.microprofile.openapi.OASFactory.createObject(OASFactory.java:49)
+	at org.openapitools.empoa.extended.tck.specs.PingSpec.create(PingSpec.java:16)
+	at ...
+----
+
+This is why you need to provide one implementation on your classpath.
+
+include::../empoa-simple-models-impl/README.adoc[leveloffset=3]
+
+include::../empoa-swagger-core/README.adoc[leveloffset=3]
+
+[[serializer]]
+=== Serializer projects
+
+Given an OpenAPI specification represented by instances of objects implementing the Eclipse MicroProfile OpenAPI interfaces (`org.eclipse.microprofile.openapi.models` package and sub-packages), you can use one of the following projects to serialize them to JSON or YAML.
+Those projects work only with the API interfaces and are not bound to a specific implementation.
+
+include::../empoa-gson-serializer/README.adoc[leveloffset=3]
+
+include::../empoa-jackson-serializer/README.adoc[leveloffset=3]
+
+[[other]]
+=== Other projects
+
+include::../empoa-javapoet/README.adoc[leveloffset=3]
+
+
+[[helper]]
+=== Helper projects
+
+include::../empoa-extended-tck/README.adoc[leveloffset=3]
+
+include::../empoa-generator/README.adoc[leveloffset=3]
+
+include::../empoa-smallrye/README.adoc[leveloffset=3]
+
+== Download
+
+The artifacts are hosted on maven central.
+
+Snapshots version are hosted in the sonatype repository:
+
+----
+https://oss.sonatype.org/content/repositories/snapshots/
+----
+
+== Build
+
+This project is using gradle.
+
+Command to build the sources locally:
+
+----
+./gradlew build
+----
+
+Command to deploy to your local maven repository:
+
+----
+./gradlew publishToMavenLocal
+----
+
+Command to build the documentation page:
+
+----
+./gradlew asciidoctor
+----
+
+The output of this build is an HTML page located at `<git repo root>/build/docs/html5/index.html`.
+
+=== For the project maintainers:
+
+`signing.gnupg.keyName` and `signing.gnupg.passphrase` are expected to be set in your local `gradle.properties` file to be able to sign.
+`sonatypeUser` and `sonatypePassword` are expected to be set in order to be able to publish to a distant repository.
+					
+Command to build and publish the result in a distant maven repository:
+
+----
+./gradlew publish
+----
+
+Command to upload the documentation page on GitHub pages:
+
+----
+./gradlew gitPublishPush
+----
+
+Command to perform a release:
+
+----
+./gradlew release -Prelease.useAutomaticVersion=true
+----
+
+=== Using ssh-agent
+
+Some tasks requires to push into the distant git repository (release task or updating the `gh-pages` branch).
+If they are failing with errors like this:
+----
+org.eclipse.jgit.api.errors.TransportException: ... Permission denied (publickey).
+---- 
+
+Then `ssh-agent` can be used.
+----
+eval `ssh-agent -s`
+ssh-add ~/.ssh/id_rsa
+----
+(link:https://superuser.com/a/990447/[source] for this approach)
+
+include::{github-readme}[tags=contact-section]
+
+include::{github-readme}[tags=license-section]
+

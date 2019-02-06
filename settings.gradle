@@ -1,0 +1,10 @@
+rootProject.name = 'empoa'
+
+include 'empoa-extended-tck'
+include 'empoa-jackson-serializer'
+include 'empoa-generator'
+include 'empoa-gson-serializer'
+include 'empoa-javapoet'
+include 'empoa-simple-models-impl'
+include 'empoa-smallrye'
+include 'empoa-swagger-core'

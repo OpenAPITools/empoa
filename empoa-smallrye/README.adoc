@@ -1,0 +1,10 @@
+:module-name: EMPOA SmallRye
+:module-artifactId: empoa-smallrye
+
+ifndef::extended-tck-link[]
+:extended-tck-link: EMPOA Extended TCK
+endif::[]
+
+= {module-name}
+
+This project is used to validate the '{extended-tck-link}' project with an independent implementation.

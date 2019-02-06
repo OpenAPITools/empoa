@@ -1,0 +1,78 @@
+---
+openapi: 3.0.1
+info:
+  title: Hello Specification
+  description: This specification says Hello
+  termsOfService: http://example.com/terms/
+  contact:
+    name: Support
+    url: http://www.example.com/support/
+    email: support@example.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: "1.0"
+servers:
+- url: http://api.example.com/
+  description: Main server
+- url: http://api.example.io/
+  description: Secondary server
+paths:
+  /hello/{name}:
+    get:
+      summary: Retun an hello object
+      operationId: hello
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: language
+        in: query
+        description: Language used to say hello
+        schema:
+          enum:
+          - english
+          - french
+          - german
+          - italian
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/text:
+              schema:
+                type: string
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hello'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Hello'
+        4XX:
+          description: Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Hello:
+      type: object
+      properties:
+        timestamp:
+          format: int32
+          description: Unix timestamp (generation time)
+          type: integer
+        message:
+          type: string
+    Error:
+      type: object
+      properties:
+        code:
+          format: int32
+          type: integer
+        message:
+          type: string

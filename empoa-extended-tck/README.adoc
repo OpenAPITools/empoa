@@ -1,0 +1,26 @@
+:module-name: EMPOA Extended TCK
+:module-artifactId: empoa-extended-tck
+
+ifndef::artifacts-version[]
+:artifacts-version-mvn: ${empoa-version}
+endif::[]
+ifdef::artifacts-version[]
+:artifacts-version-mvn: {artifacts-version}
+endif::[]
+
+= {module-name}
+
+[[lst-extended-tck-mvn]]
+[source, xml, subs="verbatim,attributes"]
+.Maven coordinates of the '{module-name}' project
+----
+<dependency>
+  <groupId>org.openapitools.empoa</groupId>
+  <artifactId>{module-artifactId}</artifactId>
+  <version>{artifacts-version-mvn}</version>
+</dependency>
+----
+
+This project contains some abstract test classes that add additional TCK tests.
+Those tests ensure that the implementations are working properly.
+They are complementary (and sometime also redundant) with the official TCK tests provided in `org.eclipse.microprofile.openapi.tck.ModelConstructionTest`.

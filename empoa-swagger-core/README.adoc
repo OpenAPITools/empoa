@@ -1,0 +1,46 @@
+:module-name: EMPOA Swagger-Core
+:module-artifactId: empoa-swagger-core
+
+ifndef::artifacts-version[]
+:artifacts-version-mvn: ${empoa-version}
+endif::[]
+ifdef::artifacts-version[]
+:artifacts-version-mvn: {artifacts-version}
+endif::[]
+
+= {module-name}
+
+[[lst-swagger-core-mvn]]
+[source, xml, subs="verbatim,attributes"]
+.Maven coordinates of the '{module-name}' project
+----
+<dependency>
+  <groupId>org.openapitools.empoa</groupId>
+  <artifactId>{module-artifactId}</artifactId>
+  <version>{artifacts-version-mvn}</version>
+</dependency>
+----
+
+Swagger-Core is a well known library to handle OpenAPI specification in Java.
+Swagger-Parser is using this representation when serializing and deserializing JSON or YAML files.
+
+This project provides a simple implementation for the interfaces defined in the `org.eclipse.microprofile.openapi.models` package and sub-packages by delegating all methods to Swagger-Core object.
+It can be used as a bridge between both libraries. 
+
+One usage could be a project programmed on top of the Eclipse MicroProfile APIs but using Swagger-Parser to parse OpenAPI Specifications,
+
+As for any other implementation project of the Eclipse MicroProfile APIs, the `org.eclipse.microprofile.openapi.OASFactory` can be used to create OpenAPI instance programmatically (making usage of Swagger-Core invisible).
+
+An other approach, if you have an existing instance of Swagger-Core models (for example the output of Swagger-Parser), `org.openapitools.empoa.swagger.core.internal.SwAdapter` can be used as proposed in <<lst-swagger-core-usage>>.
+
+[[lst-swagger-core-usage]]
+[source, java, indent=0]
+.Example usages of {module-name}
+----
+include::src/test/java/org/openapitools/empoa/swagger/core/tck/ParserAndSerializerWithGsonTckTest.java[tags="usage"]
+----
+
+If you are looking for factory methods where no Swagger project elements are part of the method signature, you can use `org.openapitools.empoa.swagger.core.SwOASFactory`. 
+Its `createObject(Object)` method expects the Swagger instance that will be wrapped in the corresponding object implementing the Eclipse MicroProfile interface.
+
+The Swagger library (`io.swagger.core.v3:swagger-models`) is only an "implementation" dependency.

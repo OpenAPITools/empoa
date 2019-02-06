@@ -1,0 +1,104 @@
+plugins {
+    id 'org.asciidoctor.convert' version '1.5.9.1'
+    id 'org.ajoberstar.git-publish' version '2.0.0'
+    id 'net.researchgate.release' version '2.6.0'
+}
+
+wrapper {
+    gradleVersion = '5.0'
+}
+
+allprojects {
+    apply plugin: 'maven-publish'
+    apply plugin: 'signing'
+
+    group = 'org.openapitools.empoa'
+}
+
+subprojects {
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven {
+            url "http://dl.bintray.com/jmini/maven/"
+        }
+        mavenLocal()
+    }
+
+    publishing {
+        repositories {
+            maven {
+                url = version.endsWith('SNAPSHOT') ? mavenPublishUrlSnapshot : mavenPublishUrlRelease
+                credentials {
+                    username = project.findProperty('sonatypeUser') ?: ''
+                    password = project.findProperty('sonatypePassword') ?: ''
+                }
+            }
+        }
+    }
+
+    model {
+        tasks.publishMavenJavaPublicationToMavenLocal {
+            dependsOn(project.tasks.signArchives)
+        }
+        tasks.publishMavenJavaPublicationToMavenRepository {
+            dependsOn(project.tasks.signArchives)
+        }
+    }
+}
+
+def buildDate() {
+    return new Date().format('yyyy-MM-dd')
+}
+
+asciidoctor {
+    sourceDir = file('docs')
+    outputDir = file('build/docs')
+    attributes = ['revdate'           : "${buildDate()}",
+                  'project-version'   : "$version",
+                  'artifacts-version' : "$version",
+                  'gh-repo-owner'     : "$githubRepositoryOwner",
+                  'gh-repo-name'      : "$githubRepositoryName",
+                  'source-highlighter': 'coderay',
+                  'imagesdir'         : '',
+                  'toc'               : 'left',
+                  'toclevels'         : '3',
+                  'icons'             : 'font',
+                  'setanchors'        : 'true',
+                  'idprefix'          : '',
+                  'idseparator'       : '-',
+                  'docinfo1'          : 'true']
+
+    dependencies {
+        asciidoctor "fr.jmini.asciidoctorj:git-link:3.0.0"
+    }
+}
+
+gitPublish {
+    repoUri = 'git@github.com:' + "$githubRepositoryOwner" + '/' + "$githubRepositoryName" + '.git'
+    branch = 'gh-pages'
+
+    contents {
+        from "${file('build/docs/html5')}"
+    }
+
+    preserve {
+        include '.nojekyll'
+    }
+
+    commitMessage = "Update the 'gh-pages' branch."
+}
+
+release {
+    buildTasks = ['releaseBuild']
+}
+
+task releaseBuild {
+    dependsOn(
+            'clean',
+            'build',
+            'publish',
+            'asciidoctor',
+            'gitPublishPush'
+    )
+}

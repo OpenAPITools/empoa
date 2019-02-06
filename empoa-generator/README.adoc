@@ -1,0 +1,6 @@
+:module-name: EMPOA Generator
+:module-artifactId: empoa-generator
+
+= {module-name}
+
+This project is used to generate code of other projects of this repository.

@@ -1,0 +1,35 @@
+:module-name: EMPOA Jackson Serializer
+:module-artifactId: empoa-jackson-serializer
+
+ifndef::artifacts-version[]
+:artifacts-version-mvn: ${empoa-version}
+endif::[]
+ifdef::artifacts-version[]
+:artifacts-version-mvn: {artifacts-version}
+endif::[]
+
+= {module-name}
+
+[[lst-jackson-mvn]]
+[source, xml, subs="verbatim,attributes"]
+.Maven coordinates of the '{module-name}' project
+----
+<dependency>
+  <groupId>org.openapitools.empoa</groupId>
+  <artifactId>{module-artifactId}</artifactId>
+  <version>{artifacts-version-mvn}</version>
+</dependency>
+----
+
+This project is using link:https://github.com/FasterXML/jackson[Jackson] to serialize classes implementing the Eclipse MicroProfile OpenAPI interfaces (`org.eclipse.microprofile.openapi.models` package and sub-pacakges) to YAML or JSON.
+
+It is adapted from the link:https://github.com/smallrye/smallrye-open-api[SmallRye OpenAPI] project.
+
+The code presented in <<lst-jackson-usage>> shows how the library can be used to serialize an `org.eclipse.microprofile.openapi.models.OpenAPI` to JSON.
+
+[[lst-jackson-usage]]
+[source, java, indent=0]
+.Example usages of {module-name}
+----
+include::src/test/java/org/openapitools/empoa/jackson/SerializerTckTest.java[tags="usage"]
+----

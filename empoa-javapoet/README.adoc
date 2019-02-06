@@ -1,0 +1,37 @@
+:module-name: EMPOA Javapoet
+:module-artifactId: empoa-javapoet
+
+ifndef::artifacts-version[]
+:artifacts-version-mvn: ${empoa-version}
+endif::[]
+ifdef::artifacts-version[]
+:artifacts-version-mvn: {artifacts-version}
+endif::[]
+
+= {module-name}
+
+[[lst-javapoet-mvn]]
+[source, xml, subs="verbatim,attributes"]
+.Maven coordinates of the '{module-name}' project
+----
+<dependency>
+  <groupId>org.openapitools.empoa</groupId>
+  <artifactId>{module-artifactId}</artifactId>
+  <version>{artifacts-version-mvn}</version>
+</dependency>
+----
+
+link:https://github.com/square/javapoet[Javapoet] is a library that can be used to generate Java code.
+
+Given an instance of `org.eclipse.microprofile.openapi.models.OpenAPI` (or of any other interface in the `org.eclipse.microprofile.openapi.models` package or sub-packages), this project is using Javapoet to create the corresponding java-code to recreate an other instance holding the same values.
+
+The code presented in <<lst-javapoet-usage>> shows how code can be generated: a complete class holding a single static method `create()` is generated.
+
+[[lst-javapoet-usage]]
+[source, java, indent=0]
+.Example usages of {module-name}
+----
+include::src/test/java/org/openapitools/empoa/javapoet/JavaFileConverterTest.java[tags="usage"]
+----
+
+The methods in a second class `org.openapitools.empoa.javapoet.CodeBlockConverter` might be useful to create only the `CodeBlock` corresponding to the generated `OASFactory.createObject(..)` code.

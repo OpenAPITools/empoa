@@ -1,0 +1,26 @@
+:module-name: EMPOA Simple models
+:module-artifactId: empoa-simple-models-impl
+
+ifndef::artifacts-version[]
+:artifacts-version-mvn: ${empoa-version}
+endif::[]
+ifdef::artifacts-version[]
+:artifacts-version-mvn: {artifacts-version}
+endif::[]
+
+= {module-name}
+
+[[lst-simple-models-impl-mvn]]
+[source, xml, subs="verbatim,attributes"]
+.Maven coordinates of the '{module-name}' project
+----
+<dependency>
+  <groupId>org.openapitools.empoa</groupId>
+  <artifactId>{module-artifactId}</artifactId>
+  <version>{artifacts-version-mvn}</version>
+</dependency>
+----
+
+This project provides a simple implementation for the interfaces defined in the `org.eclipse.microprofile.openapi.models` package and sub-packages.
+The implementation are simple POJO.
+There is no dependency to any other frameworks.
