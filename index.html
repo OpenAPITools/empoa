@@ -528,7 +528,7 @@ table.CodeRay td.code>pre{padding:0}
 <h1>Code for Eclipse MicroProfile OpenAPI</h1>
 <div class="details">
 <span id="author" class="author">Code (implementation, experiments, tools...) for the Eclipse MicroProfile OpenAPI project</span><br>
-<span id="revdate">2019-02-06</span>
+<span id="revdate">2019-02-07</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -565,7 +565,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#download">Download</a></li>
 <li><a href="#build">Build</a>
 <ul class="sectlevel2">
-<li><a href="#for-the-project-maintainers">For the project maintainers:</a></li>
+<li><a href="#for-project-maintainers">For project maintainers</a></li>
 <li><a href="#using-ssh-agent">Using ssh-agent</a></li>
 </ul>
 </li>
@@ -641,24 +641,7 @@ Providing a complete vendor implementation for the Eclipse MicroProfile OpenAPI 
 <div id="lst-ping-java" class="listingblock">
 <div class="title">Listing 2. An OpenAPI created with the Eclipse MicroProfile OpenAPI</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="comment">/*******************************************************************************
- * Copyright 2019 Jeremie Bresson
- *
- * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); you may not
- * use this file except in compliance with the License.  You may obtain a copy
- * of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ******************************************************************************/</span>
-<span class="keyword">package</span> <span class="namespace">org.openapitools.empoa.extended.tck.specs</span>;
-
-<span class="keyword">import</span> <span class="include">static</span> <span class="include">org.eclipse.microprofile.openapi.OASFactory</span>.*;
+<pre class="CodeRay highlight"><code data-lang="java"><span class="keyword">import</span> <span class="include">static</span> <span class="include">org.eclipse.microprofile.openapi.OASFactory</span>.*;
 
 <span class="keyword">import</span> <span class="include">org.eclipse.microprofile.openapi.models.OpenAPI</span>;
 
@@ -959,10 +942,10 @@ They are complementary (and sometime also redundant) with the official TCK tests
 </div>
 </div>
 <div class="paragraph">
-<p>The output of this build is an HTML page located at <code>&lt;git repo root&gt;/build/docs/html5/index.html</code>.</p>
+<p>The output of this command is an HTML page located at <code>&lt;git repo root&gt;/build/docs/html5/index.html</code>.</p>
 </div>
 <div class="sect2">
-<h3 id="for-the-project-maintainers">For the project maintainers:</h3>
+<h3 id="for-project-maintainers">For project maintainers</h3>
 <div class="paragraph">
 <p><code>signing.gnupg.keyName</code> and <code>signing.gnupg.passphrase</code> are expected to be set in your local <code>gradle.properties</code> file to be able to sign.
 <code>sonatypeUser</code> and <code>sonatypePassword</code> are expected to be set in order to be able to publish to a distant repository.</p>
@@ -1040,7 +1023,7 @@ ssh-add ~/.ssh/id_rsa</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-02-06 23:30:21 CET
+Last updated 2019-02-07 07:02:43 CET
 </div>
 </div>
 </body>
