@@ -32,7 +32,7 @@ A typical OpenAPI specification as presented in <<lst-ping-yaml>> can be created
 [source, java]
 .An OpenAPI created with the Eclipse MicroProfile OpenAPI
 ----
-include::../empoa-extended-tck/src/main/java/org/openapitools/empoa/extended/tck/specs/PingSpec.java[]
+include::../empoa-extended-tck/src/main/java/org/openapitools/empoa/extended/tck/specs/PingSpec.java[lines=17..-1]
 ----
 
 All EMPOA projects (EMPOA stands for **E**clipse **M**icro**P**rofile **O**pen**A**PI) are based on the interfaces representing OpenAPI specifications from the Eclipse MicroProfile OpenAPI project.
@@ -117,9 +117,9 @@ Command to build the documentation page:
 ./gradlew asciidoctor
 ----
 
-The output of this build is an HTML page located at `<git repo root>/build/docs/html5/index.html`.
+The output of this command is an HTML page located at `<git repo root>/build/docs/html5/index.html`.
 
-=== For the project maintainers:
+=== For project maintainers
 
 `signing.gnupg.keyName` and `signing.gnupg.passphrase` are expected to be set in your local `gradle.properties` file to be able to sign.
 `sonatypeUser` and `sonatypePassword` are expected to be set in order to be able to publish to a distant repository.
