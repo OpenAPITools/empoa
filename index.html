@@ -528,7 +528,7 @@ table.CodeRay td.code>pre{padding:0}
 <h1>Code for Eclipse MicroProfile OpenAPI</h1>
 <div class="details">
 <span id="author" class="author">Code (implementation, experiments, tools...) for the Eclipse MicroProfile OpenAPI project</span><br>
-<span id="revdate">2019-02-08</span>
+<span id="revdate">2019-02-11</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -680,16 +680,29 @@ Providing a complete vendor implementation for the Eclipse MicroProfile OpenAPI 
 </div>
 </div>
 <div class="paragraph">
+<p>The code in <a href="#lst-ping-java">Listing 2</a> requires only <code>microprofile-openapi-api</code> to be on the classpath (see <a href="#lst-eclipse-mp-openapi-mvn">Listing 3</a> for the complete maven coordinates).</p>
+</div>
+<div id="lst-eclipse-mp-openapi-mvn" class="listingblock">
+<div class="title">Listing 3. Maven coordinates of the 'Eclipse MicroProfile OpenAPI' api project</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
+  <span class="tag">&lt;groupId&gt;</span>org.eclipse.microprofile.openapi<span class="tag">&lt;/groupId&gt;</span>
+  <span class="tag">&lt;artifactId&gt;</span>microprofile-openapi-api<span class="tag">&lt;/artifactId&gt;</span>
+  <span class="tag">&lt;version&gt;</span>2.0-MR1<span class="tag">&lt;/version&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>All EMPOA projects (EMPOA stands for <strong>E</strong>clipse <strong>M</strong>icro<strong>P</strong>rofile <strong>O</strong>pen<strong>A</strong>PI) are based on the interfaces representing OpenAPI specifications from the Eclipse MicroProfile OpenAPI project.
 Either by implementing them (see <a href="#implementation">Implementation projects</a>) or by providing additional features (see <a href="#serializer">Serializer projects</a> and <a href="#other">Other projects</a>).</p>
 </div>
 <div class="sect2">
 <h3 id="implementation">Implementation projects</h3>
 <div class="paragraph">
-<p>Without any implementation on the classpath, the code presented in <a href="#lst-ping-java">Listing 2</a> will throw an exception <code>IllegalStateException</code> (see <a href="#lst-stacktrace">Listing 3</a> for the stacktrace).</p>
+<p>Without any implementation on the classpath, the code presented in <a href="#lst-ping-java">Listing 2</a> will throw an exception <code>IllegalStateException</code> (see <a href="#lst-stacktrace">Listing 4</a> for the stacktrace).</p>
 </div>
 <div id="lst-stacktrace" class="listingblock">
-<div class="title">Listing 3. Stacktrace when working with the Eclipse MicroProfile OpenAPI project without any implementation</div>
+<div class="title">Listing 4. Stacktrace when working with the Eclipse MicroProfile OpenAPI project without any implementation</div>
 <div class="content">
 <pre class="CodeRay highlight"><code>java.lang.IllegalStateException: No OASFactoryResolver implementation found!
 	at org.eclipse.microprofile.openapi.spi.OASFactoryResolver.instance(OASFactoryResolver.java:77)
@@ -704,7 +717,7 @@ Either by implementing them (see <a href="#implementation">Implementation projec
 <div class="sect3">
 <h4 id="empoa-simple-models">EMPOA Simple models</h4>
 <div id="lst-simple-models-impl-mvn" class="listingblock">
-<div class="title">Listing 4. Maven coordinates of the 'EMPOA Simple models' project</div>
+<div class="title">Listing 5. Maven coordinates of the 'EMPOA Simple models' project</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
   <span class="tag">&lt;groupId&gt;</span>org.openapitools.empoa<span class="tag">&lt;/groupId&gt;</span>
@@ -722,7 +735,7 @@ There is no dependency to any other frameworks.</p>
 <div class="sect3">
 <h4 id="empoa-swagger-core">EMPOA Swagger-Core</h4>
 <div id="lst-swagger-core-mvn" class="listingblock">
-<div class="title">Listing 5. Maven coordinates of the 'EMPOA Swagger-Core' project</div>
+<div class="title">Listing 6. Maven coordinates of the 'EMPOA Swagger-Core' project</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
   <span class="tag">&lt;groupId&gt;</span>org.openapitools.empoa<span class="tag">&lt;/groupId&gt;</span>
@@ -746,10 +759,10 @@ It can be used as a bridge between both libraries.</p>
 <p>As for any other implementation project of the Eclipse MicroProfile APIs, the <code>org.eclipse.microprofile.openapi.OASFactory</code> can be used to create OpenAPI instance programmatically (making usage of Swagger-Core invisible).</p>
 </div>
 <div class="paragraph">
-<p>An other approach, if you have an existing instance of Swagger-Core models (for example the output of Swagger-Parser), <code>org.openapitools.empoa.swagger.core.internal.SwAdapter</code> can be used as proposed in <a href="#lst-swagger-core-usage">Listing 6</a>.</p>
+<p>An other approach, if you have an existing instance of Swagger-Core models (for example the output of Swagger-Parser), <code>org.openapitools.empoa.swagger.core.internal.SwAdapter</code> can be used as proposed in <a href="#lst-swagger-core-usage">Listing 7</a>.</p>
 </div>
 <div id="lst-swagger-core-usage" class="listingblock">
-<div class="title">Listing 6. Example usages of EMPOA Swagger-Core</div>
+<div class="title">Listing 7. Example usages of EMPOA Swagger-Core</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java">io.swagger.v3.oas.models.OpenAPI swaggerOpenAPI = parserResult.getOpenAPI();
 OpenAPI openAPI = SwAdapter.toOpenAPI(swaggerOpenAPI);</code></pre>
@@ -773,7 +786,7 @@ Those projects work only with the API interfaces and are not bound to a specific
 <div class="sect3">
 <h4 id="empoa-gson-serializer">EMPOA Gson Serializer</h4>
 <div id="lst-gson-mvn" class="listingblock">
-<div class="title">Listing 7. Maven coordinates of the 'EMPOA Gson Serializer' project</div>
+<div class="title">Listing 8. Maven coordinates of the 'EMPOA Gson Serializer' project</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
   <span class="tag">&lt;groupId&gt;</span>org.openapitools.empoa<span class="tag">&lt;/groupId&gt;</span>
@@ -786,10 +799,10 @@ Those projects work only with the API interfaces and are not bound to a specific
 <p>This project is using <a href="https://github.com/google/gson">Gson</a> to serialize classes implementing the Eclipse MicroProfile OpenAPI interfaces (<code>org.eclipse.microprofile.openapi.models</code> package and sub-pacakges) to JSON.</p>
 </div>
 <div class="paragraph">
-<p>The code presented in <a href="#lst-gson-usage">Listing 8</a> shows how the library can be used to serialize an <code>org.eclipse.microprofile.openapi.models.OpenAPI</code> to JSON</p>
+<p>The code presented in <a href="#lst-gson-usage">Listing 9</a> shows how the library can be used to serialize an <code>org.eclipse.microprofile.openapi.models.OpenAPI</code> to JSON</p>
 </div>
 <div id="lst-gson-usage" class="listingblock">
-<div class="title">Listing 8. Example usages of EMPOA Gson Serializer</div>
+<div class="title">Listing 9. Example usages of EMPOA Gson Serializer</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java">Gson gson = OASGsonSerializer.instance();
 <span class="predefined-type">String</span> json = gson.toJson(openAPI);</code></pre>
@@ -799,7 +812,7 @@ Those projects work only with the API interfaces and are not bound to a specific
 <div class="sect3">
 <h4 id="empoa-jackson-serializer">EMPOA Jackson Serializer</h4>
 <div id="lst-jackson-mvn" class="listingblock">
-<div class="title">Listing 9. Maven coordinates of the 'EMPOA Jackson Serializer' project</div>
+<div class="title">Listing 10. Maven coordinates of the 'EMPOA Jackson Serializer' project</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
   <span class="tag">&lt;groupId&gt;</span>org.openapitools.empoa<span class="tag">&lt;/groupId&gt;</span>
@@ -815,10 +828,10 @@ Those projects work only with the API interfaces and are not bound to a specific
 <p>It is adapted from the <a href="https://github.com/smallrye/smallrye-open-api">SmallRye OpenAPI</a> project.</p>
 </div>
 <div class="paragraph">
-<p>The code presented in <a href="#lst-jackson-usage">Listing 10</a> shows how the library can be used to serialize an <code>org.eclipse.microprofile.openapi.models.OpenAPI</code> to JSON.</p>
+<p>The code presented in <a href="#lst-jackson-usage">Listing 11</a> shows how the library can be used to serialize an <code>org.eclipse.microprofile.openapi.models.OpenAPI</code> to JSON.</p>
 </div>
 <div id="lst-jackson-usage" class="listingblock">
-<div class="title">Listing 10. Example usages of EMPOA Jackson Serializer</div>
+<div class="title">Listing 11. Example usages of EMPOA Jackson Serializer</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java"><span class="predefined-type">String</span> json = OpenAPISerializer.serialize(openAPI, OpenAPISerializer.Format.JSON);</code></pre>
 </div>
@@ -830,7 +843,7 @@ Those projects work only with the API interfaces and are not bound to a specific
 <div class="sect3">
 <h4 id="empoa-javapoet">EMPOA Javapoet</h4>
 <div id="lst-javapoet-mvn" class="listingblock">
-<div class="title">Listing 11. Maven coordinates of the 'EMPOA Javapoet' project</div>
+<div class="title">Listing 12. Maven coordinates of the 'EMPOA Javapoet' project</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
   <span class="tag">&lt;groupId&gt;</span>org.openapitools.empoa<span class="tag">&lt;/groupId&gt;</span>
@@ -846,10 +859,10 @@ Those projects work only with the API interfaces and are not bound to a specific
 <p>Given an instance of <code>org.eclipse.microprofile.openapi.models.OpenAPI</code> (or of any other interface in the <code>org.eclipse.microprofile.openapi.models</code> package or sub-packages), this project is using Javapoet to create the corresponding java-code to recreate an other instance holding the same values.</p>
 </div>
 <div class="paragraph">
-<p>The code presented in <a href="#lst-javapoet-usage">Listing 12</a> shows how code can be generated: a complete class holding a single static method <code>create()</code> is generated.</p>
+<p>The code presented in <a href="#lst-javapoet-usage">Listing 13</a> shows how code can be generated: a complete class holding a single static method <code>create()</code> is generated.</p>
 </div>
 <div id="lst-javapoet-usage" class="listingblock">
-<div class="title">Listing 12. Example usages of EMPOA Javapoet</div>
+<div class="title">Listing 13. Example usages of EMPOA Javapoet</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java">JavaFile javaFile = JavaFileConverter.createOpenAPI(openAPI, packageName, className);
 <span class="predefined-type">String</span> javaCode = javaFile.toString();</code></pre>
@@ -865,7 +878,7 @@ Those projects work only with the API interfaces and are not bound to a specific
 <div class="sect3">
 <h4 id="empoa-extended-tck">EMPOA Extended TCK</h4>
 <div id="lst-extended-tck-mvn" class="listingblock">
-<div class="title">Listing 13. Maven coordinates of the 'EMPOA Extended TCK' project</div>
+<div class="title">Listing 14. Maven coordinates of the 'EMPOA Extended TCK' project</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
   <span class="tag">&lt;groupId&gt;</span>org.openapitools.empoa<span class="tag">&lt;/groupId&gt;</span>
@@ -1023,7 +1036,7 @@ ssh-add ~/.ssh/id_rsa</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-02-08 06:12:09 CET
+Last updated 2019-02-11 07:11:54 CET
 </div>
 </div>
 </body>
