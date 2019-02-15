@@ -43,6 +43,7 @@ publishing {
             pom {
                 name = 'EMPOA Extended TCK'
                 description = 'Additional TCK tests for Eclipse MicroProfile OpenAPI'
+                packaging = 'jar'
                 url = 'https://' + "$githubRepositoryOwner" + '.github.io/' + "$githubRepositoryName" + '/'
                 licenses {
                     license {

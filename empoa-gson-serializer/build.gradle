@@ -46,6 +46,7 @@ publishing {
             pom {
                 name = 'EMPOA Gson Serializer'
                 description = 'JSON Serializer using Gson for Eclipse MicroProfile OpenAPI interfaces'
+                packaging = 'jar'
                 url = 'https://' + "$githubRepositoryOwner" + '.github.io/' + "$githubRepositoryName" + '/'
                 licenses {
                     license {

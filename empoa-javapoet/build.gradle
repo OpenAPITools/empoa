@@ -46,6 +46,7 @@ publishing {
             pom {
                 name = 'EMPOA Javapoet'
                 description = 'Generator based on Javapoet for Eclipse MicroProfile OpenAPI interfaces'
+                packaging = 'jar'
                 url = 'https://' + "$githubRepositoryOwner" + '.github.io/' + "$githubRepositoryName" + '/'
                 licenses {
                     license {

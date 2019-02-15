@@ -46,6 +46,7 @@ publishing {
             pom {
                 name = 'EMPOA SmallRye'
                 description = 'Validation project for EMPOA Extended TCK'
+                packaging = 'jar'
                 url = 'https://' + "$githubRepositoryOwner" + '.github.io/' + "$githubRepositoryName" + '/'
                 licenses {
                     license {

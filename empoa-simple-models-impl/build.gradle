@@ -44,6 +44,7 @@ publishing {
             pom {
                 name = 'EMPOA Simple models'
                 description = 'Simple implementation of the Eclipse MicroProfile OpenAPI interfaces'
+                packaging = 'jar'
                 url = 'https://' + "$githubRepositoryOwner" + '.github.io/' + "$githubRepositoryName" + '/'
                 licenses {
                     license {

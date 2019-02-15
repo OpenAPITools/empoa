@@ -37,6 +37,7 @@ publishing {
             pom {
                 name = 'EMPOA Generator'
                 description = 'Project used to generate code for other EMPOA projects'
+                packaging = 'jar'
                 url = 'https://' + "$githubRepositoryOwner" + '.github.io/' + "$githubRepositoryName" + '/'
                 licenses {
                     license {

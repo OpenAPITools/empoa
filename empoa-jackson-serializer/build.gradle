@@ -48,6 +48,7 @@ publishing {
             pom {
                 name = 'EMPOA Jackson Serializer'
                 description = 'JSON/YAML Serializer using Jackson for Eclipse MicroProfile OpenAPI interfaces'
+                packaging = 'jar'
                 url = 'https://' + "$githubRepositoryOwner" + '.github.io/' + "$githubRepositoryName" + '/'
                 licenses {
                     license {
