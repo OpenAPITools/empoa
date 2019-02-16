@@ -64,7 +64,7 @@ asciidoctor {
                   'toc'               : 'left',
                   'toclevels'         : '3',
                   'icons'             : 'font',
-                  'setanchors'        : 'true',
+                  'sectanchors'       : 'true',
                   'idprefix'          : '',
                   'idseparator'       : '-',
                   'docinfo1'          : 'true']
