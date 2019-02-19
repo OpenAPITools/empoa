@@ -1103,6 +1103,7 @@ public class OpenAPISerializer {
         if (model.getRef() != null) {
             JsonUtil.stringProperty(node, OpenAPIConstants.PROP_$REF, model.getRef());
         } else {
+            JsonUtil.enumProperty(node, OpenAPIConstants.PROP_TYPE, model.getType());
             JsonUtil.stringProperty(node, OpenAPIConstants.PROP_FORMAT, model.getFormat());
             JsonUtil.stringProperty(node, OpenAPIConstants.PROP_TITLE, model.getTitle());
             JsonUtil.stringProperty(node, OpenAPIConstants.PROP_DESCRIPTION, model.getDescription());
@@ -1122,7 +1123,6 @@ public class OpenAPISerializer {
             JsonUtil.intProperty(node, OpenAPIConstants.PROP_MIN_PROPERTIES, model.getMinProperties());
             writeStringArray(node, model.getRequired(), OpenAPIConstants.PROP_REQUIRED);
             writeObjectArray(node, model.getEnumeration(), OpenAPIConstants.PROP_ENUM);
-            JsonUtil.enumProperty(node, OpenAPIConstants.PROP_TYPE, model.getType());
             writeSchema(node, model.getItems(), OpenAPIConstants.PROP_ITEMS);
             writeSchemaList(node, model.getAllOf(), OpenAPIConstants.PROP_ALL_OF);
             writeSchemas(node, model.getProperties(), OpenAPIConstants.PROP_PROPERTIES);

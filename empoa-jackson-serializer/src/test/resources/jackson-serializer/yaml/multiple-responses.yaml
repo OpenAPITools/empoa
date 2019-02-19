@@ -32,21 +32,21 @@ paths:
 components:
   schemas:
     PingObject:
+      type: object
       title: Title
       description: Some description
-      type: object
       properties:
         id:
-          format: int32
           type: integer
+          format: int32
         name:
           type: string
     Error:
       type: object
       properties:
         code:
-          format: int32
           type: integer
+          format: int32
         message:
           type: string
   responses:

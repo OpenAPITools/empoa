@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2019 Jeremie Bresson
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License.  You may obtain a copy
  * of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
@@ -33,11 +33,25 @@ public class SchemaSerializer implements JsonSerializer<Schema> {
             object.addProperty("$ref", src.getRef());
         } else {
 
-            if (src.getDiscriminator() != null) {
-                object.add("discriminator", context.serialize(src.getDiscriminator()));
+            if (src.getType() != null) {
+                object.add(
+                    "type", context.serialize(
+                        src.getType()
+                            .toString()
+                    )
+                );
+            }
+            if (src.getFormat() != null) {
+                object.add("format", context.serialize(src.getFormat()));
             }
             if (src.getTitle() != null) {
                 object.add("title", context.serialize(src.getTitle()));
+            }
+            if (src.getDescription() != null) {
+                object.add("description", context.serialize(src.getDescription()));
+            }
+            if (src.getDiscriminator() != null) {
+                object.add("discriminator", context.serialize(src.getDiscriminator()));
             }
             if (src.getDefaultValue() != null) {
                 object.add("defaultValue", context.serialize(src.getDefaultValue()));
@@ -87,14 +101,6 @@ public class SchemaSerializer implements JsonSerializer<Schema> {
             if (src.getRequired() != null) {
                 object.add("required", context.serialize(src.getRequired()));
             }
-            if (src.getType() != null) {
-                object.add(
-                    "type", context.serialize(
-                        src.getType()
-                            .toString()
-                    )
-                );
-            }
             if (src.getNot() != null) {
                 object.add("not", context.serialize(src.getNot()));
             }
@@ -106,12 +112,6 @@ public class SchemaSerializer implements JsonSerializer<Schema> {
             }
             if (src.getAdditionalPropertiesBoolean() != null) {
                 object.add("additionalProperties", context.serialize(src.getAdditionalPropertiesBoolean()));
-            }
-            if (src.getDescription() != null) {
-                object.add("description", context.serialize(src.getDescription()));
-            }
-            if (src.getFormat() != null) {
-                object.add("format", context.serialize(src.getFormat()));
             }
             if (src.getNullable() != null) {
                 object.add("nullable", context.serialize(src.getNullable()));

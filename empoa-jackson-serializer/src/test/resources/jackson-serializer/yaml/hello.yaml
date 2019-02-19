@@ -32,12 +32,12 @@ paths:
         in: query
         description: Language used to say hello
         schema:
+          type: string
           enum:
           - english
           - french
           - german
           - italian
-          type: string
       responses:
         200:
           description: OK
@@ -63,16 +63,16 @@ components:
       type: object
       properties:
         timestamp:
+          type: integer
           format: int32
           description: Unix timestamp (generation time)
-          type: integer
         message:
           type: string
     Error:
       type: object
       properties:
         code:
-          format: int32
           type: integer
+          format: int32
         message:
           type: string

@@ -126,33 +126,33 @@ paths:
 components:
   schemas:
     Task:
+      type: object
       description: Object representing a Task
       required:
       - description
-      type: object
       properties:
         completed:
-          description: indicates if a taks is completed or not
           type: boolean
+          description: indicates if a taks is completed or not
         description:
-          description: description of the task
           type: string
+          description: description of the task
           example: My important task
         id:
-          description: id of the taks
           type: string
+          description: id of the taks
           readOnly: true
           example: e1cb23d0-6cbe-4a29-b586-bfa424bc93fd
     Error:
-      description: Object representing an error
       type: object
+      description: Object representing an error
       properties:
         code:
+          type: integer
           format: int32
           description: Error code that identify of the error
-          type: integer
           example: 1000
         message:
-          description: Short description of the error
           type: string
+          description: Short description of the error
           example: Could not perform the task
