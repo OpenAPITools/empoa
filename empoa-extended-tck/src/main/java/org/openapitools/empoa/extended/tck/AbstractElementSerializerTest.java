@@ -670,6 +670,51 @@ public abstract class AbstractElementSerializerTest {
     }
 
     @Test
+    public void testSchemaWithAdditionalPropertesSchema() throws Exception {
+        Schema schema = OASFactory.createSchema()
+            .type(Schema.SchemaType.OBJECT)
+            .title("A title")
+            .description("A description")
+            .additionalPropertiesSchema(OASElement.createIntSchema());
+        String json = convertToJson(schema);
+
+        assertThatJson(json).isEqualTo(
+            "" +
+                "{\n" +
+                "  \"title\" : \"A title\",\n" +
+                "  \"description\" : \"A description\",\n" +
+                "  \"type\" : \"object\",\n" +
+                "  \"additionalProperties\" : {\n" +
+                "    \"format\" : \"int32\",\n" +
+                "    \"title\" : \"Title\",\n" +
+                "    \"description\" : \"Some description\",\n" +
+                "    \"type\" : \"integer\"\n" +
+                "  }\n" +
+                "}"
+        );
+    }
+
+    @Test
+    public void testSchemaWithAdditionalPropertesBoolean() throws Exception {
+        Schema schema = OASFactory.createSchema()
+            .type(Schema.SchemaType.OBJECT)
+            .title("A title")
+            .description("A description")
+            .additionalPropertiesBoolean(true);
+        String json = convertToJson(schema);
+
+        assertThatJson(json).isEqualTo(
+            "" +
+                "{\n" +
+                "  \"title\" : \"A title\",\n" +
+                "  \"description\" : \"A description\",\n" +
+                "  \"type\" : \"object\",\n" +
+                "  \"additionalProperties\" : true\n" +
+                "}"
+        );
+    }
+
+    @Test
     public void testXMLToJson() throws Exception {
         XML xML = OASElement.createXML();
         String json = convertToJson(xML);
