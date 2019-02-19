@@ -35,7 +35,7 @@ public class ParserAndSerializerWithGsonTckTest extends AbstractSerializerTest {
 
     @Override
     protected OpenAPI createOpenAPI(Specs spec) throws IOException {
-        String json = readExpectedFromResource(spec);
+        String json = readInputFromResource(spec);
 
         OpenAPIParser openApiParser = new OpenAPIParser();
         ParseOptions options = new ParseOptions();

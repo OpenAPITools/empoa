@@ -20,12 +20,6 @@ paths:
       summary: Get the list of all tasks
       operationId: tasksGetAll
       responses:
-        default:
-          description: Generic error response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
         200:
           description: List of all tasks
           content:
@@ -34,6 +28,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Task'
+        default:
+          description: Generic error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       tags:
       - task
@@ -45,18 +45,18 @@ paths:
             schema:
               $ref: '#/components/schemas/Task'
       responses:
-        default:
-          description: Generic error response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
         200:
           description: The created task
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Task'
+        default:
+          description: Generic error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /task/{taskId}:
     get:
       tags:
@@ -64,18 +64,18 @@ paths:
       summary: Get a single task based on its id
       operationId: tasksRead
       responses:
-        default:
-          description: Generic error response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
         200:
           description: Ok
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Task'
+        default:
+          description: Generic error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       tags:
       - task
@@ -87,32 +87,32 @@ paths:
             schema:
               $ref: '#/components/schemas/Task'
       responses:
-        default:
-          description: Generic error response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
         200:
           description: The updated task
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Task'
-    delete:
-      tags:
-      - task
-      summary: Delete an existing task
-      operationId: tasksDelete
-      responses:
         default:
           description: Generic error response
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+      - task
+      summary: Delete an existing task
+      operationId: tasksDelete
+      responses:
         204:
           description: Task deleted response
+        default:
+          description: Generic error response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     parameters:
     - name: taskId
       in: path

@@ -1,0 +1,58 @@
+---
+openapi: 3.0.1
+info:
+  title: A Specification
+  version: "1.0"
+servers:
+- url: http://localhost:8080/
+paths:
+  /ping:
+    get:
+      operationId: pingGet
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PingObject'
+        4XX:
+          $ref: '#/components/responses/BusinessErrorResponse'
+        default:
+          description: Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      operationId: pingPost
+      responses:
+        405:
+          description: POST is not allowed
+components:
+  schemas:
+    PingObject:
+      title: Title
+      description: Some description
+      type: object
+      properties:
+        id:
+          format: int32
+          type: integer
+        name:
+          type: string
+    Error:
+      type: object
+      properties:
+        code:
+          format: int32
+          type: integer
+        message:
+          type: string
+  responses:
+    BusinessErrorResponse:
+      description: Business Error
+      content:
+        '*/*':
+          schema:
+            $ref: '#/components/schemas/Error'

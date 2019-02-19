@@ -23,6 +23,7 @@ import org.assertj.core.api.Assertions;
 import org.eclipse.microprofile.openapi.models.OpenAPI;
 import org.openapitools.empoa.extended.tck.AbstractSpecTest;
 import org.openapitools.empoa.extended.tck.specs.HelloSpec;
+import org.openapitools.empoa.extended.tck.specs.MultipleResponsesSpec;
 import org.openapitools.empoa.extended.tck.specs.PingSpec;
 import org.openapitools.empoa.extended.tck.specs.TodoappSpec;
 import org.testng.annotations.Test;
@@ -75,6 +76,8 @@ public class JavaFileConverterTest extends AbstractSpecTest {
             return HelloSpec.class.getSimpleName();
         case TODOAPP:
             return TodoappSpec.class.getSimpleName();
+        case MULTIPLE_RESPONSES:
+            return MultipleResponsesSpec.class.getSimpleName();
         default:
             throw new IllegalArgumentException("Unknown spec: " + spec);
         }

@@ -21,12 +21,21 @@ import static org.assertj.core.api.Assertions.*;
 import java.io.IOException;
 
 import org.eclipse.microprofile.openapi.models.OpenAPI;
+import org.testng.annotations.Test;
 
 public abstract class AbstractSerializerTest extends AbstractSpecTest {
 
     protected static final String PING_JSON = "/extended-tck/specs/ping.json";
     protected static final String HELLO_JSON = "/extended-tck/specs/hello.json";
     protected static final String TODOAPP_JSON = "/extended-tck/specs/todoapp.json";
+    protected static final String MULTIPLE_RESPONSES_JSON = "/extended-tck/specs/multiple-responses.json";
+    protected static final String REF_WITH_SIBLING_VALUES_EXPECTED_JSON = "/extended-tck/specs/ref-with-sibling-values-expected.json";
+    protected static final String REF_WITH_SIBLING_VALUES_INPUT_JSON = "/extended-tck/specs/ref-with-sibling-values.json";
+
+    @Test
+    public void testRefWithSiblingValuesSpec() throws Exception {
+        runTest(Specs.REF_WITH_SIBLING_VALUES);
+    }
 
     @Override
     protected void runTest(Specs spec) throws Exception {
@@ -41,12 +50,12 @@ public abstract class AbstractSerializerTest extends AbstractSpecTest {
 
     protected abstract String convertToJson(OpenAPI openAPI) throws IOException;
 
-    protected String readExpectedFromResource(Specs spec) throws IOException {
-        String name = toResourceName(spec);
+    private String readExpectedFromResource(Specs spec) throws IOException {
+        String name = toExpectedResourceName(spec);
         return read(getClass().getResourceAsStream(name));
     }
 
-    protected String toResourceName(Specs spec) {
+    private String toExpectedResourceName(Specs spec) {
         switch (spec) {
         case PING:
             return PING_JSON;
@@ -54,6 +63,32 @@ public abstract class AbstractSerializerTest extends AbstractSpecTest {
             return HELLO_JSON;
         case TODOAPP:
             return TODOAPP_JSON;
+        case MULTIPLE_RESPONSES:
+            return MULTIPLE_RESPONSES_JSON;
+        case REF_WITH_SIBLING_VALUES:
+            return REF_WITH_SIBLING_VALUES_EXPECTED_JSON;
+        default:
+            throw new IllegalArgumentException("Unknown spec: " + spec);
+        }
+    }
+
+    protected String readInputFromResource(Specs spec) throws IOException {
+        String name = toInputResourceName(spec);
+        return read(getClass().getResourceAsStream(name));
+    }
+
+    private String toInputResourceName(Specs spec) {
+        switch (spec) {
+        case PING:
+            return PING_JSON;
+        case HELLO:
+            return HELLO_JSON;
+        case TODOAPP:
+            return TODOAPP_JSON;
+        case MULTIPLE_RESPONSES:
+            return MULTIPLE_RESPONSES_JSON;
+        case REF_WITH_SIBLING_VALUES:
+            return REF_WITH_SIBLING_VALUES_INPUT_JSON;
         default:
             throw new IllegalArgumentException("Unknown spec: " + spec);
         }

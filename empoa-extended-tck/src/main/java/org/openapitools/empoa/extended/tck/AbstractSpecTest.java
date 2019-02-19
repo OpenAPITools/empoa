@@ -23,14 +23,16 @@ import java.util.stream.Collectors;
 
 import org.eclipse.microprofile.openapi.models.OpenAPI;
 import org.openapitools.empoa.extended.tck.specs.HelloSpec;
+import org.openapitools.empoa.extended.tck.specs.MultipleResponsesSpec;
 import org.openapitools.empoa.extended.tck.specs.PingSpec;
+import org.openapitools.empoa.extended.tck.specs.RefWithSiblingValuesSpec;
 import org.openapitools.empoa.extended.tck.specs.TodoappSpec;
 import org.testng.annotations.Test;
 
 public abstract class AbstractSpecTest {
 
     protected static enum Specs {
-        PING, HELLO, TODOAPP
+        PING, HELLO, TODOAPP, MULTIPLE_RESPONSES, REF_WITH_SIBLING_VALUES
     }
 
     @Test
@@ -48,6 +50,11 @@ public abstract class AbstractSpecTest {
         runTest(Specs.TODOAPP);
     }
 
+    @Test
+    public void testMultipleResponsesSpec() throws Exception {
+        runTest(Specs.MULTIPLE_RESPONSES);
+    }
+
     protected abstract void runTest(Specs spec) throws Exception;
 
     protected OpenAPI createOpenAPI(Specs spec) throws IOException {
@@ -58,6 +65,10 @@ public abstract class AbstractSpecTest {
             return HelloSpec.create();
         case TODOAPP:
             return TodoappSpec.create();
+        case MULTIPLE_RESPONSES:
+            return MultipleResponsesSpec.create();
+        case REF_WITH_SIBLING_VALUES:
+            return RefWithSiblingValuesSpec.create();
         default:
             throw new IllegalArgumentException("Unknown spec: " + spec);
         }

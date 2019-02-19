@@ -1,0 +1,94 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+      "title": "A Specification",
+      "version": "1.0"
+  },
+  "servers": [
+      {
+          "url": "http://localhost:8080/"
+      }
+  ],
+  "paths": {
+      "/ping": {
+          "get": {
+              "operationId": "pingGet",
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/PingObject"
+                              }
+                          }
+                      }
+                  },
+                  "4XX": {
+                      "$ref": "#/components/responses/BusinessErrorResponse"
+                  },
+                  "default": {
+                      "description": "Server Error",
+                      "content": {
+                          "*/*": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/Error"
+                              }
+                          }
+                      }
+                  }
+              }
+          },
+          "post": {
+              "operationId": "pingPost",
+              "responses": {
+                  "405": {
+                      "description": "POST is not allowed"
+                  }
+              }
+          }
+      }
+  },
+  "components": {
+      "schemas": {
+          "PingObject": {
+              "title": "Title",
+              "type": "object",
+              "properties": {
+                  "id": {
+                      "type": "integer",
+                      "format": "int32"
+                  },
+                  "name": {
+                      "type": "string"
+                  }
+              },
+              "description": "Some description"
+          },
+          "Error": {
+              "type": "object",
+              "properties": {
+                  "code": {
+                      "type": "integer",
+                      "format": "int32"
+                  },
+                  "message": {
+                      "type": "string"
+                  }
+              }
+          }
+      },
+      "responses": {
+          "BusinessErrorResponse": {
+              "description": "Business Error",
+              "content": {
+                  "*/*": {
+                      "schema": {
+                          "$ref": "#/components/schemas/Error"
+                      }
+                  }
+              }
+          }
+      }
+  }
+}

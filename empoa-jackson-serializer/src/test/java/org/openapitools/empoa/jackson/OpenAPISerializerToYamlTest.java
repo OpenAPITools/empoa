@@ -15,7 +15,7 @@
  ******************************************************************************/
 package org.openapitools.empoa.jackson;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 import org.eclipse.microprofile.openapi.models.OpenAPI;
 import org.openapitools.empoa.extended.tck.AbstractSpecTest;
@@ -42,6 +42,8 @@ public class OpenAPISerializerToYamlTest extends AbstractSpecTest {
             return "/jackson-serializer/yaml/hello.yaml";
         case TODOAPP:
             return "/jackson-serializer/yaml/todoapp.yaml";
+        case MULTIPLE_RESPONSES:
+            return "/jackson-serializer/yaml/multiple-responses.yaml";
         default:
             throw new IllegalArgumentException("Unknown spec: " + spec);
         }
