@@ -57,6 +57,7 @@ asciidoctor {
     attributes = ['revdate'           : "${buildDate()}",
                   'project-version'   : "$version",
                   'artifacts-version' : "$lastVersion",
+                  'mp-openapi-version': "$mpOpenAPIVersion",
                   'gh-repo-owner'     : "$githubRepositoryOwner",
                   'gh-repo-name'      : "$githubRepositoryName",
                   'source-highlighter': 'coderay',

@@ -35,7 +35,20 @@ A typical OpenAPI specification as presented in <<lst-ping-yaml>> can be created
 include::../empoa-extended-tck/src/main/java/org/openapitools/empoa/extended/tck/specs/PingSpec.java[lines=17..-1]
 ----
 
-All EMPOA projects (EMPOA stands for **E**clipse **M**icro**P**rofile **O**pen**A**PI) are based on the interfaces representing OpenAPI specifications from the Eclipse MicroProfile OpenAPI project.
+The code in <<lst-ping-java>> requires only `microprofile-openapi-api` to be on the classpath (see <<lst-eclipse-mp-openapi-mvn>> for the complete maven coordinates).
+
+[[lst-eclipse-mp-openapi-mvn]]
+[source, xml, subs="verbatim,attributes"]
+.Maven coordinates of the 'Eclipse MicroProfile OpenAPI' api project
+----
+<dependency>
+  <groupId>org.eclipse.microprofile.openapi</groupId>
+  <artifactId>microprofile-openapi-api</artifactId>
+  <version>{mp-openapi-version}</version>
+</dependency>
+----
+
+All EMPOA projects of this repository (EMPOA stands for **E**clipse **M**icro**P**rofile **O**pen**A**PI) are based on the interfaces representing OpenAPI specifications from the Eclipse MicroProfile OpenAPI project.
 Either by implementing them (see <<implementation>>) or by providing additional features (see <<serializer>> and <<other>>).
 
 [[implementation]]
