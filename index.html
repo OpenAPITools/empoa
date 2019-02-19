@@ -528,7 +528,7 @@ table.CodeRay td.code>pre{padding:0}
 <h1>Code for Eclipse MicroProfile OpenAPI</h1>
 <div class="details">
 <span id="author" class="author">Code (implementation, experiments, tools...) for the Eclipse MicroProfile OpenAPI project</span><br>
-<span id="revdate">2019-02-11</span>
+<span id="revdate">2019-02-19</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -576,7 +576,7 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="urls">URLs</h2>
+<h2 id="urls"><a class="anchor" href="#urls"></a>URLs</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -606,7 +606,7 @@ Do you want to improve this page? Please <a href="https://github.com/OpenAPITool
 </div>
 </div>
 <div class="sect1">
-<h2 id="description">Description</h2>
+<h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><a href="http://github.com/eclipse/microprofile-open-api">Eclipse MicroProfile OpenAPI</a> is a standardisation effort around OpenAPI.
@@ -693,11 +693,11 @@ Providing a complete vendor implementation for the Eclipse MicroProfile OpenAPI 
 </div>
 </div>
 <div class="paragraph">
-<p>All EMPOA projects (EMPOA stands for <strong>E</strong>clipse <strong>M</strong>icro<strong>P</strong>rofile <strong>O</strong>pen<strong>A</strong>PI) are based on the interfaces representing OpenAPI specifications from the Eclipse MicroProfile OpenAPI project.
+<p>All EMPOA projects of this repository (EMPOA stands for <strong>E</strong>clipse <strong>M</strong>icro<strong>P</strong>rofile <strong>O</strong>pen<strong>A</strong>PI) are based on the interfaces representing OpenAPI specifications from the Eclipse MicroProfile OpenAPI project.
 Either by implementing them (see <a href="#implementation">Implementation projects</a>) or by providing additional features (see <a href="#serializer">Serializer projects</a> and <a href="#other">Other projects</a>).</p>
 </div>
 <div class="sect2">
-<h3 id="implementation">Implementation projects</h3>
+<h3 id="implementation"><a class="anchor" href="#implementation"></a>Implementation projects</h3>
 <div class="paragraph">
 <p>Without any implementation on the classpath, the code presented in <a href="#lst-ping-java">Listing 2</a> will throw an exception <code>IllegalStateException</code> (see <a href="#lst-stacktrace">Listing 4</a> for the stacktrace).</p>
 </div>
@@ -715,14 +715,14 @@ Either by implementing them (see <a href="#implementation">Implementation projec
 <p>This is why you need to provide one implementation on your classpath.</p>
 </div>
 <div class="sect3">
-<h4 id="empoa-simple-models">EMPOA Simple models</h4>
+<h4 id="empoa-simple-models"><a class="anchor" href="#empoa-simple-models"></a>EMPOA Simple models</h4>
 <div id="lst-simple-models-impl-mvn" class="listingblock">
 <div class="title">Listing 5. Maven coordinates of the 'EMPOA Simple models' project</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
   <span class="tag">&lt;groupId&gt;</span>org.openapitools.empoa<span class="tag">&lt;/groupId&gt;</span>
   <span class="tag">&lt;artifactId&gt;</span>empoa-simple-models-impl<span class="tag">&lt;/artifactId&gt;</span>
-  <span class="tag">&lt;version&gt;</span>1.0.0<span class="tag">&lt;/version&gt;</span>
+  <span class="tag">&lt;version&gt;</span>1.0.1<span class="tag">&lt;/version&gt;</span>
 <span class="tag">&lt;/dependency&gt;</span></code></pre>
 </div>
 </div>
@@ -733,14 +733,14 @@ There is no dependency to any other frameworks.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="empoa-swagger-core">EMPOA Swagger-Core</h4>
+<h4 id="empoa-swagger-core"><a class="anchor" href="#empoa-swagger-core"></a>EMPOA Swagger-Core</h4>
 <div id="lst-swagger-core-mvn" class="listingblock">
 <div class="title">Listing 6. Maven coordinates of the 'EMPOA Swagger-Core' project</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
   <span class="tag">&lt;groupId&gt;</span>org.openapitools.empoa<span class="tag">&lt;/groupId&gt;</span>
   <span class="tag">&lt;artifactId&gt;</span>empoa-swagger-core<span class="tag">&lt;/artifactId&gt;</span>
-  <span class="tag">&lt;version&gt;</span>1.0.0<span class="tag">&lt;/version&gt;</span>
+  <span class="tag">&lt;version&gt;</span>1.0.1<span class="tag">&lt;/version&gt;</span>
 <span class="tag">&lt;/dependency&gt;</span></code></pre>
 </div>
 </div>
@@ -778,20 +778,20 @@ Its <code>createObject(Object)</code> method expects the Swagger instance that w
 </div>
 </div>
 <div class="sect2">
-<h3 id="serializer">Serializer projects</h3>
+<h3 id="serializer"><a class="anchor" href="#serializer"></a>Serializer projects</h3>
 <div class="paragraph">
 <p>Given an OpenAPI specification represented by instances of objects implementing the Eclipse MicroProfile OpenAPI interfaces (<code>org.eclipse.microprofile.openapi.models</code> package and sub-packages), you can use one of the following projects to serialize them to JSON or YAML.
 Those projects work only with the API interfaces and are not bound to a specific implementation.</p>
 </div>
 <div class="sect3">
-<h4 id="empoa-gson-serializer">EMPOA Gson Serializer</h4>
+<h4 id="empoa-gson-serializer"><a class="anchor" href="#empoa-gson-serializer"></a>EMPOA Gson Serializer</h4>
 <div id="lst-gson-mvn" class="listingblock">
 <div class="title">Listing 8. Maven coordinates of the 'EMPOA Gson Serializer' project</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
   <span class="tag">&lt;groupId&gt;</span>org.openapitools.empoa<span class="tag">&lt;/groupId&gt;</span>
   <span class="tag">&lt;artifactId&gt;</span>empoa-gson-serializer<span class="tag">&lt;/artifactId&gt;</span>
-  <span class="tag">&lt;version&gt;</span>1.0.0<span class="tag">&lt;/version&gt;</span>
+  <span class="tag">&lt;version&gt;</span>1.0.1<span class="tag">&lt;/version&gt;</span>
 <span class="tag">&lt;/dependency&gt;</span></code></pre>
 </div>
 </div>
@@ -810,14 +810,14 @@ Those projects work only with the API interfaces and are not bound to a specific
 </div>
 </div>
 <div class="sect3">
-<h4 id="empoa-jackson-serializer">EMPOA Jackson Serializer</h4>
+<h4 id="empoa-jackson-serializer"><a class="anchor" href="#empoa-jackson-serializer"></a>EMPOA Jackson Serializer</h4>
 <div id="lst-jackson-mvn" class="listingblock">
 <div class="title">Listing 10. Maven coordinates of the 'EMPOA Jackson Serializer' project</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
   <span class="tag">&lt;groupId&gt;</span>org.openapitools.empoa<span class="tag">&lt;/groupId&gt;</span>
   <span class="tag">&lt;artifactId&gt;</span>empoa-jackson-serializer<span class="tag">&lt;/artifactId&gt;</span>
-  <span class="tag">&lt;version&gt;</span>1.0.0<span class="tag">&lt;/version&gt;</span>
+  <span class="tag">&lt;version&gt;</span>1.0.1<span class="tag">&lt;/version&gt;</span>
 <span class="tag">&lt;/dependency&gt;</span></code></pre>
 </div>
 </div>
@@ -839,16 +839,16 @@ Those projects work only with the API interfaces and are not bound to a specific
 </div>
 </div>
 <div class="sect2">
-<h3 id="other">Other projects</h3>
+<h3 id="other"><a class="anchor" href="#other"></a>Other projects</h3>
 <div class="sect3">
-<h4 id="empoa-javapoet">EMPOA Javapoet</h4>
+<h4 id="empoa-javapoet"><a class="anchor" href="#empoa-javapoet"></a>EMPOA Javapoet</h4>
 <div id="lst-javapoet-mvn" class="listingblock">
 <div class="title">Listing 12. Maven coordinates of the 'EMPOA Javapoet' project</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
   <span class="tag">&lt;groupId&gt;</span>org.openapitools.empoa<span class="tag">&lt;/groupId&gt;</span>
   <span class="tag">&lt;artifactId&gt;</span>empoa-javapoet<span class="tag">&lt;/artifactId&gt;</span>
-  <span class="tag">&lt;version&gt;</span>1.0.0<span class="tag">&lt;/version&gt;</span>
+  <span class="tag">&lt;version&gt;</span>1.0.1<span class="tag">&lt;/version&gt;</span>
 <span class="tag">&lt;/dependency&gt;</span></code></pre>
 </div>
 </div>
@@ -874,16 +874,16 @@ Those projects work only with the API interfaces and are not bound to a specific
 </div>
 </div>
 <div class="sect2">
-<h3 id="helper">Helper projects</h3>
+<h3 id="helper"><a class="anchor" href="#helper"></a>Helper projects</h3>
 <div class="sect3">
-<h4 id="empoa-extended-tck">EMPOA Extended TCK</h4>
+<h4 id="empoa-extended-tck"><a class="anchor" href="#empoa-extended-tck"></a>EMPOA Extended TCK</h4>
 <div id="lst-extended-tck-mvn" class="listingblock">
 <div class="title">Listing 14. Maven coordinates of the 'EMPOA Extended TCK' project</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
   <span class="tag">&lt;groupId&gt;</span>org.openapitools.empoa<span class="tag">&lt;/groupId&gt;</span>
   <span class="tag">&lt;artifactId&gt;</span>empoa-extended-tck<span class="tag">&lt;/artifactId&gt;</span>
-  <span class="tag">&lt;version&gt;</span>1.0.0<span class="tag">&lt;/version&gt;</span>
+  <span class="tag">&lt;version&gt;</span>1.0.1<span class="tag">&lt;/version&gt;</span>
 <span class="tag">&lt;/dependency&gt;</span></code></pre>
 </div>
 </div>
@@ -894,13 +894,13 @@ They are complementary (and sometime also redundant) with the official TCK tests
 </div>
 </div>
 <div class="sect3">
-<h4 id="empoa-generator">EMPOA Generator</h4>
+<h4 id="empoa-generator"><a class="anchor" href="#empoa-generator"></a>EMPOA Generator</h4>
 <div class="paragraph">
 <p>This project is used to generate code of other projects of this repository.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="empoa-smallrye">EMPOA SmallRye</h4>
+<h4 id="empoa-smallrye"><a class="anchor" href="#empoa-smallrye"></a>EMPOA SmallRye</h4>
 <div class="paragraph">
 <p>This project is used to validate the '<a href="#empoa-extended-tck">EMPOA Extended TCK</a>' project with an independent implementation.</p>
 </div>
@@ -909,7 +909,7 @@ They are complementary (and sometime also redundant) with the official TCK tests
 </div>
 </div>
 <div class="sect1">
-<h2 id="download">Download</h2>
+<h2 id="download"><a class="anchor" href="#download"></a>Download</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The artifacts are hosted on maven central.</p>
@@ -925,7 +925,7 @@ They are complementary (and sometime also redundant) with the official TCK tests
 </div>
 </div>
 <div class="sect1">
-<h2 id="build">Build</h2>
+<h2 id="build"><a class="anchor" href="#build"></a>Build</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This project is using gradle.</p>
@@ -958,7 +958,7 @@ They are complementary (and sometime also redundant) with the official TCK tests
 <p>The output of this command is an HTML page located at <code>&lt;git repo root&gt;/build/docs/html5/index.html</code>.</p>
 </div>
 <div class="sect2">
-<h3 id="for-project-maintainers">For project maintainers</h3>
+<h3 id="for-project-maintainers"><a class="anchor" href="#for-project-maintainers"></a>For project maintainers</h3>
 <div class="paragraph">
 <p><code>signing.gnupg.keyName</code> and <code>signing.gnupg.passphrase</code> are expected to be set in your local <code>gradle.properties</code> file to be able to sign.
 <code>sonatypeUser</code> and <code>sonatypePassword</code> are expected to be set in order to be able to publish to a distant repository.</p>
@@ -989,7 +989,7 @@ They are complementary (and sometime also redundant) with the official TCK tests
 </div>
 </div>
 <div class="sect2">
-<h3 id="using-ssh-agent">Using ssh-agent</h3>
+<h3 id="using-ssh-agent"><a class="anchor" href="#using-ssh-agent"></a>Using ssh-agent</h3>
 <div class="paragraph">
 <p>Some tasks requires to push into the distant git repository (release task or updating the <code>gh-pages</code> branch).
 If they are failing with errors like this:</p>
@@ -1015,7 +1015,7 @@ ssh-add ~/.ssh/id_rsa</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="get-in-touch">Get in touch</h2>
+<h2 id="get-in-touch"><a class="anchor" href="#get-in-touch"></a>Get in touch</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Use the <a href="https://github.com/OpenAPITools/empoa/issues">issue tracker</a> on GitHub.</p>
@@ -1026,7 +1026,7 @@ ssh-add ~/.ssh/id_rsa</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="license">License</h2>
+<h2 id="license"><a class="anchor" href="#license"></a>License</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a></p>
@@ -1036,7 +1036,7 @@ ssh-add ~/.ssh/id_rsa</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-02-11 07:11:54 CET
+Last updated 2019-02-19 22:24:59 CET
 </div>
 </div>
 </body>
