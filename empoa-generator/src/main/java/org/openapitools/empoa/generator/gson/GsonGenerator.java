@@ -94,7 +94,7 @@ public class GsonGenerator {
             }
         } else {
             String getter = "src." + singleMap.getterName + "()";
-            sb.append(prefix + "if (!" + getter + ".isEmpty()) {\n");
+            sb.append(prefix + "if (" + getter + " != null) {\n");
             sb.append(prefix + "    for (java.util.Map.Entry<String, " + singleMap.valueFqType + "> entry : " + getter + ".entrySet()) {\n");
             sb.append(prefix + "        object.add(entry.getKey(), context.serialize(entry.getValue()));\n");
             sb.append(prefix + "    }\n");

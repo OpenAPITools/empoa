@@ -29,8 +29,7 @@ public class ContentSerializer implements JsonSerializer<Content> {
     @Override
     public JsonElement serialize(Content src, Type typeOfSrc, JsonSerializationContext context) {
         JsonObject object = new JsonObject();
-        if (!src.getMediaTypes()
-            .isEmpty()) {
+        if (src.getMediaTypes() != null) {
             for (java.util.Map.Entry<String, org.eclipse.microprofile.openapi.models.media.MediaType> entry : src.getMediaTypes()
                 .entrySet()) {
                 object.add(entry.getKey(), context.serialize(entry.getValue()));

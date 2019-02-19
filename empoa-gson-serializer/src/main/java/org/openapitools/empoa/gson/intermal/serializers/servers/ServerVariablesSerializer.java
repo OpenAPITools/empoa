@@ -29,8 +29,7 @@ public class ServerVariablesSerializer implements JsonSerializer<ServerVariables
     @Override
     public JsonElement serialize(ServerVariables src, Type typeOfSrc, JsonSerializationContext context) {
         JsonObject object = new JsonObject();
-        if (!src.getServerVariables()
-            .isEmpty()) {
+        if (src.getServerVariables() != null) {
             for (java.util.Map.Entry<String, org.eclipse.microprofile.openapi.models.servers.ServerVariable> entry : src.getServerVariables()
                 .entrySet()) {
                 object.add(entry.getKey(), context.serialize(entry.getValue()));

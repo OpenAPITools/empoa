@@ -29,8 +29,7 @@ public class APIResponsesSerializer implements JsonSerializer<APIResponses> {
     @Override
     public JsonElement serialize(APIResponses src, Type typeOfSrc, JsonSerializationContext context) {
         JsonObject object = new JsonObject();
-        if (!src.getAPIResponses()
-            .isEmpty()) {
+        if (src.getAPIResponses() != null) {
             for (java.util.Map.Entry<String, org.eclipse.microprofile.openapi.models.responses.APIResponse> entry : src.getAPIResponses()
                 .entrySet()) {
                 object.add(entry.getKey(), context.serialize(entry.getValue()));

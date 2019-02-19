@@ -29,8 +29,7 @@ public class PathsSerializer implements JsonSerializer<Paths> {
     @Override
     public JsonElement serialize(Paths src, Type typeOfSrc, JsonSerializationContext context) {
         JsonObject object = new JsonObject();
-        if (!src.getPathItems()
-            .isEmpty()) {
+        if (src.getPathItems() != null) {
             for (java.util.Map.Entry<String, org.eclipse.microprofile.openapi.models.PathItem> entry : src.getPathItems()
                 .entrySet()) {
                 object.add(entry.getKey(), context.serialize(entry.getValue()));

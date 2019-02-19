@@ -33,8 +33,7 @@ public class CallbackSerializer implements JsonSerializer<Callback> {
             object.addProperty("$ref", src.getRef());
         } else {
 
-            if (!src.getPathItems()
-                .isEmpty()) {
+            if (src.getPathItems() != null) {
                 for (java.util.Map.Entry<String, org.eclipse.microprofile.openapi.models.PathItem> entry : src.getPathItems()
                     .entrySet()) {
                     object.add(entry.getKey(), context.serialize(entry.getValue()));
