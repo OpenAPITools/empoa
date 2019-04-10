@@ -52,8 +52,8 @@ import org.eclipse.microprofile.openapi.models.servers.Server;
 import org.eclipse.microprofile.openapi.models.servers.ServerVariable;
 import org.eclipse.microprofile.openapi.models.servers.ServerVariables;
 import org.eclipse.microprofile.openapi.models.tags.Tag;
+import org.junit.jupiter.api.Test;
 import org.openapitools.empoa.extended.tck.specs.OASElement;
-import org.testng.annotations.Test;
 
 public abstract class AbstractElementSerializerTest {
 

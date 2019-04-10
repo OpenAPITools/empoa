@@ -22,12 +22,12 @@ import java.io.InputStreamReader;
 import java.util.stream.Collectors;
 
 import org.eclipse.microprofile.openapi.models.OpenAPI;
+import org.junit.jupiter.api.Test;
 import org.openapitools.empoa.extended.tck.specs.HelloSpec;
 import org.openapitools.empoa.extended.tck.specs.MultipleResponsesSpec;
 import org.openapitools.empoa.extended.tck.specs.PingSpec;
 import org.openapitools.empoa.extended.tck.specs.RefWithSiblingValuesSpec;
 import org.openapitools.empoa.extended.tck.specs.TodoappSpec;
-import org.testng.annotations.Test;
 
 public abstract class AbstractSpecTest {
 

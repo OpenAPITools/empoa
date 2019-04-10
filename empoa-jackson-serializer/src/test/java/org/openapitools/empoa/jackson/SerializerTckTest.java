@@ -19,7 +19,6 @@ import java.io.IOException;
 
 import org.eclipse.microprofile.openapi.models.OpenAPI;
 import org.openapitools.empoa.extended.tck.AbstractSerializerTest;
-import org.testng.annotations.Test;
 
 public class SerializerTckTest extends AbstractSerializerTest {
 
@@ -29,10 +28,5 @@ public class SerializerTckTest extends AbstractSerializerTest {
         String json = OpenAPISerializer.serialize(openAPI, OpenAPISerializer.Format.JSON);
         // end::usage[]
         return json;
-    }
-
-    @Test
-    public void detect() throws Exception {
-        // This is requested by the gradle build to detect this test class, see https://docs.gradle.org/current/userguide/java_testing.html#sec:test_detection
     }
 }

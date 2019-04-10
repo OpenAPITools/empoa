@@ -17,12 +17,12 @@ allprojects {
 
 subprojects {
     repositories {
+        // mavenLocal()
         mavenCentral()
         jcenter()
         maven {
             url "http://dl.bintray.com/jmini/maven/"
         }
-        mavenLocal()
     }
 
     publishing {

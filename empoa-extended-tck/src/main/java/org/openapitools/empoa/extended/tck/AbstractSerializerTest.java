@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.*;
 import java.io.IOException;
 
 import org.eclipse.microprofile.openapi.models.OpenAPI;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 public abstract class AbstractSerializerTest extends AbstractSpecTest {
 

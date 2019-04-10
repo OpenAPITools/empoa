@@ -27,7 +27,7 @@ import org.eclipse.microprofile.openapi.models.media.Schema;
 import org.eclipse.microprofile.openapi.models.parameters.Parameter;
 import org.eclipse.microprofile.openapi.models.responses.APIResponses;
 import org.eclipse.microprofile.openapi.models.security.SecurityRequirement;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 import com.squareup.javapoet.CodeBlock;
 

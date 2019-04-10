@@ -42,7 +42,7 @@ public class TckInitialClassGeneratorMain {
         sb.append("\n");
         sb.append("import org.eclipse.microprofile.openapi.OASFactory;\n");
         sb.append("import " + fqName + ";\n");
-        sb.append("import org.testng.annotations.Test;\n");
+        sb.append("import org.junit.jupiter.api.Test;\n");
         sb.append("\n");
         sb.append("public class " + clsName + " {\n");
         sb.append("\n");

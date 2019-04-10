@@ -16,12 +16,7 @@
 package org.openapitools.empoa.swagger.core.tck.models.examples;
 
 import org.openapitools.empoa.extended.tck.models.examples.ExampleTest;
-import org.testng.annotations.Test;
 
 public class ExampleTckTest extends ExampleTest {
 
-    @Test
-    public void detect() throws Exception {
-        // This is requested by the gradle build to detect this test class, see https://docs.gradle.org/current/userguide/java_testing.html#sec:test_detection
-    }
 }

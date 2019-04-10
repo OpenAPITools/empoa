@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2019 Jeremie Bresson
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License.  You may obtain a copy
  * of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
@@ -19,7 +19,6 @@ import java.io.IOException;
 
 import org.eclipse.microprofile.openapi.models.OpenAPI;
 import org.openapitools.empoa.extended.tck.AbstractSerializerTest;
-import org.testng.annotations.Test;
 
 import io.smallrye.openapi.runtime.io.OpenApiSerializer;
 import io.smallrye.openapi.runtime.io.OpenApiSerializer.Format;
@@ -35,10 +34,5 @@ public class SerializerTckTest extends AbstractSerializerTest {
     public void testRefWithSiblingValuesSpec() throws Exception {
         // ignore this test
         // see https://github.com/smallrye/smallrye-open-api/issues/77
-    }
-
-    @Test
-    public void detect() throws Exception {
-        // This is requested by the gradle build to detect this test class, see https://docs.gradle.org/current/userguide/java_testing.html#sec:test_detection
     }
 }

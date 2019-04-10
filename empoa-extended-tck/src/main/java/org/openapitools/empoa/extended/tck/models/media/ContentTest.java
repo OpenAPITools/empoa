@@ -21,7 +21,7 @@ import java.util.Collections;
 
 import org.eclipse.microprofile.openapi.OASFactory;
 import org.eclipse.microprofile.openapi.models.media.Content;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 public class ContentTest {
 

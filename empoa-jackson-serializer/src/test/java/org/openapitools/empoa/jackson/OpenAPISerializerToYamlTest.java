@@ -15,11 +15,10 @@
  ******************************************************************************/
 package org.openapitools.empoa.jackson;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.eclipse.microprofile.openapi.models.OpenAPI;
 import org.openapitools.empoa.extended.tck.AbstractSpecTest;
-import org.testng.annotations.Test;
 
 public class OpenAPISerializerToYamlTest extends AbstractSpecTest {
 
@@ -49,8 +48,4 @@ public class OpenAPISerializerToYamlTest extends AbstractSpecTest {
         }
     }
 
-    @Test
-    public void detect() throws Exception {
-        // This is requested by the gradle build to detect this test class, see https://docs.gradle.org/current/userguide/java_testing.html#sec:test_detection
-    }
 }

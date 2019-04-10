@@ -6,7 +6,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 test {
-    useTestNG() 
+    useJUnitPlatform() 
 }
 
 dependencies {
@@ -15,10 +15,12 @@ dependencies {
     api "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
     api "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jacksonVersion"
 
-    testRuntime project(':empoa-simple-models-impl')
     testImplementation project(':empoa-extended-tck')
-    testImplementation "org.testng:testng:$testngVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
     testImplementation "org.assertj:assertj-core:$assertjVersion"
+
+    testRuntime project(':empoa-simple-models-impl')
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {

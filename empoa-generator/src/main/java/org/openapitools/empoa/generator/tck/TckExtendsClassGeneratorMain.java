@@ -45,7 +45,7 @@ public class TckExtendsClassGeneratorMain {
         StringBuilder sb = new StringBuilder();
         sb.append("package " + pkgName + ";\n");
         sb.append("\n");
-        sb.append("import org.testng.annotations.Test;\n");
+        sb.append("import org.junit.jupiter.api.Test;\n");
         sb.append("\n");
         sb.append("import " + tckPckName + "." + tckClsName + ";\n");
         sb.append("\n");

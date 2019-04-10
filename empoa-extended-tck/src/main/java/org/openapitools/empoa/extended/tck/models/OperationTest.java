@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.*;
 
 import org.eclipse.microprofile.openapi.OASFactory;
 import org.eclipse.microprofile.openapi.models.Operation;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 public class OperationTest {
 

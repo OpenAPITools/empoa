@@ -26,7 +26,6 @@ import org.openapitools.empoa.extended.tck.specs.HelloSpec;
 import org.openapitools.empoa.extended.tck.specs.MultipleResponsesSpec;
 import org.openapitools.empoa.extended.tck.specs.PingSpec;
 import org.openapitools.empoa.extended.tck.specs.TodoappSpec;
-import org.testng.annotations.Test;
 
 import com.squareup.javapoet.JavaFile;
 
@@ -88,8 +87,4 @@ public class JavaFileConverterTest extends AbstractSpecTest {
         return file;
     }
 
-    @Test
-    public void detect() throws Exception {
-        // This is requested by the gradle build to detect this test class, see https://docs.gradle.org/current/userguide/java_testing.html#sec:test_detection
-    }
 }

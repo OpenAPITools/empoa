@@ -6,17 +6,19 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 test {
-    useTestNG() 
+    useJUnitPlatform() 
 }
 
 dependencies {
     api "org.eclipse.microprofile.openapi:microprofile-openapi-api:$mpOpenAPIVersion"
     implementation "com.squareup:javapoet:$javaPoetVersion"
 
-    testImplementation "org.testng:testng:$testngVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
     testImplementation "org.assertj:assertj-core:$assertjVersion"
     testImplementation project(':empoa-simple-models-impl')
     testImplementation project(':empoa-extended-tck')
+
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
