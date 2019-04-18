@@ -68,7 +68,11 @@ public class SwDiscriminator implements Discriminator {
 
     @Override
     public Discriminator addMapping(String key, String string) {
-        _swDiscriminator.mapping(key, string);
+        if (string == null) {
+            throw new IllegalArgumentException("Null value for key '" + key + "' is not allowed");
+        } else {
+            _swDiscriminator.mapping(key, string);
+        }
         return this;
     }
 

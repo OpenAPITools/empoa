@@ -21,36 +21,26 @@ public class MapMember extends Member {
 
     public final String valueFqType;
     public final String addName;
-    public final boolean hasAdd;
-    public final boolean addReturnsVoid;
     public final String removeName;
+    public MapNullValueStrategy nullValueStrategy;
 
     public MapMember(MemberType type, String name, String valueFqType) {
-        this(type, name, valueFqType, true);
+        this(type, name, valueFqType, MapNullValueStrategy.THROW_EXCEPTION);
     }
 
-    public MapMember(MemberType type, String name, String valueFqType, boolean hasBuilder) {
-        this(type, name, valueFqType, hasBuilder, true);
-    }
-
-    public MapMember(MemberType type, String name, String valueFqType, boolean hasBuilder, boolean hasAdd) {
-        this(type, name, valueFqType, hasBuilder, hasAdd, false);
-    }
-
-    public MapMember(MemberType type, String name, String valueFqType, boolean hasBuilder, boolean hasAdd, boolean addReturnsVoid) {
+    public MapMember(MemberType type, String name, String valueFqType, MapNullValueStrategy nullValueStrategy) {
         this(
-            type, name, valueFqType, "set" + StringUtil.capitalize(name), "get" + StringUtil.capitalize(name), StringUtil.decapitalize(name), "add" + StringUtil.capitalize(StringUtil.singular(name)), addReturnsVoid, hasAdd, hasBuilder,
-            "remove" + StringUtil.capitalize(StringUtil.singular(name))
+            type, name, valueFqType, "set" + StringUtil.capitalize(name), "get" + StringUtil.capitalize(name), StringUtil.decapitalize(name), "add" + StringUtil.capitalize(StringUtil.singular(name)),
+            "remove" + StringUtil.capitalize(StringUtil.singular(name)), nullValueStrategy
         );
     }
 
-    public MapMember(MemberType type, String name, String valueFqType, String setterName, String gettterName, String builderName, String addName, boolean addReturnsVoid, boolean hasAdd, boolean hasBuilder, String removeName) {
-        super(type, name, "java.util.Map<String, " + valueFqType + ">", setterName, gettterName, builderName, true, true, true, hasBuilder);
+    public MapMember(MemberType type, String name, String valueFqType, String setterName, String gettterName, String builderName, String addName, String removeName, MapNullValueStrategy nullValueStrategy) {
+        super(type, name, "java.util.Map<String, " + valueFqType + ">", setterName, gettterName, builderName, true, true, true, true);
         this.valueFqType = valueFqType;
         this.addName = addName;
-        this.hasAdd = hasAdd;
-        this.addReturnsVoid = addReturnsVoid;
         this.removeName = removeName;
+        this.nullValueStrategy = nullValueStrategy;
     }
 
 }

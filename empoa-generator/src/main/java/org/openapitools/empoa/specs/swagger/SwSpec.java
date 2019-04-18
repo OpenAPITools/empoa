@@ -13,9 +13,6 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
-/**
- *
- */
 package org.openapitools.empoa.specs.swagger;
 
 import java.math.BigDecimal;

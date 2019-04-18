@@ -204,7 +204,7 @@ public class OpenAPISpec {
         members.add(new ListMember(MemberType.Operation_Parameters, "Parameters", Parameter.class.getCanonicalName()));
         members.add(new Member(MemberType.Operation_RequestBody, "RequestBody", RequestBody.class.getCanonicalName()));
         members.add(new Member(MemberType.Operation_Responses, "Responses", APIResponses.class.getCanonicalName()));
-        members.add(new MapMember(MemberType.Operation_Callbacks, "Callbacks", Callback.class.getCanonicalName(), true, true));
+        members.add(new MapMember(MemberType.Operation_Callbacks, "Callbacks", Callback.class.getCanonicalName()));
         members.add(new Member(MemberType.Operation_Deprecated, "Deprecated", Boolean.class.getSimpleName()));
         members.add(new ListMember(MemberType.Operation_Security, "Security", SecurityRequirement.class.getName(), "addSecurityRequirement", "removeSecurityRequirement"));
         members.add(new ListMember(MemberType.Operation_Servers, "Servers", Server.class.getCanonicalName()));
@@ -318,7 +318,7 @@ public class OpenAPISpec {
     public static Element createEncoding() {
         List<IMember> members = new ArrayList<>();
         members.add(new Member(MemberType.Encoding_ContentType, "ContentType", String.class.getSimpleName()));
-        members.add(new MapMember(MemberType.Encoding_Headers, "Headers", Header.class.getName(), true, true));
+        members.add(new MapMember(MemberType.Encoding_Headers, "Headers", Header.class.getName()));
         members.add(new Member(MemberType.Encoding_Style, "Style", Encoding.Style.class.getCanonicalName()));
         members.add(new Member(MemberType.Encoding_Explode, "Explode", Boolean.class.getSimpleName()));
         members.add(new Member(MemberType.Encoding_AllowReserved, "AllowReserved", Boolean.class.getSimpleName()));
@@ -450,13 +450,13 @@ public class OpenAPISpec {
 
     public static Element createScopes() {
         List<IMember> members = new ArrayList<>();
-        members.add(new MapMember(MemberType.Scopes_Scopes, "Scopes", String.class.getSimpleName()));
+        members.add(new MapMember(MemberType.Scopes_Scopes, "Scopes", String.class.getSimpleName(), MapNullValueStrategy.NULL_ALLOWED));
         return new Element(ElementType.Scopes, Scopes.class.getName(), true, false, members);
     }
 
     public static Element createSecurityRequirement() {
         List<IMember> members = new ArrayList<>();
-        members.add(new MapMember(MemberType.SecurityRequirement_Schemes, "Schemes", "java.util.List<String>"));
+        members.add(new MapMember(MemberType.SecurityRequirement_Schemes, "Schemes", "java.util.List<String>", MapNullValueStrategy.CONVERT_NULL_TO_EMPTY_LIST));
         members.add(new AdditionalMethod(Type.SecurityRequirement_addScheme_singleton));
         members.add(new AdditionalMethod(Type.SecurityRequirement_addScheme_empty));
         return new Element(ElementType.SecurityRequirement, SecurityRequirement.class.getName(), false, false, members);

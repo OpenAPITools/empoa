@@ -81,14 +81,10 @@ public class ScopesImpl implements Scopes {
 
     @Override
     public Scopes addScope(String key, String string) {
-        if (string == null) {
-            throw new IllegalArgumentException("Null value for key '" + key + "' is not allowed");
-        } else {
-            if (_scopes == null) {
-                _scopes = new java.util.LinkedHashMap<>();
-            }
-            _scopes.put(key, string);
+        if (_scopes == null) {
+            _scopes = new java.util.LinkedHashMap<>();
         }
+        _scopes.put(key, string);
         return this;
     }
 
