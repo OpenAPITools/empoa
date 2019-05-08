@@ -16,6 +16,7 @@
 package org.openapitools.empoa.generator.simple;
 
 import java.io.IOException;
+import java.util.Collections;
 
 import org.openapitools.empoa.generator.Input;
 import org.openapitools.empoa.specs.AdditionalMethod;
@@ -24,6 +25,7 @@ import org.openapitools.empoa.specs.Element;
 import org.openapitools.empoa.specs.IMember;
 import org.openapitools.empoa.specs.ListMember;
 import org.openapitools.empoa.specs.MapMember;
+import org.openapitools.empoa.specs.MapNullValueStrategy;
 import org.openapitools.empoa.specs.Member;
 import org.openapitools.empoa.util.FileUtil;
 import org.openapitools.empoa.util.StringUtil;
@@ -82,7 +84,7 @@ public class SimpleGenerator {
             sb.append("\n");
         }
         if (element.extensible) {
-            Member refMember = new MapMember(null, "extensions", "Object", false, true, false);
+            Member refMember = new MapMember(null, "extensions", "Object");
             generateMember(sb, refMember);
         }
         for (IMember member : element.members) {
@@ -149,25 +151,35 @@ public class SimpleGenerator {
         }
         if (isMapMember) {
             MapMember mapMember = (MapMember) member;
-            if (mapMember.hasAdd) {
-                String itemVarName = StringUtil.decapitalize(StringUtil.computeSimpleName(mapMember.valueFqType));
-                String returnType = (mapMember.addReturnsVoid) ? "void" : simpleName;
-                sb.append("    @Override\n");
-                sb.append("    public " + returnType + " " + mapMember.addName + "(String key, " + mapMember.valueFqType + " " + itemVarName + ") {\n");
+            String itemVarName = StringUtil.decapitalize(StringUtil.computeSimpleName(mapMember.valueFqType));
+            String returnType = simpleName;
+            sb.append("    @Override\n");
+            sb.append("    public " + returnType + " " + mapMember.addName + "(String key, " + mapMember.valueFqType + " " + itemVarName + ") {\n");
+            if (mapMember.nullValueStrategy == MapNullValueStrategy.CONVERT_NULL_TO_EMPTY_LIST) {
+                sb.append("        if (" + itemVarName + " == null) {\n");
+                sb.append("            " + itemVarName + " = " + Collections.class.getCanonicalName() + ".emptyList();\n");
+                sb.append("        }\n");
+            }
+            String prefix;
+            boolean allowNullValues = mapMember.nullValueStrategy == MapNullValueStrategy.NULL_ALLOWED || mapMember.nullValueStrategy == MapNullValueStrategy.CONVERT_NULL_TO_EMPTY_LIST;
+            if (!allowNullValues) {
+                prefix = "            ";
                 sb.append("        if (" + itemVarName + " == null) {\n");
                 sb.append("            throw new " + IllegalArgumentException.class.getSimpleName() + "(\"Null value for key '\" + key + \"' is not allowed\");\n");
                 sb.append("        } else {\n");
-                sb.append("            if (" + memberName + " == null) {\n");
-                sb.append("                " + memberName + " = new java.util.LinkedHashMap<>();\n");
-                sb.append("            }\n");
-                sb.append("            " + memberName + ".put(key, " + itemVarName + ");\n");
-                sb.append("        }\n");
-                if (!mapMember.addReturnsVoid) {
-                    sb.append("        return this;\n");
-                }
-                sb.append("    }\n");
-                sb.append("\n");
+            } else {
+                prefix = "        ";
             }
+            sb.append(prefix + "if (" + memberName + " == null) {\n");
+            sb.append(prefix + "    " + memberName + " = new java.util.LinkedHashMap<>();\n");
+            sb.append(prefix + "}\n");
+            sb.append(prefix + memberName + ".put(key, " + itemVarName + ");\n");
+            if (!allowNullValues) {
+                sb.append("        }\n");
+            }
+            sb.append("        return this;\n");
+            sb.append("    }\n");
+            sb.append("\n");
             sb.append("    @Override\n");
             sb.append("    public void " + mapMember.removeName + "(String key) {\n");
             sb.append("        if (" + memberName + " != null) {\n");

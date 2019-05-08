@@ -103,7 +103,7 @@ public class SwGenerator {
             generateMember(sb, refMember, refSwMember, false);
         }
         if (mpElement.extensible) {
-            Member extensionsMember = new MapMember(null, "extensions", "Object", false, true, false);
+            Member extensionsMember = new MapMember(null, "extensions", "Object");
             SwMember extensionsSwMember = new SwMapMember(null, "extensions", "Object", false, true, false);
             generateMember(sb, extensionsMember, extensionsSwMember, false);
         }
@@ -309,36 +309,34 @@ public class SwGenerator {
         if (isMapMember) {
             MapMember mapMember = (MapMember) member;
             SwMapMember swMapMember = (SwMapMember) swMember;
-            if (mapMember.hasAdd) {
-                String itemVarName = StringUtil.decapitalize(StringUtil.computeSimpleName(mapMember.valueFqType));
-                sb.append("    @Override\n");
-                sb.append("    public " + simpleName + " " + mapMember.addName + "(String key, " + mapMember.valueFqType + " " + itemVarName + ") {\n");
-                if (isComplexType) {
-                    String valueName = "value";
-                    appendTypeCheck(sb, itemVarName, valueName, innerFqType, true, "        ");
-                    sb.append("        " + initName + "();\n");
-                    sb.append("        if (" + memberName + " == null) {\n");
-                    sb.append("            " + memberName + " = new " + java.util.LinkedHashMap.class.getCanonicalName() + "<>();\n");
-                    if (!isSingleMapMember) {
-                        sb.append("            " + swVarName + "." + swMapMember.setterName + "(new " + java.util.LinkedHashMap.class.getCanonicalName() + "<>());\n");
-                    }
-                    sb.append("        }\n");
-                    sb.append("        " + memberName + ".put(key, " + valueName + ");\n");
-                    sb.append("        " + swVarName + swGetter + ".put(key, " + valueName + ".getSw());\n");
-                    // sb.append(" " + swVarName + "." + swMapMember.addName + "(key, " + valueName + ".getSw());\n");
-                } else {
-                    String swAddName;
-                    if (isSingleMapMember) {
-                        swAddName = ".put";
-                    } else {
-                        swAddName = "." + swMapMember.addName;
-                    }
-                    sb.append("        " + swVarName + swAddName + "(key, " + itemVarName + ");\n");
+            String itemVarName = StringUtil.decapitalize(StringUtil.computeSimpleName(mapMember.valueFqType));
+            sb.append("    @Override\n");
+            sb.append("    public " + simpleName + " " + mapMember.addName + "(String key, " + mapMember.valueFqType + " " + itemVarName + ") {\n");
+            if (isComplexType) {
+                String valueName = "value";
+                appendTypeCheck(sb, itemVarName, valueName, innerFqType, true, "        ");
+                sb.append("        " + initName + "();\n");
+                sb.append("        if (" + memberName + " == null) {\n");
+                sb.append("            " + memberName + " = new " + java.util.LinkedHashMap.class.getCanonicalName() + "<>();\n");
+                if (!isSingleMapMember) {
+                    sb.append("            " + swVarName + "." + swMapMember.setterName + "(new " + java.util.LinkedHashMap.class.getCanonicalName() + "<>());\n");
                 }
-                sb.append("        return this;\n");
-                sb.append("    }\n");
-                sb.append("\n");
+                sb.append("        }\n");
+                sb.append("        " + memberName + ".put(key, " + valueName + ");\n");
+                sb.append("        " + swVarName + swGetter + ".put(key, " + valueName + ".getSw());\n");
+                // sb.append(" " + swVarName + "." + swMapMember.addName + "(key, " + valueName + ".getSw());\n");
+            } else {
+                String swAddName;
+                if (isSingleMapMember) {
+                    swAddName = ".put";
+                } else {
+                    swAddName = "." + swMapMember.addName;
+                }
+                sb.append("        " + swVarName + swAddName + "(key, " + itemVarName + ");\n");
             }
+            sb.append("        return this;\n");
+            sb.append("    }\n");
+            sb.append("\n");
             sb.append("    @Override\n");
             sb.append("    public void " + mapMember.removeName + "(String key) {\n");
             if (isComplexType) {

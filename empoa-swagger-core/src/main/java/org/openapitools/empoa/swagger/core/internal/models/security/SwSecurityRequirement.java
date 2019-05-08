@@ -60,6 +60,9 @@ public class SwSecurityRequirement implements SecurityRequirement {
 
     @Override
     public SecurityRequirement addScheme(String key, java.util.List<String> list) {
+        if (list == null) {
+            list = java.util.Collections.emptyList();
+        }
         _swSecurityRequirement.put(key, list);
         return this;
     }
@@ -74,7 +77,9 @@ public class SwSecurityRequirement implements SecurityRequirement {
     @Override
     public SecurityRequirement addScheme(String key, String scope) {
         java.util.List<String> list = new java.util.ArrayList<>();
-        list.add(scope);
+        if (scope != null) {
+            list.add(scope);
+        }
         return addScheme(key, list);
     }
 

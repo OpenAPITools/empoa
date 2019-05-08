@@ -42,13 +42,12 @@ public class SecurityRequirementImpl implements SecurityRequirement {
     @Override
     public SecurityRequirement addScheme(String key, java.util.List<String> list) {
         if (list == null) {
-            throw new IllegalArgumentException("Null value for key '" + key + "' is not allowed");
-        } else {
-            if (_schemes == null) {
-                _schemes = new java.util.LinkedHashMap<>();
-            }
-            _schemes.put(key, list);
+            list = java.util.Collections.emptyList();
         }
+        if (_schemes == null) {
+            _schemes = new java.util.LinkedHashMap<>();
+        }
+        _schemes.put(key, list);
         return this;
     }
 
