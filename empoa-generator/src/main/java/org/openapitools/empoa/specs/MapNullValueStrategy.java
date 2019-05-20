@@ -16,6 +16,8 @@
 package org.openapitools.empoa.specs;
 
 public enum MapNullValueStrategy {
-    CONVERT_NULL_TO_EMPTY_LIST, NULL_ALLOWED, THROW_EXCEPTION
+    CONVERT_NULL_TO_EMPTY_LIST,
+    NULL_ALLOWED,
+    THROW_EXCEPTION
 
 }
