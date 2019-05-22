@@ -54,7 +54,7 @@ publishing {
         mavenJava(MavenPublication) {
             pom {
                 name = 'EMPOA Swagger-Core'
-                description = 'Simple implementation of the Eclipse MicroProfile OpenAPI interfaces'
+                description = 'Implementation of the Eclipse MicroProfile OpenAPI interfaces using Swagger-Core'
                 packaging = 'jar'
                 url = 'https://' + "$githubRepositoryOwner" + '.github.io/' + "$githubRepositoryName" + '/'
                 licenses {
