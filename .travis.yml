@@ -1,0 +1,6 @@
+sudo: false
+language: java
+script: ./gradlew build
+jdk:
+  - oraclejdk8
+  - oraclejdk9
