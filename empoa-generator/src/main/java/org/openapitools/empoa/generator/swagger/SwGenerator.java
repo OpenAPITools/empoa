@@ -75,6 +75,21 @@ public class SwGenerator {
 
     public String generateContent() {
         StringBuilder sb = new StringBuilder();
+        sb.append("/*******************************************************************************\n");
+        sb.append(" * Copyright 2019 Jeremie Bresson\n");
+        sb.append(" *\n");
+        sb.append(" * Licensed under the Apache License, Version 2.0 (the \"License\"); you may not\n");
+        sb.append(" * use this file except in compliance with the License.  You may obtain a copy\n");
+        sb.append(" * of the License at\n");
+        sb.append(" *\n");
+        sb.append(" *   http://www.apache.org/licenses/LICENSE-2.0\n");
+        sb.append(" *\n");
+        sb.append(" * Unless required by applicable law or agreed to in writing, software\n");
+        sb.append(" * distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT\n");
+        sb.append(" * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the\n");
+        sb.append(" * License for the specific language governing permissions and limitations under\n");
+        sb.append(" * the License.\n");
+        sb.append(" ******************************************************************************/\n");
         sb.append("package " + implPackageName + ";\n");
         sb.append("\n");
         sb.append("import " + mpElement.fqName + ";\n");
@@ -504,11 +519,8 @@ public class SwGenerator {
             String className = replaceSuffixes(fqType, ".Style", ".In", ".Type");
             Class<?> cls = Class.forName(className);
             Field f;
-            f = cls.getDeclaredField("$VALUES");
-            f.setAccessible(true);
-            Object o = f.get(null);
-            return (E[]) o;
-        } catch (ClassNotFoundException | NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+            return (E[]) cls.getEnumConstants();
+        } catch (ClassNotFoundException | SecurityException | IllegalArgumentException e) {
             throw new IllegalStateException(e);
         }
     }
