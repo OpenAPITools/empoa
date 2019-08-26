@@ -1,6 +1,7 @@
 sudo: false
 language: java
 script: ./gradlew build
+dist: xenial
 jdk:
-  - oraclejdk8
-  - oraclejdk9
+  - openjdk8
+  - openjdk11
