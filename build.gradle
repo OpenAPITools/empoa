@@ -36,15 +36,6 @@ subprojects {
             }
         }
     }
-
-    model {
-        tasks.publishMavenJavaPublicationToMavenLocal {
-            dependsOn(project.tasks.signArchives)
-        }
-        tasks.publishMavenJavaPublicationToMavenRepository {
-            dependsOn(project.tasks.signArchives)
-        }
-    }
 }
 
 def buildDate() {
