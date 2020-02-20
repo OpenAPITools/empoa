@@ -1,5 +1,5 @@
 plugins {
-    id 'org.asciidoctor.convert' version '1.5.9.1'
+    id 'org.asciidoctor.convert' version '2.4.0'
     id 'org.ajoberstar.git-publish' version '2.0.0'
     id 'net.researchgate.release' version '2.6.0'
 }
@@ -42,6 +42,10 @@ def buildDate() {
     return new Date().format('yyyy-MM-dd')
 }
 
+asciidoctorj {
+    version = "$asciidoctorjVersion"
+}
+
 asciidoctor {
     sourceDir = file('docs')
     outputDir = file('build/docs')
@@ -60,9 +64,11 @@ asciidoctor {
                   'idprefix'          : '',
                   'idseparator'       : '-',
                   'docinfo1'          : 'true']
-
+    repositories {
+        mavenCentral()
+    }
     dependencies {
-        asciidoctor "fr.jmini.asciidoctorj:git-link:3.0.0"
+        asciidoctor "fr.jmini.asciidoctorj:git-link:3.2.1"
     }
 }
 
