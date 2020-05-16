@@ -33,7 +33,7 @@ import io.swagger.v3.parser.core.models.SwaggerParseResult;
 public class ParserAndSerializerWithGsonTckTest extends AbstractSerializerTest {
 
     @Override
-    protected OpenAPI createOpenAPI(Specs spec) throws IOException {
+    protected OpenAPI getOpenAPISpec(Specs spec) throws IOException {
         String json = readInputFromResource(spec);
 
         OpenAPIParser openApiParser = new OpenAPIParser();
@@ -52,15 +52,47 @@ public class ParserAndSerializerWithGsonTckTest extends AbstractSerializerTest {
                 .getPathItem("/hello/{name}")
                 .getGET()
                 .getParameters();
-            Parameter nameParameter = parameters.get(0);
-            nameParameter.setExplode(null);
-            nameParameter.setStyle(null);
-            Parameter languageParameter = parameters.get(1);
-            languageParameter.setExplode(null);
-            languageParameter.setRequired(null);
-            languageParameter.setStyle(null);
+            set2ValuesToNull(parameters.get(0));
+            set3ValuesToNull(parameters.get(1));
+        } else if (Specs.BIG == spec) {
+            set2ValuesToNull(
+                openAPI.getPaths()
+                    .getPathItem("/tree/{name}")
+                    .getGET()
+                    .getParameters()
+                    .get(0)
+            );
+            set2ValuesToNull(
+                openAPI.getPaths()
+                    .getPathItem("/messages/{id}")
+                    .getParameters()
+                    .get(0)
+            );
+            set3ValuesToNull(
+                openAPI.getPaths()
+                    .getPathItem("/messages/{id}")
+                    .getPUT()
+                    .getParameters()
+                    .get(0)
+            );
+            set3ValuesToNull(
+                openAPI.getComponents()
+                    .getParameters()
+                    .get("LanguageParam")
+            );
         }
         return openAPI;
+    }
+
+    private void set2ValuesToNull(Parameter languageParameter) {
+        languageParameter.setExplode(null);
+        languageParameter.setStyle(null);
+    }
+
+    private void set3ValuesToNull(Parameter languageParameter) {
+        languageParameter.setExplode(null);
+        languageParameter.setRequired(null);
+        languageParameter.setStyle(null);
     }
 
     @Override

@@ -29,6 +29,12 @@ public class StringUtil {
         if (string == null || string.isEmpty()) {
             return string;
         }
+        if (string.startsWith("API")) {
+            return "api" + string.substring(3);
+        }
+        if (string.startsWith("XML")) {
+            return "xml" + string.substring(3);
+        }
         return string.substring(0, 1)
             .toLowerCase() + string.substring(1);
     }

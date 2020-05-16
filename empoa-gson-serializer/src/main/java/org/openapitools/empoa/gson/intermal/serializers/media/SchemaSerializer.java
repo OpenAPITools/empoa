@@ -54,7 +54,7 @@ public class SchemaSerializer implements JsonSerializer<Schema> {
                 object.add("discriminator", context.serialize(src.getDiscriminator()));
             }
             if (src.getDefaultValue() != null) {
-                object.add("defaultValue", context.serialize(src.getDefaultValue()));
+                object.add("default", context.serialize(src.getDefaultValue()));
             }
             if (src.getEnumeration() != null) {
                 object.add("enum", context.serialize(src.getEnumeration()));
