@@ -24,7 +24,7 @@ public class OpenAPISerializerToYamlTest extends AbstractSpecTest {
 
     @Override
     protected void runTest(Specs spec) throws Exception {
-        OpenAPI openAPI = createOpenAPI(spec);
+        OpenAPI openAPI = getOpenAPISpec(spec);
         assertThat(openAPI).isNotNull();
 
         String expected = readFromResource(toResourceName(spec));
@@ -43,6 +43,8 @@ public class OpenAPISerializerToYamlTest extends AbstractSpecTest {
             return "/jackson-serializer/yaml/todoapp.yaml";
         case MULTIPLE_RESPONSES:
             return "/jackson-serializer/yaml/multiple-responses.yaml";
+        case BIG:
+            return "/jackson-serializer/yaml/big.yaml";
         default:
             throw new IllegalArgumentException("Unknown spec: " + spec);
         }

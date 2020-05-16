@@ -33,7 +33,7 @@ public class ServerVariableSerializer implements JsonSerializer<ServerVariable> 
             object.add("enum", context.serialize(src.getEnumeration()));
         }
         if (src.getDefaultValue() != null) {
-            object.add("defaultValue", context.serialize(src.getDefaultValue()));
+            object.add("default", context.serialize(src.getDefaultValue()));
         }
         if (src.getDescription() != null) {
             object.add("description", context.serialize(src.getDescription()));

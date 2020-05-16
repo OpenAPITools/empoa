@@ -22,6 +22,7 @@ import java.nio.file.Paths;
 import org.assertj.core.api.Assertions;
 import org.eclipse.microprofile.openapi.models.OpenAPI;
 import org.openapitools.empoa.extended.tck.AbstractSpecTest;
+import org.openapitools.empoa.extended.tck.specs.BigSpec;
 import org.openapitools.empoa.extended.tck.specs.HelloSpec;
 import org.openapitools.empoa.extended.tck.specs.MultipleResponsesSpec;
 import org.openapitools.empoa.extended.tck.specs.PingSpec;
@@ -54,7 +55,7 @@ public class JavaFileConverterTest extends AbstractSpecTest {
         String packageName = "org.openapitools.empoa.extended.tck.specs";
         String className = toClassName(spec);
 
-        OpenAPI openAPI = createOpenAPI(spec);
+        OpenAPI openAPI = getOpenAPISpec(spec);
         // tag::usage[]
         JavaFile javaFile = JavaFileConverter.createOpenAPI(openAPI, packageName, className);
         String javaCode = javaFile.toString();
@@ -77,6 +78,8 @@ public class JavaFileConverterTest extends AbstractSpecTest {
             return TodoappSpec.class.getSimpleName();
         case MULTIPLE_RESPONSES:
             return MultipleResponsesSpec.class.getSimpleName();
+        case BIG:
+            return BigSpec.class.getSimpleName();
         default:
             throw new IllegalArgumentException("Unknown spec: " + spec);
         }

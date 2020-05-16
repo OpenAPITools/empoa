@@ -25,11 +25,6 @@ import org.junit.jupiter.api.Test;
 
 public abstract class AbstractSerializerTest extends AbstractSpecTest {
 
-    protected static final String PING_JSON = "/extended-tck/specs/ping.json";
-    protected static final String HELLO_JSON = "/extended-tck/specs/hello.json";
-    protected static final String TODOAPP_JSON = "/extended-tck/specs/todoapp.json";
-    protected static final String MULTIPLE_RESPONSES_JSON = "/extended-tck/specs/multiple-responses.json";
-    protected static final String REF_WITH_SIBLING_VALUES_EXPECTED_JSON = "/extended-tck/specs/ref-with-sibling-values-expected.json";
     protected static final String REF_WITH_SIBLING_VALUES_INPUT_JSON = "/extended-tck/specs/ref-with-sibling-values.json";
 
     @Test
@@ -39,38 +34,16 @@ public abstract class AbstractSerializerTest extends AbstractSpecTest {
 
     @Override
     protected void runTest(Specs spec) throws Exception {
-        OpenAPI openAPI = createOpenAPI(spec);
+        OpenAPI openAPI = getOpenAPISpec(spec);
         assertThat(openAPI).isNotNull();
 
-        String expected = readExpectedFromResource(spec);
+        String expected = readJsonSpec(spec);
         String json = convertToJson(openAPI);
 
         assertThatJson(json).isEqualTo(expected);
     }
 
     protected abstract String convertToJson(OpenAPI openAPI) throws IOException;
-
-    private String readExpectedFromResource(Specs spec) throws IOException {
-        String name = toExpectedResourceName(spec);
-        return read(getClass().getResourceAsStream(name));
-    }
-
-    private String toExpectedResourceName(Specs spec) {
-        switch (spec) {
-        case PING:
-            return PING_JSON;
-        case HELLO:
-            return HELLO_JSON;
-        case TODOAPP:
-            return TODOAPP_JSON;
-        case MULTIPLE_RESPONSES:
-            return MULTIPLE_RESPONSES_JSON;
-        case REF_WITH_SIBLING_VALUES:
-            return REF_WITH_SIBLING_VALUES_EXPECTED_JSON;
-        default:
-            throw new IllegalArgumentException("Unknown spec: " + spec);
-        }
-    }
 
     protected String readInputFromResource(Specs spec) throws IOException {
         String name = toInputResourceName(spec);
@@ -87,6 +60,8 @@ public abstract class AbstractSerializerTest extends AbstractSpecTest {
             return TODOAPP_JSON;
         case MULTIPLE_RESPONSES:
             return MULTIPLE_RESPONSES_JSON;
+        case BIG:
+            return BIG_JSON;
         case REF_WITH_SIBLING_VALUES:
             return REF_WITH_SIBLING_VALUES_INPUT_JSON;
         default:

@@ -1,0 +1,307 @@
+---
+openapi: 3.0.1
+info:
+  title: Big Specification
+  description: This specification description
+  termsOfService: http://example.com/terms/
+  contact:
+    name: Support
+    url: http://www.example.com/support/
+    email: support@example.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: "1.0"
+servers:
+- url: http://api.example.com/
+  description: Main server
+- url: http://{version}.example-test.com:8080/{username}/
+  description: Test server
+  variables:
+    version:
+      default: v1
+      enum:
+      - v1
+      - v2
+      - v3
+    username:
+      default: alice
+      description: the developer username
+tags:
+- name: WIP
+  description: work-in-progress
+paths:
+  /tree/{name}:
+    get:
+      tags:
+      - WIP
+      summary: Return a tree of nodes
+      operationId: tree
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/text:
+              schema:
+                type: string
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Node'
+        4XX:
+          description: Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - basic-auth: []
+      - api-key-auth: []
+  /messages:
+    post:
+      summary: Create a message
+      operationId: postMessage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  format: int32
+                description:
+                  type: string
+                language:
+                  type: string
+                  default: EN
+                  enum:
+                  - EN
+                  - FR
+                  - DE
+                  - IT
+      responses:
+        200:
+          $ref: '#/components/responses/MessageResponse'
+  /messages/{id}:
+    get:
+      summary: Return a message
+      operationId: getMessage
+      parameters:
+      - $ref: '#/components/parameters/LanguageParam'
+      responses:
+        200:
+          $ref: '#/components/responses/MessageResponse'
+    put:
+      summary: Update a message
+      operationId: putMessage
+      parameters:
+      - name: force
+        in: query
+        schema:
+          type: boolean
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateBody'
+      responses:
+        200:
+          $ref: '#/components/responses/MessageResponse'
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  /subscribe:
+    post:
+      summary: Subscribe to a webhook
+      operationId: subscribeWebhook
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body'
+        required: true
+      responses:
+        201:
+          description: Webhook created
+      callbacks:
+        myEvent:
+          '{$request.body#/callbackUrl}':
+            post:
+              requestBody:
+                content:
+                  application/json:
+                    schema:
+                      type: object
+                      required:
+                      - message
+                      properties:
+                        message:
+                          type: string
+                          example: Some event happened
+                required: true
+              responses:
+                200:
+                  description: Your server returns this code if it accepts the callback
+        pingEvent:
+          $ref: '#/components/callbacks/PingCallback'
+components:
+  schemas:
+    Message:
+      type: object
+      properties:
+        value:
+          type: string
+        description:
+          type: string
+    Node:
+      type: object
+      properties:
+        name:
+          type: string
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/Node'
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    Body:
+      type: object
+      required:
+      - callbackUrl
+      properties:
+        callbackUrl:
+          type: string
+          format: uri
+          example: https://myserver.com/send/callback/here
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Info'
+    Info:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/SimpleInfo'
+      - $ref: '#/components/schemas/ExtendedInfo'
+      discriminator:
+        propertyName: infoType
+        mapping:
+          simple: '#/components/schemas/SimpleInfo'
+          extended: '#/components/schemas/ExtendedInfo'
+    SimpleInfo:
+      type: object
+      properties:
+        infoType:
+          type: string
+        description:
+          type: string
+    ExtendedInfo:
+      type: object
+      properties:
+        infoType:
+          type: string
+        code:
+          type: integer
+          format: int32
+        data:
+          type: object
+          not:
+            type: integer
+        info:
+          type: string
+    RootClass:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+        prop0:
+          type: string
+      discriminator:
+        propertyName: type
+    ParentObject:
+      allOf:
+      - $ref: '#/components/schemas/RootClass'
+      - type: object
+        properties:
+          prop1:
+            type: string
+          prop2:
+            type: string
+    ChildObject:
+      allOf:
+      - $ref: '#/components/schemas/ParentObject'
+      - type: object
+        properties:
+          prop3:
+            type: string
+          prop4:
+            type: string
+  responses:
+    MessageResponse:
+      description: OK
+      content:
+        '*/*':
+          schema:
+            $ref: '#/components/schemas/Message'
+  parameters:
+    LanguageParam:
+      name: language
+      in: query
+      description: Language of the message
+      schema:
+        type: string
+        enum:
+        - english
+        - french
+        - german
+        - italian
+  requestBodies:
+    UpdateBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              description:
+                type: string
+  securitySchemes:
+    basic-auth:
+      type: http
+      description: Login and password
+      scheme: basic
+    api-key-auth:
+      type: apiKey
+      name: X-ACCESS-API-KEY
+      in: header
+      scheme: basic
+  callbacks:
+    PingCallback:
+      '{$request.body#/callbackUrl}':
+        get:
+          parameters:
+          - name: x-callback-id
+            in: header
+            description: id
+            required: true
+            schema:
+              type: string
+            style: simple
+            explode: false
+          responses:
+            200:
+              description: Your server returns this code if it accepts the callback
