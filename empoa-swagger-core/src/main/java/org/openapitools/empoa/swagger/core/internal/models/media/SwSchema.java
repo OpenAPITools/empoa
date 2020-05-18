@@ -417,7 +417,8 @@ public class SwSchema implements Schema {
         if (_swSchema.getType() == null) {
             return null;
         }
-        switch (_swSchema.getType()) {
+        switch (_swSchema.getType()
+            .toLowerCase()) {
         case "array":
             return org.eclipse.microprofile.openapi.models.media.Schema.SchemaType.ARRAY;
         case "boolean":
@@ -431,7 +432,7 @@ public class SwSchema implements Schema {
         case "string":
             return org.eclipse.microprofile.openapi.models.media.Schema.SchemaType.STRING;
         default:
-            throw new IllegalStateException("Unexpected enum value");
+            throw new IllegalStateException("Unexpected enum value: " + _swSchema.getType());
         }
     }
 

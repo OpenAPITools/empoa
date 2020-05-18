@@ -131,7 +131,7 @@ public class SwHeader implements Header {
         case SIMPLE:
             return org.eclipse.microprofile.openapi.models.headers.Header.Style.SIMPLE;
         default:
-            throw new IllegalStateException("Unexpected enum value");
+            throw new IllegalStateException("Unexpected enum value: " + _swHeader.getStyle());
         }
     }
 
@@ -146,7 +146,7 @@ public class SwHeader implements Header {
                 value = io.swagger.v3.oas.models.headers.Header.StyleEnum.SIMPLE;
                 break;
             default:
-                throw new IllegalStateException("Unexpected enum value");
+                throw new IllegalStateException("Unexpected enum value: " + style);
             }
         }
         _swHeader.setStyle(value);
