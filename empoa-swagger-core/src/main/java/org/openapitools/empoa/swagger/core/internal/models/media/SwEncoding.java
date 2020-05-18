@@ -167,7 +167,7 @@ public class SwEncoding implements Encoding {
         case DEEP_OBJECT:
             return org.eclipse.microprofile.openapi.models.media.Encoding.Style.DEEP_OBJECT;
         default:
-            throw new IllegalStateException("Unexpected enum value");
+            throw new IllegalStateException("Unexpected enum value: " + _swEncoding.getStyle());
         }
     }
 
@@ -191,7 +191,7 @@ public class SwEncoding implements Encoding {
                 value = io.swagger.v3.oas.models.media.Encoding.StyleEnum.DEEP_OBJECT;
                 break;
             default:
-                throw new IllegalStateException("Unexpected enum value");
+                throw new IllegalStateException("Unexpected enum value: " + style);
             }
         }
         _swEncoding.setStyle(value);

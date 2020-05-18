@@ -15,8 +15,84 @@
  ******************************************************************************/
 package org.openapitools.empoa.swagger.core.tck.models.media;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.eclipse.microprofile.openapi.models.OpenAPI;
+import org.eclipse.microprofile.openapi.models.media.Schema;
+import org.junit.jupiter.api.Test;
 import org.openapitools.empoa.extended.tck.models.media.SchemaTest;
+import org.openapitools.empoa.swagger.core.internal.SwAdapter;
+
+import io.swagger.parser.OpenAPIParser;
+import io.swagger.v3.parser.core.models.ParseOptions;
+import io.swagger.v3.parser.core.models.SwaggerParseResult;
 
 public class SchemaTckTest extends SchemaTest {
 
+    @Test
+    void testGetType() throws Exception {
+        String content = "{\n" +
+            "    \"openapi\": \"3.0.1\",\n" +
+            "    \"info\": {\n" +
+            "        \"title\": \"Test Specification\",\n" +
+            "        \"version\": \"1.0\"\n" +
+            "    },\n" +
+            "    \"servers\": [\n" +
+            "        {\n" +
+            "            \"url\": \"http://localhost:8000/\"\n" +
+            "        }\n" +
+            "    ],\n" +
+            "    \"paths\": {\n" +
+            "        \"/test\": {\n" +
+            "            \"get\": {\n" +
+            "                \"responses\": {\n" +
+            "                    \"200\": {\n" +
+            "                        \"content\": {\n" +
+            "                            \"application/json\": {\n" +
+            "                                \"schema\": {\n" +
+            "                                    \"type\": \"object\",\n" +
+            "                                    \"properties\": {\n" +
+            "                                        \"code\": {\n" +
+            "                                            \"format\": \"int32\",\n" +
+            "                                            \"type\": \"Integer\"\n" +
+            "                                        },\n" +
+            "                                        \"message\": {\n" +
+            "                                            \"type\": \"String\"\n" +
+            "                                        }\n" +
+            "                                    }\n" +
+            "                                }\n" +
+            "                            }\n" +
+            "                        },\n" +
+            "                        \"description\": \"OK\"\n" +
+            "                    }\n" +
+            "                },\n" +
+            "                \"operationId\": \"testGet\"\n" +
+            "            }\n" +
+            "        }\n" +
+            "    }\n" +
+            "}";
+        final OpenAPIParser openApiParser = new OpenAPIParser();
+        final ParseOptions options = new ParseOptions();
+        final SwaggerParseResult parserResult = openApiParser.readContents(content, null, options);
+
+        OpenAPI openAPI = SwAdapter.toOpenAPI(parserResult.getOpenAPI());
+        Schema schema = openAPI.getPaths()
+            .getPathItem("/test")
+            .getGET()
+            .getResponses()
+            .getAPIResponse("200")
+            .getContent()
+            .getMediaType("application/json")
+            .getSchema();
+        assertThat(
+            schema.getProperties()
+                .get("code")
+                .getType()
+        ).isEqualTo(Schema.SchemaType.INTEGER);
+        assertThat(
+            schema.getProperties()
+                .get("message")
+                .getType()
+        ).isEqualTo(Schema.SchemaType.STRING);
+    }
 }

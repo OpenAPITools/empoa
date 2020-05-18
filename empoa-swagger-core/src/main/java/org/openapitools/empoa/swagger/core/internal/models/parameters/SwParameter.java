@@ -95,7 +95,8 @@ public class SwParameter implements Parameter {
         if (_swParameter.getIn() == null) {
             return null;
         }
-        switch (_swParameter.getIn()) {
+        switch (_swParameter.getIn()
+            .toLowerCase()) {
         case "cookie":
             return org.eclipse.microprofile.openapi.models.parameters.Parameter.In.COOKIE;
         case "header":
@@ -105,7 +106,7 @@ public class SwParameter implements Parameter {
         case "query":
             return org.eclipse.microprofile.openapi.models.parameters.Parameter.In.QUERY;
         default:
-            throw new IllegalStateException("Unexpected enum value");
+            throw new IllegalStateException("Unexpected enum value: " + _swParameter.getIn());
         }
     }
 
@@ -179,7 +180,7 @@ public class SwParameter implements Parameter {
         case DEEPOBJECT:
             return org.eclipse.microprofile.openapi.models.parameters.Parameter.Style.DEEPOBJECT;
         default:
-            throw new IllegalStateException("Unexpected enum value");
+            throw new IllegalStateException("Unexpected enum value: " + _swParameter.getStyle());
         }
     }
 
@@ -212,7 +213,7 @@ public class SwParameter implements Parameter {
                 value = io.swagger.v3.oas.models.parameters.Parameter.StyleEnum.DEEPOBJECT;
                 break;
             default:
-                throw new IllegalStateException("Unexpected enum value");
+                throw new IllegalStateException("Unexpected enum value: " + style);
             }
         }
         _swParameter.setStyle(value);
