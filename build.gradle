@@ -1,7 +1,14 @@
+buildscript {
+    dependencies {
+        classpath "de.marcphilipp.gradle:nexus-publish-plugin:0.3.0"
+    }
+}
+
 plugins {
     id 'org.asciidoctor.convert' version '2.4.0'
     id 'org.ajoberstar.git-publish' version '2.0.0'
     id 'net.researchgate.release' version '2.6.0'
+    id 'io.codearte.nexus-staging' version '0.21.0'
 }
 
 wrapper {
@@ -11,6 +18,7 @@ wrapper {
 allprojects {
     apply plugin: 'maven-publish'
     apply plugin: 'signing'
+    apply plugin: 'de.marcphilipp.nexus-publish'
 
     group = 'org.openapitools.empoa'
 }
@@ -25,17 +33,20 @@ subprojects {
         }
     }
 
-    publishing {
+    nexusPublishing {
         repositories {
-            maven {
-                url = version.endsWith('SNAPSHOT') ? mavenPublishUrlSnapshot : mavenPublishUrlRelease
-                credentials {
-                    username = project.findProperty('sonatypeUser') ?: ''
-                    password = project.findProperty('sonatypePassword') ?: ''
-                }
+            sonatype {
+                username = project.findProperty('sonatypeUser') ?: ''
+                password = project.findProperty('sonatypePassword') ?: ''
             }
         }
     }
+}
+
+nexusStaging {
+    packageGroup = 'org.openapitools'
+    username = project.findProperty('sonatypeUser') ?: ''
+    password = project.findProperty('sonatypePassword') ?: ''
 }
 
 def buildDate() {
