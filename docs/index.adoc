@@ -88,6 +88,7 @@ include::../empoa-jackson-serializer/README.adoc[leveloffset=3]
 
 include::../empoa-javapoet/README.adoc[leveloffset=3]
 
+include::../empoa-util/README.adoc[leveloffset=3]
 
 [[helper]]
 === Helper projects
