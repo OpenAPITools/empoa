@@ -1,0 +1,100 @@
+:module-name: EMPOA Util
+:module-artifactId: empoa-util
+
+ifndef::artifacts-version[]
+:artifacts-version-mvn: ${empoa-version}
+endif::[]
+ifdef::artifacts-version[]
+:artifacts-version-mvn: {artifacts-version}
+endif::[]
+
+= {module-name}
+
+[[lst-util-mvn]]
+[source, xml, subs="verbatim,attributes"]
+.Maven coordinates of the '{module-name}' project
+----
+<dependency>
+  <groupId>org.openapitools.empoa</groupId>
+  <artifactId>{module-artifactId}</artifactId>
+  <version>{artifacts-version-mvn}</version>
+</dependency>
+----
+
+This project is adding some features to the Eclipse MicroProfile OpenAPI interfaces (`org.eclipse.microprofile.openapi.models` package and sub-pacakges):
+
+== Visitor pattern
+
+If you need to apply a visitor pattern approach to an OpenAPI specification, you can implement the `OASVisitor` interface or extends the `OASVisitorAdapter` class.
+Then all the accept methods are defined in the `OASAccept` class.
+
+When the `visit(..)` method is called for a member of the OpenAPI specification, in addition to the instance of the object, you also get the JSONPath value that you could use to navigate to this object when the specification is serialized to JSON.
+
+Example:
+
+If you want to collect all `operationId` of all operations, you can use a visitor as implemented in <<lst-visitor>>.
+
+[[lst-visitor]]
+[source, java]
+.An example visitor that collects all operations id with its associated JSONPath
+----
+include::src/test/java/org/openapitools/empoa/util/visitor/OperationIdVisitor.java[tags="usage"]
+----
+<1> Store the jsonPath and the `operationId` value in the map.
+<2> Indicates to continue with with the traversal of the OpenAPI specification
+<3> Indicates to stop, because we do not need to check the entities inside the `components` section
+
+For a given OpenAPI specification, this visitor can be used to collect all the values as presented in <<lst-accept-usage>>.
+
+[[lst-accept-usage]]
+[source, java, indent=0]
+.Usage of a visitor on a given OpenAPI specification
+----
+include::src/test/java/org/openapitools/empoa/util/visitor/OASAcceptTest.java[tags="usage"]
+----
+<1> Start visiting the OpenAPI tree
+
+After visiting the simple `Ping` specification (see the OpenAPI file: link:https://github.com/OpenAPITools/empoa/blob/master/empoa-extended-tck/src/main/resources/extended-tck/specs/ping.json[ping.json] on GitHub), the `operationIds` map contains one single entry:
+
+* key: `$.paths.['/ping'].get.operationId`
+* value: `pingGet`
+
+== Equals utility
+
+The `OASEquals` utility checks if two instances of an OpenAPI element are equals or not, from an OpenAPI point of view (regardless of the implementation of their `equals` methods).
+They are considered equals if they produce the same JSON or YAML tree when they are serialized.
+See <<lst-equals-usage>> for a usage example.
+
+[[lst-equals-usage]]
+[source, java, indent=0]
+.Comparison of two schemas
+----
+include::src/test/java/org/openapitools/empoa/util/equals/OASEqualsTest.java[tags="usage"]
+----
+
+== Copy utility
+
+The `OASCopy` utility class creates a copy of a given OpenAPI element instance.
+See <<lst-copy-usage>> for a usage example.
+
+[[lst-copy-usage]]
+[source, java, indent=0]
+.Copy of a PathItem instance
+----
+include::src/test/java/org/openapitools/empoa/util/copy/OASCopyTest.java[tags="usage"]
+----
+
+== Merge utility
+
+The `OASMerge` utility provides methods to merge the content of one element of an OpenAPI specification into an other element of the same type.
+Only non-null values are copied. 
+Maps are merged (if two entry have the same key those items are merged).
+List are also merged: items of the list are added only if they are not already present.
+See <<lst-merge-usage>> for a usage example.
+
+[[lst-merge-usage]]
+[source, java, indent=0]
+.Merge one Operation object into an other one
+----
+include::src/test/java/org/openapitools/empoa/util/merge/OASMergeTest.java[tags="usage"]
+----

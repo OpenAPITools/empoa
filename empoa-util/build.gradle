@@ -1,0 +1,78 @@
+plugins {
+    id 'java-library'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+test {
+    useJUnitPlatform() 
+}
+
+dependencies {
+    api "org.eclipse.microprofile.openapi:microprofile-openapi-api:$mpOpenAPIVersion"
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    testImplementation "org.assertj:assertj-core:$assertjVersion"
+    testImplementation project(':empoa-extended-tck')
+    testImplementation project(':empoa-gson-serializer')
+    testImplementation "com.jayway.jsonpath:json-path:$jsonpathVersion"
+
+    testRuntime project(':empoa-simple-models-impl')
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar) {
+    from javadoc
+    classifier = 'javadoc'
+}
+
+signing {
+    useGpgCmd()
+    sign(publishing.publications)
+}
+
+tasks.withType(Sign) {
+    onlyIf {
+        project.hasProperty('signing.gnupg.keyName')
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            pom {
+                name = 'EMPOA Util'
+                description = 'Util for Eclipse MicroProfile OpenAPI interfaces'
+                packaging = 'jar'
+                url = 'https://' + "$githubRepositoryOwner" + '.github.io/' + "$githubRepositoryName" + '/'
+                licenses {
+                    license {
+                        name = 'Apache 2.0 License'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'jmini'
+                        name = 'Jeremie Bresson'
+                        email = 'dev@jmini.fr'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:https://github.com/' + "$githubRepositoryOwner" + '/' + "$githubRepositoryName" + '.git'
+                    developerConnection = 'scm:git:https://github.com/' + "$githubRepositoryOwner" + '/' + "$githubRepositoryName" + '.git'
+                    url = 'https://github.com/' + "$githubRepositoryOwner" + '/' + "$githubRepositoryName" + '/'
+                }
+            }
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+}
