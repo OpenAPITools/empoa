@@ -433,6 +433,12 @@
         }
       }
     },
+    "examples": {
+      "ExampleEntry": {
+        "description": "Some description",
+        "x-test": "value"
+      }
+    },
     "requestBodies": {
       "UpdateBody": {
         "content": {
@@ -452,6 +458,13 @@
         }
       }
     },
+    "headers": {
+      "HeaderEntry": {
+        "description": "Some description",
+        "style": "simple",
+        "x-test": "value"
+      }
+    },
     "securitySchemes": {
       "basic-auth": {
         "type": "http",
@@ -463,6 +476,13 @@
         "name": "X-ACCESS-API-KEY",
         "in": "header",
         "scheme": "basic"
+      }
+    },
+    "links": {
+      "LinkEntry": {
+        "description": "Some description",
+        "operationId": "postMessage",
+        "x-test": "value"
       }
     },
     "callbacks": {

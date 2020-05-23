@@ -18,6 +18,7 @@ package org.openapitools.empoa.extended.tck.specs;
 import static org.eclipse.microprofile.openapi.OASFactory.*;
 
 import org.eclipse.microprofile.openapi.models.OpenAPI;
+import org.eclipse.microprofile.openapi.models.headers.Header;
 import org.eclipse.microprofile.openapi.models.media.Schema;
 import org.eclipse.microprofile.openapi.models.parameters.Parameter;
 import org.eclipse.microprofile.openapi.models.security.SecurityScheme;
@@ -511,6 +512,11 @@ public final class BigSpec {
                                     .type(Schema.SchemaType.STRING)
                             )
                     )
+                    .addExample(
+                        "ExampleEntry", createExample()
+                            .description("Some description")
+                            .addExtension("x-test", "value")
+                    )
                     .addRequestBody(
                         "UpdateBody", createRequestBody()
                             .content(
@@ -532,6 +538,12 @@ public final class BigSpec {
                                     )
                             )
                     )
+                    .addHeader(
+                        "HeaderEntry", createHeader()
+                            .description("Some description")
+                            .style(Header.Style.SIMPLE)
+                            .addExtension("x-test", "value")
+                    )
                     .addSecurityScheme(
                         "basic-auth", createSecurityScheme()
                             .type(SecurityScheme.Type.HTTP)
@@ -544,6 +556,12 @@ public final class BigSpec {
                             .name("X-ACCESS-API-KEY")
                             .in(SecurityScheme.In.HEADER)
                             .scheme("basic")
+                    )
+                    .addLink(
+                        "LinkEntry", createLink()
+                            .operationId("postMessage")
+                            .description("Some description")
+                            .addExtension("x-test", "value")
                     )
                     .addCallback(
                         "PingCallback", createCallback()

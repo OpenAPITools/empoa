@@ -80,6 +80,10 @@ public class ParserAndSerializerWithGsonTckTest extends AbstractSerializerTest {
                     .getParameters()
                     .get("LanguageParam")
             );
+            openAPI.getComponents()
+                .getHeaders()
+                .get("HeaderEntry")
+                .setExplode(null);
         }
         return openAPI;
     }

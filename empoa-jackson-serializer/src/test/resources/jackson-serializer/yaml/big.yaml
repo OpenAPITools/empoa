@@ -268,6 +268,10 @@ components:
         - french
         - german
         - italian
+  examples:
+    ExampleEntry:
+      description: Some description
+      x-test: value
   requestBodies:
     UpdateBody:
       content:
@@ -279,6 +283,11 @@ components:
                 type: string
               description:
                 type: string
+  headers:
+    HeaderEntry:
+      description: Some description
+      style: simple
+      x-test: value
   securitySchemes:
     basic-auth:
       type: http
@@ -289,6 +298,11 @@ components:
       name: X-ACCESS-API-KEY
       in: header
       scheme: basic
+  links:
+    LinkEntry:
+      operationId: postMessage
+      description: Some description
+      x-test: value
   callbacks:
     PingCallback:
       '{$request.body#/callbackUrl}':
