@@ -28,6 +28,7 @@ import org.eclipse.microprofile.openapi.models.parameters.Parameter;
 import org.eclipse.microprofile.openapi.models.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.models.responses.APIResponse;
 import org.eclipse.microprofile.openapi.models.security.SecurityScheme;
+import org.openapitools.empoa.util.visitor.OASAccept;
 
 public class OASUtil {
 
@@ -40,6 +41,15 @@ public class OASUtil {
     public static final String REF_PREFIX_REQUEST_BODY = "#/components/requestBodies/";
     public static final String REF_PREFIX_SCHEMA = "#/components/schemas/";
     public static final String REF_PREFIX_SECURITY_SCHEME = "#/components/securitySchemes/";
+
+    public static void sortMaps(OpenAPI openAPI) {
+        sortMaps(openAPI, new SortMapsConfig());
+    }
+
+    public static void sortMaps(OpenAPI openAPI, SortMapsConfig config) {
+        SortMapsVisitor visitor = new SortMapsVisitor(config);
+        OASAccept.accept(visitor, openAPI);
+    }
 
     public static boolean containsAPIResponse(OpenAPI openAPI, String refValue) {
         String simpleName = toSimpleName(REF_PREFIX_API_RESPONSE, refValue);

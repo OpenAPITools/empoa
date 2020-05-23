@@ -15,7 +15,20 @@
  ******************************************************************************/
 package org.openapitools.empoa.util.test;
 
+import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.eclipse.microprofile.openapi.OASFactory.createAPIResponse;
+import static org.eclipse.microprofile.openapi.OASFactory.createAPIResponses;
+import static org.eclipse.microprofile.openapi.OASFactory.createComponents;
+import static org.eclipse.microprofile.openapi.OASFactory.createInfo;
+import static org.eclipse.microprofile.openapi.OASFactory.createOpenAPI;
+import static org.eclipse.microprofile.openapi.OASFactory.createOperation;
+import static org.eclipse.microprofile.openapi.OASFactory.createPathItem;
+import static org.eclipse.microprofile.openapi.OASFactory.createPaths;
+import static org.eclipse.microprofile.openapi.OASFactory.createSchema;
+import static org.eclipse.microprofile.openapi.OASFactory.createServer;
+import static org.eclipse.microprofile.openapi.OASFactory.createServerVariable;
+import static org.eclipse.microprofile.openapi.OASFactory.createServerVariables;
 
 import org.eclipse.microprofile.openapi.models.OpenAPI;
 import org.eclipse.microprofile.openapi.models.callbacks.Callback;
@@ -30,9 +43,229 @@ import org.eclipse.microprofile.openapi.models.security.SecurityScheme;
 import org.junit.jupiter.api.Test;
 import org.openapitools.empoa.extended.tck.specs.BigSpec;
 import org.openapitools.empoa.extended.tck.specs.PingSpec;
+import org.openapitools.empoa.gson.OASGsonSerializer;
 import org.openapitools.empoa.util.OASUtil;
+import org.openapitools.empoa.util.SortMapsConfig;
+
+import com.google.gson.Gson;
 
 public class OASUtilTest {
+
+    @Test
+    public void testSortMapsBigSpec() throws Exception {
+        Gson gson = OASGsonSerializer.instance();
+
+        OpenAPI openAPI = BigSpec.create();
+        OASUtil.sortMaps(openAPI);
+        String sortedJson = gson.toJson(openAPI);
+
+        String orignalJson = gson.toJson(BigSpec.create());
+        assertThat(sortedJson).isNotEqualTo(orignalJson);
+        assertThatJson(sortedJson).isEqualTo(orignalJson);
+    }
+
+    @Test
+    public void testSortMapsWithConfig() throws Exception {
+        OpenAPI spec = createOpenAPI()
+            .openapi("3.0.1")
+            .info(
+                createInfo()
+                    .title("Example Specification")
+                    .version("1.0")
+            )
+            .addServer(
+                createServer()
+                    .url("http://api.com/{a}/{b}/{c}")
+                    .description("Main server")
+                    .variables(
+                        createServerVariables()
+                            .addServerVariable("b", createServerVariable().description("b var"))
+                            .addServerVariable("c", createServerVariable().description("c var"))
+                            .addServerVariable("a", createServerVariable().description("a var"))
+                    )
+            )
+            .paths(
+                createPaths()
+                    .addPathItem(
+                        "/c", createPathItem()
+                            .GET(
+                                createOperation()
+                                    .operationId("opC")
+                                    .responses(
+                                        createAPIResponses()
+                                            .addAPIResponse(
+                                                "200", createAPIResponse()
+                                                    .description("OK")
+                                            )
+                                    )
+                            )
+                    )
+                    .addPathItem(
+                        "/a", createPathItem()
+                            .GET(
+                                createOperation()
+                                    .operationId("opA")
+                                    .responses(
+                                        createAPIResponses()
+                                            .addAPIResponse(
+                                                "400", createAPIResponse()
+                                                    .description("Error")
+                                            )
+                                            .addAPIResponse(
+                                                "default", createAPIResponse()
+                                                    .description("Default")
+                                            )
+                                            .addAPIResponse(
+                                                "200", createAPIResponse()
+                                                    .description("OK")
+                                            )
+                                    )
+                            )
+                    )
+                    .addPathItem(
+                        "/b", createPathItem()
+                            .GET(
+                                createOperation()
+                                    .operationId("opB")
+                                    .responses(
+                                        createAPIResponses()
+                                            .addAPIResponse(
+                                                "200", createAPIResponse()
+                                                    .description("OK")
+                                            )
+                                    )
+                                    .addExtension("x-a-extension", "value1")
+                                    .addExtension("x-c-extension", "value2")
+                                    .addExtension("x-b-extension", "value3")
+                            )
+                    )
+            )
+            .components(
+                createComponents()
+                    .addSchema(
+                        "Foo", createSchema()
+                            .type(Schema.SchemaType.OBJECT)
+                            .addProperty(
+                                "value", createSchema()
+                                    .type(Schema.SchemaType.STRING)
+                            )
+                            .addProperty(
+                                "description", createSchema()
+                                    .type(Schema.SchemaType.STRING)
+                            )
+                    )
+                    .addSchema(
+                        "Bar", createSchema()
+                            .type(Schema.SchemaType.OBJECT)
+                            .addProperty(
+                                "abc", createSchema()
+                                    .type(Schema.SchemaType.STRING)
+                            )
+                            .addProperty(
+                                "zyx", createSchema()
+                                    .type(Schema.SchemaType.STRING)
+                            )
+                    )
+            );
+        SortMapsConfig config = new SortMapsConfig().sortSchemaProperties(false);
+        OASUtil.sortMaps(spec, config);
+
+        Gson gson = OASGsonSerializer.instance();
+        String sortedJson = gson.toJson(spec);
+        String expected = "{\n" +
+            "  \"openapi\": \"3.0.1\",\n" +
+            "  \"info\": {\n" +
+            "    \"title\": \"Example Specification\",\n" +
+            "    \"version\": \"1.0\"\n" +
+            "  },\n" +
+            "  \"servers\": [\n" +
+            "    {\n" +
+            "      \"url\": \"http://api.com/{a}/{b}/{c}\",\n" +
+            "      \"description\": \"Main server\",\n" +
+            "      \"variables\": {\n" +
+            "        \"a\": {\n" +
+            "          \"description\": \"a var\"\n" +
+            "        },\n" +
+            "        \"b\": {\n" +
+            "          \"description\": \"b var\"\n" +
+            "        },\n" +
+            "        \"c\": {\n" +
+            "          \"description\": \"c var\"\n" +
+            "        }\n" +
+            "      }\n" +
+            "    }\n" +
+            "  ],\n" +
+            "  \"paths\": {\n" +
+            "    \"/a\": {\n" +
+            "      \"get\": {\n" +
+            "        \"operationId\": \"opA\",\n" +
+            "        \"responses\": {\n" +
+            "          \"200\": {\n" +
+            "            \"description\": \"OK\"\n" +
+            "          },\n" +
+            "          \"400\": {\n" +
+            "            \"description\": \"Error\"\n" +
+            "          },\n" +
+            "          \"default\": {\n" +
+            "            \"description\": \"Default\"\n" +
+            "          }\n" +
+            "        }\n" +
+            "      }\n" +
+            "    },\n" +
+            "    \"/b\": {\n" +
+            "      \"get\": {\n" +
+            "        \"operationId\": \"opB\",\n" +
+            "        \"responses\": {\n" +
+            "          \"200\": {\n" +
+            "            \"description\": \"OK\"\n" +
+            "          }\n" +
+            "        },\n" +
+            "        \"x-a-extension\": \"value1\",\n" +
+            "        \"x-b-extension\": \"value3\",\n" +
+            "        \"x-c-extension\": \"value2\"\n" +
+            "      }\n" +
+            "    },\n" +
+            "    \"/c\": {\n" +
+            "      \"get\": {\n" +
+            "        \"operationId\": \"opC\",\n" +
+            "        \"responses\": {\n" +
+            "          \"200\": {\n" +
+            "            \"description\": \"OK\"\n" +
+            "          }\n" +
+            "        }\n" +
+            "      }\n" +
+            "    }\n" +
+            "  },\n" +
+            "  \"components\": {\n" +
+            "    \"schemas\": {\n" +
+            "      \"Bar\": {\n" +
+            "        \"type\": \"object\",\n" +
+            "        \"properties\": {\n" +
+            "          \"abc\": {\n" +
+            "            \"type\": \"string\"\n" +
+            "          },\n" +
+            "          \"zyx\": {\n" +
+            "            \"type\": \"string\"\n" +
+            "          }\n" +
+            "        }\n" +
+            "      },\n" +
+            "      \"Foo\": {\n" +
+            "        \"type\": \"object\",\n" +
+            "        \"properties\": {\n" +
+            "          \"value\": {\n" +
+            "            \"type\": \"string\"\n" +
+            "          },\n" +
+            "          \"description\": {\n" +
+            "            \"type\": \"string\"\n" +
+            "          }\n" +
+            "        }\n" +
+            "      }\n" +
+            "    }\n" +
+            "  }\n" +
+            "}";
+        assertThat(sortedJson).isEqualTo(expected);
+
+    }
 
     @Test
     public void testContainsAPIResponse() throws Exception {
