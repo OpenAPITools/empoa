@@ -14,6 +14,7 @@ dependencies {
 
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
     testImplementation "org.assertj:assertj-core:$assertjVersion"
+    testImplementation "net.javacrumbs.json-unit:json-unit-assertj:$jsonUnitVersion"
     testImplementation project(':empoa-extended-tck')
     testImplementation project(':empoa-gson-serializer')
     testImplementation "com.jayway.jsonpath:json-path:$jsonpathVersion"
