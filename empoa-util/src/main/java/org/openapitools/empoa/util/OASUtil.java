@@ -19,6 +19,9 @@ import java.util.Optional;
 
 import org.eclipse.microprofile.openapi.OASFactory;
 import org.eclipse.microprofile.openapi.models.OpenAPI;
+import org.eclipse.microprofile.openapi.models.Operation;
+import org.eclipse.microprofile.openapi.models.PathItem;
+import org.eclipse.microprofile.openapi.models.PathItem.HttpMethod;
 import org.eclipse.microprofile.openapi.models.callbacks.Callback;
 import org.eclipse.microprofile.openapi.models.examples.Example;
 import org.eclipse.microprofile.openapi.models.headers.Header;
@@ -293,6 +296,43 @@ public class OASUtil {
 
     private static String toSimpleName(String refPrefix, String refValue) {
         return refValue.startsWith(refPrefix) ? refValue.substring(refPrefix.length()) : refValue;
+    }
+
+    public static void setOperation(PathItem pathItem, HttpMethod httpMethod, Operation operation) {
+        if (pathItem == null) {
+            throw new IllegalArgumentException("parameter pathItem can not be null");
+        }
+        if (httpMethod == null) {
+            throw new IllegalArgumentException("parameter httpMethod can not be null");
+        }
+        switch (httpMethod) {
+        case DELETE:
+            pathItem.setDELETE(operation);
+            break;
+        case GET:
+            pathItem.setGET(operation);
+            break;
+        case HEAD:
+            pathItem.setHEAD(operation);
+            break;
+        case OPTIONS:
+            pathItem.setOPTIONS(operation);
+            break;
+        case PATCH:
+            pathItem.setPATCH(operation);
+            break;
+        case POST:
+            pathItem.setPOST(operation);
+            break;
+        case PUT:
+            pathItem.setPUT(operation);
+            break;
+        case TRACE:
+            pathItem.setTRACE(operation);
+            break;
+        default:
+            throw new IllegalArgumentException("Unexpected httpMethod: " + httpMethod);
+        }
     }
 
 }
