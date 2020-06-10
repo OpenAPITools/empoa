@@ -17,6 +17,7 @@ package org.openapitools.empoa.util.test;
 
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.eclipse.microprofile.openapi.OASFactory.createAPIResponse;
 import static org.eclipse.microprofile.openapi.OASFactory.createAPIResponses;
 import static org.eclipse.microprofile.openapi.OASFactory.createComponents;
@@ -31,6 +32,9 @@ import static org.eclipse.microprofile.openapi.OASFactory.createServerVariable;
 import static org.eclipse.microprofile.openapi.OASFactory.createServerVariables;
 
 import org.eclipse.microprofile.openapi.models.OpenAPI;
+import org.eclipse.microprofile.openapi.models.Operation;
+import org.eclipse.microprofile.openapi.models.PathItem;
+import org.eclipse.microprofile.openapi.models.PathItem.HttpMethod;
 import org.eclipse.microprofile.openapi.models.callbacks.Callback;
 import org.eclipse.microprofile.openapi.models.examples.Example;
 import org.eclipse.microprofile.openapi.models.headers.Header;
@@ -454,5 +458,78 @@ public class OASUtilTest {
         assertThat(OASUtil.findReferencedSecurityScheme(openAPI, "xxx")).isEmpty();
         assertThat(OASUtil.findReferencedSecurityScheme(openAPI, "basic-auth")).contains(item);
         assertThat(OASUtil.findReferencedSecurityScheme(openAPI, "#/components/securitySchemes/basic-auth")).contains(item);
+    }
+
+    @Test
+    public void testSetOperation() throws Exception {
+        // test with GET:
+        PathItem pathItemGET = createPathItem();
+        Operation operationGET = createOperation().description("This is some GET op");
+        OASUtil.setOperation(pathItemGET, HttpMethod.GET, operationGET);
+        assertThat(pathItemGET.getGET()).isEqualTo(operationGET);
+        OASUtil.setOperation(pathItemGET, HttpMethod.GET, null);
+        assertThat(pathItemGET.getGET()).isNull();
+
+        // test with POST:
+        PathItem pathItemPOST = createPathItem();
+        Operation operationPOST = createOperation().description("This is some POST op");
+        OASUtil.setOperation(pathItemPOST, HttpMethod.POST, operationPOST);
+        assertThat(pathItemPOST.getPOST()).isEqualTo(operationPOST);
+        OASUtil.setOperation(pathItemPOST, HttpMethod.POST, null);
+        assertThat(pathItemPOST.getPOST()).isNull();
+
+        // test with PUT:
+        PathItem pathItemPUT = createPathItem();
+        Operation operationPUT = createOperation().description("This is some PUT op");
+        OASUtil.setOperation(pathItemPUT, HttpMethod.PUT, operationPUT);
+        assertThat(pathItemPUT.getPUT()).isEqualTo(operationPUT);
+        OASUtil.setOperation(pathItemPUT, HttpMethod.PUT, null);
+        assertThat(pathItemPUT.getPUT()).isNull();
+
+        // test with PATCH:
+        PathItem pathItemPATCH = createPathItem();
+        Operation operationPATCH = createOperation().description("This is some PATCH op");
+        OASUtil.setOperation(pathItemPATCH, HttpMethod.PATCH, operationPATCH);
+        assertThat(pathItemPATCH.getPATCH()).isEqualTo(operationPATCH);
+        OASUtil.setOperation(pathItemPATCH, HttpMethod.PATCH, null);
+        assertThat(pathItemPATCH.getPATCH()).isNull();
+
+        // test with DELETE:
+        PathItem pathItemDELETE = createPathItem();
+        Operation operationDELETE = createOperation().description("This is some DELETE op");
+        OASUtil.setOperation(pathItemDELETE, HttpMethod.DELETE, operationDELETE);
+        assertThat(pathItemDELETE.getDELETE()).isEqualTo(operationDELETE);
+        OASUtil.setOperation(pathItemDELETE, HttpMethod.DELETE, null);
+        assertThat(pathItemDELETE.getDELETE()).isNull();
+
+        // test with HEAD:
+        PathItem pathItemHEAD = createPathItem();
+        Operation operationHEAD = createOperation().description("This is some HEAD op");
+        OASUtil.setOperation(pathItemHEAD, HttpMethod.HEAD, operationHEAD);
+        assertThat(pathItemHEAD.getHEAD()).isEqualTo(operationHEAD);
+        OASUtil.setOperation(pathItemHEAD, HttpMethod.HEAD, null);
+        assertThat(pathItemHEAD.getHEAD()).isNull();
+
+        // test with OPTIONS:
+        PathItem pathItemOPTIONS = createPathItem();
+        Operation operationOPTIONS = createOperation().description("This is some OPTIONS op");
+        OASUtil.setOperation(pathItemOPTIONS, HttpMethod.OPTIONS, operationOPTIONS);
+        assertThat(pathItemOPTIONS.getOPTIONS()).isEqualTo(operationOPTIONS);
+        OASUtil.setOperation(pathItemOPTIONS, HttpMethod.OPTIONS, null);
+        assertThat(pathItemOPTIONS.getOPTIONS()).isNull();
+
+        // test with TRACE:
+        PathItem pathItemTRACE = createPathItem();
+        Operation operationTRACE = createOperation().description("This is some TRACE op");
+        OASUtil.setOperation(pathItemTRACE, HttpMethod.TRACE, operationTRACE);
+        assertThat(pathItemTRACE.getTRACE()).isEqualTo(operationTRACE);
+        OASUtil.setOperation(pathItemTRACE, HttpMethod.TRACE, null);
+        assertThat(pathItemTRACE.getTRACE()).isNull();
+
+        // test with null:
+        PathItem pathItem = createPathItem();
+        Operation operation = createOperation().description("This is some op");
+        assertThatThrownBy(() -> OASUtil.setOperation(pathItem, null, operation)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> OASUtil.setOperation(null, HttpMethod.GET, operation)).isInstanceOf(IllegalArgumentException.class);
     }
 }
