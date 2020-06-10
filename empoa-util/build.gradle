@@ -21,6 +21,7 @@ dependencies {
 
     testRuntime project(':empoa-simple-models-impl')
     testRuntime "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    testRuntime "ch.qos.logback:logback-classic:$logbackVersion"
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
