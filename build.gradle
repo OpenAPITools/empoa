@@ -5,6 +5,7 @@ buildscript {
 }
 
 plugins {
+    id 'com.diffplug.gradle.spotless' version '3.27.1' apply false
     id 'org.asciidoctor.convert' version '2.4.0'
     id 'org.ajoberstar.git-publish' version '2.0.0'
     id 'net.researchgate.release' version '2.6.0'
@@ -24,6 +25,18 @@ allprojects {
 }
 
 subprojects {
+    apply plugin: 'com.diffplug.gradle.spotless'
+
+    spotless {
+        java {
+            importOrder 'java', 'javax', 'org', 'com', ''
+            removeUnusedImports()
+
+            // available versions are: https://github.com/diffplug/spotless/tree/master/lib-extra/src/main/resources/com/diffplug/spotless/extra/eclipse_jdt_formatter
+            eclipse('4.13.0').configFile('.settings/org.eclipse.jdt.core.prefs')
+        }
+    }
+
     repositories {
         // mavenLocal()
         mavenCentral()
