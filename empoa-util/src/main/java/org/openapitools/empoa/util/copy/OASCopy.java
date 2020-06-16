@@ -692,8 +692,12 @@ public class OASCopy {
                 to.addProperty(entry.getKey(), copy(entry.getValue()));
             }
         }
-        to.setAdditionalPropertiesSchema(copy(from.getAdditionalPropertiesSchema()));
-        to.setAdditionalPropertiesBoolean(from.getAdditionalPropertiesBoolean());
+        if (from.getAdditionalPropertiesBoolean() != null) {
+            to.setAdditionalPropertiesBoolean(from.getAdditionalPropertiesBoolean());
+        }
+        if (from.getAdditionalPropertiesSchema() != null) {
+            to.setAdditionalPropertiesSchema(copy(from.getAdditionalPropertiesSchema()));
+        }
         to.setDescription(from.getDescription());
         to.setFormat(from.getFormat());
         to.setNullable(from.getNullable());

@@ -36,6 +36,7 @@ import org.eclipse.microprofile.openapi.models.media.Discriminator;
 import org.eclipse.microprofile.openapi.models.media.Encoding;
 import org.eclipse.microprofile.openapi.models.media.MediaType;
 import org.eclipse.microprofile.openapi.models.media.Schema;
+import org.eclipse.microprofile.openapi.models.media.Schema.SchemaType;
 import org.eclipse.microprofile.openapi.models.media.XML;
 import org.eclipse.microprofile.openapi.models.parameters.Parameter;
 import org.eclipse.microprofile.openapi.models.parameters.RequestBody;
@@ -402,6 +403,21 @@ public class OASCopyTest {
         Schema copy3 = OASCopy.copy(original3);
         assertThat(copy3).isNotSameAs(original3);
         assertThat(copy3.getRef()).isEqualTo(original3.getRef());
+
+        Schema original4 = OASFactory.createSchema();
+        original4.setAdditionalPropertiesBoolean(true);
+        Schema copy4 = OASCopy.copy(original4);
+        assertThat(copy4).isNotSameAs(original4);
+        assertThat(copy4.getAdditionalPropertiesBoolean()).isEqualTo(original4.getAdditionalPropertiesBoolean());
+
+        Schema original5 = OASFactory.createSchema();
+        original5.setAdditionalPropertiesSchema(
+            OASFactory.createSchema()
+                .type(SchemaType.STRING)
+        );
+        Schema copy5 = OASCopy.copy(original5);
+        assertThat(copy5).isNotSameAs(original5);
+        assertThat(copy5.getAdditionalPropertiesSchema()).isEqualToComparingFieldByField(original5.getAdditionalPropertiesSchema());
     }
 
     @Test
