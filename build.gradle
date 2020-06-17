@@ -1,13 +1,8 @@
-buildscript {
-    dependencies {
-        classpath "de.marcphilipp.gradle:nexus-publish-plugin:0.3.0"
-    }
-}
-
 plugins {
     id 'com.diffplug.gradle.spotless' version '3.27.1' apply false
     id 'org.asciidoctor.convert' version '2.4.0'
     id 'org.ajoberstar.git-publish' version '2.0.0'
+    id 'de.marcphilipp.nexus-publish' version '0.3.0' apply false
     id 'net.researchgate.release' version '2.6.0'
     id 'io.codearte.nexus-staging' version '0.21.0'
 }
