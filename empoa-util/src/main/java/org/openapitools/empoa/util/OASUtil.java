@@ -15,6 +15,8 @@
  ******************************************************************************/
 package org.openapitools.empoa.util;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.eclipse.microprofile.openapi.OASFactory;
@@ -296,6 +298,25 @@ public class OASUtil {
 
     private static String toSimpleName(String refPrefix, String refValue) {
         return refValue.startsWith(refPrefix) ? refValue.substring(refPrefix.length()) : refValue;
+    }
+
+    public static List<Parameter> getAllParameters(PathItem pathItem, HttpMethod httpMethod) {
+        if (pathItem == null) {
+            throw new IllegalArgumentException("parameter pathItem can not be null");
+        }
+        if (httpMethod == null) {
+            throw new IllegalArgumentException("parameter httpMethod can not be null");
+        }
+        List<Parameter> allParameters = new ArrayList<>();
+        if (pathItem.getParameters() != null) {
+            allParameters.addAll(pathItem.getParameters());
+        }
+        Operation operation = pathItem.getOperations()
+            .get(httpMethod);
+        if (operation != null && operation.getParameters() != null) {
+            allParameters.addAll(operation.getParameters());
+        }
+        return allParameters;
     }
 
     public static void setOperation(PathItem pathItem, HttpMethod httpMethod, Operation operation) {
