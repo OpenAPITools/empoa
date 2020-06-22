@@ -24,12 +24,15 @@ import static org.eclipse.microprofile.openapi.OASFactory.createComponents;
 import static org.eclipse.microprofile.openapi.OASFactory.createInfo;
 import static org.eclipse.microprofile.openapi.OASFactory.createOpenAPI;
 import static org.eclipse.microprofile.openapi.OASFactory.createOperation;
+import static org.eclipse.microprofile.openapi.OASFactory.createParameter;
 import static org.eclipse.microprofile.openapi.OASFactory.createPathItem;
 import static org.eclipse.microprofile.openapi.OASFactory.createPaths;
 import static org.eclipse.microprofile.openapi.OASFactory.createSchema;
 import static org.eclipse.microprofile.openapi.OASFactory.createServer;
 import static org.eclipse.microprofile.openapi.OASFactory.createServerVariable;
 import static org.eclipse.microprofile.openapi.OASFactory.createServerVariables;
+
+import java.util.List;
 
 import org.eclipse.microprofile.openapi.models.OpenAPI;
 import org.eclipse.microprofile.openapi.models.Operation;
@@ -40,6 +43,7 @@ import org.eclipse.microprofile.openapi.models.examples.Example;
 import org.eclipse.microprofile.openapi.models.headers.Header;
 import org.eclipse.microprofile.openapi.models.links.Link;
 import org.eclipse.microprofile.openapi.models.media.Schema;
+import org.eclipse.microprofile.openapi.models.media.Schema.SchemaType;
 import org.eclipse.microprofile.openapi.models.parameters.Parameter;
 import org.eclipse.microprofile.openapi.models.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.models.responses.APIResponse;
@@ -458,6 +462,61 @@ public class OASUtilTest {
         assertThat(OASUtil.findReferencedSecurityScheme(openAPI, "xxx")).isEmpty();
         assertThat(OASUtil.findReferencedSecurityScheme(openAPI, "basic-auth")).contains(item);
         assertThat(OASUtil.findReferencedSecurityScheme(openAPI, "#/components/securitySchemes/basic-auth")).contains(item);
+    }
+
+    @Test
+    public void testGetAllParameters() throws Exception {
+        assertThatThrownBy(() -> OASUtil.getAllParameters(null, HttpMethod.GET)).isInstanceOf(IllegalArgumentException.class);
+
+        PathItem pathItemEmpty = createPathItem();
+        assertThatThrownBy(() -> OASUtil.getAllParameters(pathItemEmpty, null)).isInstanceOf(IllegalArgumentException.class);
+        assertThat(OASUtil.getAllParameters(pathItemEmpty, HttpMethod.GET)).isEmpty();
+        assertThat(OASUtil.getAllParameters(pathItemEmpty, HttpMethod.POST)).isEmpty();
+        assertThat(OASUtil.getAllParameters(pathItemEmpty, HttpMethod.PUT)).isEmpty();
+        assertThat(OASUtil.getAllParameters(pathItemEmpty, HttpMethod.DELETE)).isEmpty();
+
+        Parameter queryParameter = createParameter().name("test")
+            .in(Parameter.In.QUERY)
+            .schema(createSchema().type(SchemaType.STRING));
+
+        PathItem pathItemWithPostOperation = createPathItem().POST(
+            createOperation()
+                .operationId("opId")
+                .responses(
+                    createAPIResponses()
+                        .addAPIResponse(
+                            "200", createAPIResponse()
+                                .description("OK")
+                        )
+                )
+                .addParameter(queryParameter)
+        );
+        assertThat(OASUtil.getAllParameters(pathItemWithPostOperation, HttpMethod.GET)).isEmpty();
+        List<Parameter> postParameters = OASUtil.getAllParameters(pathItemWithPostOperation, HttpMethod.POST);
+        assertThat(postParameters).hasSize(1);
+        assertThat(postParameters.get(0)).isSameAs(queryParameter);
+
+        Parameter pathParameter = createParameter().name("test")
+            .in(Parameter.In.PATH)
+            .schema(createSchema().type(SchemaType.STRING));
+
+        PathItem pathItemWithMultipleParameters = createPathItem()
+            .addParameter(pathParameter)
+            .GET(
+                createOperation()
+                    .operationId("opId")
+                    .responses(
+                        createAPIResponses()
+                            .addAPIResponse(
+                                "200", createAPIResponse()
+                                    .description("OK")
+                            )
+                    )
+                    .addParameter(queryParameter)
+            );
+        assertThat(OASUtil.getAllParameters(pathItemWithMultipleParameters, HttpMethod.GET)).contains(pathParameter, queryParameter);
+        assertThat(OASUtil.getAllParameters(pathItemWithMultipleParameters, HttpMethod.POST)).contains(pathParameter);
+        assertThat(OASUtil.getAllParameters(pathItemWithMultipleParameters, HttpMethod.PUT)).contains(pathParameter);
     }
 
     @Test
