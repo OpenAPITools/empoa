@@ -42,12 +42,10 @@ import org.eclipse.microprofile.openapi.models.responses.APIResponse;
 import org.eclipse.microprofile.openapi.models.responses.APIResponses;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlow;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlows;
-import org.eclipse.microprofile.openapi.models.security.Scopes;
 import org.eclipse.microprofile.openapi.models.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.models.security.SecurityScheme;
 import org.eclipse.microprofile.openapi.models.servers.Server;
 import org.eclipse.microprofile.openapi.models.servers.ServerVariable;
-import org.eclipse.microprofile.openapi.models.servers.ServerVariables;
 import org.eclipse.microprofile.openapi.models.tags.Tag;
 import org.openapitools.empoa.util.visitor.OASVisitResult;
 import org.openapitools.empoa.util.visitor.OASVisitorAdapter;
@@ -319,17 +317,6 @@ class SortMapsVisitor extends OASVisitorAdapter {
     }
 
     @Override
-    public OASVisitResult visit(Scopes scopes, String jsonPath) {
-        if (config.getSortScopesScopes() && scopes.getScopes() != null) {
-            scopes.setScopes(new TreeMap<>(scopes.getScopes()));
-        }
-        if (config.getSortScopesExtensions() && scopes.getExtensions() != null) {
-            scopes.setExtensions(new TreeMap<>(scopes.getExtensions()));
-        }
-        return OASVisitResult.CONTINUE;
-    }
-
-    @Override
     public OASVisitResult visit(SecurityRequirement securityRequirement, String jsonPath) {
         if (config.getSortSecurityRequirementSchemes() && securityRequirement.getSchemes() != null) {
             securityRequirement.setSchemes(new TreeMap<>(securityRequirement.getSchemes()));
@@ -350,6 +337,9 @@ class SortMapsVisitor extends OASVisitorAdapter {
         if (config.getSortServerExtensions() && server.getExtensions() != null) {
             server.setExtensions(new TreeMap<>(server.getExtensions()));
         }
+        if (config.getSortServerVariables() && server.getVariables() != null) {
+            server.setVariables(new TreeMap<>(server.getVariables()));
+        }
         return OASVisitResult.CONTINUE;
     }
 
@@ -357,17 +347,6 @@ class SortMapsVisitor extends OASVisitorAdapter {
     public OASVisitResult visit(ServerVariable serverVariable, String jsonPath) {
         if (config.getSortServerVariableExtensions() && serverVariable.getExtensions() != null) {
             serverVariable.setExtensions(new TreeMap<>(serverVariable.getExtensions()));
-        }
-        return OASVisitResult.CONTINUE;
-    }
-
-    @Override
-    public OASVisitResult visit(ServerVariables serverVariables, String jsonPath) {
-        if (config.getSortServerVariablesServerVariables() && serverVariables.getServerVariables() != null) {
-            serverVariables.setServerVariables(new TreeMap<>(serverVariables.getServerVariables()));
-        }
-        if (config.getSortServerVariablesExtensions() && serverVariables.getExtensions() != null) {
-            serverVariables.setExtensions(new TreeMap<>(serverVariables.getExtensions()));
         }
         return OASVisitResult.CONTINUE;
     }

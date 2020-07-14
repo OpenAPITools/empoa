@@ -20,7 +20,7 @@ paths:
       summary: Get the list of all tasks
       operationId: tasksGetAll
       responses:
-        200:
+        "200":
           description: List of all tasks
           content:
             application/json:
@@ -45,7 +45,7 @@ paths:
             schema:
               $ref: '#/components/schemas/Task'
       responses:
-        200:
+        "200":
           description: The created task
           content:
             application/json:
@@ -64,7 +64,7 @@ paths:
       summary: Get a single task based on its id
       operationId: tasksRead
       responses:
-        200:
+        "200":
           description: Ok
           content:
             application/json:
@@ -87,7 +87,7 @@ paths:
             schema:
               $ref: '#/components/schemas/Task'
       responses:
-        200:
+        "200":
           description: The updated task
           content:
             application/json:
@@ -105,7 +105,7 @@ paths:
       summary: Delete an existing task
       operationId: tasksDelete
       responses:
-        204:
+        "204":
           description: Task deleted response
         default:
           description: Generic error response

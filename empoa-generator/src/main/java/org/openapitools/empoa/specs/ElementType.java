@@ -41,11 +41,9 @@ public enum ElementType {
     APIResponses,
     OAuthFlow,
     OAuthFlows,
-    Scopes,
     SecurityRequirement,
     SecurityScheme,
     Server,
     ServerVariable,
-    ServerVariables,
     Tag
 }

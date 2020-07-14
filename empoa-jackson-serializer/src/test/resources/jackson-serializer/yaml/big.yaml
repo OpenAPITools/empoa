@@ -44,7 +44,7 @@ paths:
         schema:
           type: string
       responses:
-        200:
+        "200":
           description: OK
           content:
             application/text:
@@ -53,7 +53,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Node'
-        4XX:
+        "4XX":
           description: Error
           content:
             '*/*':
@@ -86,7 +86,7 @@ paths:
                   - DE
                   - IT
       responses:
-        200:
+        "200":
           $ref: '#/components/responses/MessageResponse'
   /messages/{id}:
     get:
@@ -95,7 +95,7 @@ paths:
       parameters:
       - $ref: '#/components/parameters/LanguageParam'
       responses:
-        200:
+        "200":
           $ref: '#/components/responses/MessageResponse'
     put:
       summary: Update a message
@@ -108,7 +108,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/UpdateBody'
       responses:
-        200:
+        "200":
           $ref: '#/components/responses/MessageResponse'
     parameters:
     - name: id
@@ -127,7 +127,7 @@ paths:
               $ref: '#/components/schemas/Body'
         required: true
       responses:
-        201:
+        "201":
           description: Webhook created
       callbacks:
         myEvent:
@@ -146,7 +146,7 @@ paths:
                           example: Some event happened
                 required: true
               responses:
-                200:
+                "200":
                   description: Your server returns this code if it accepts the callback
         pingEvent:
           $ref: '#/components/callbacks/PingCallback'
@@ -317,5 +317,5 @@ components:
             style: simple
             explode: false
           responses:
-            200:
+            "200":
               description: Your server returns this code if it accepts the callback

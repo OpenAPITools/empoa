@@ -42,12 +42,10 @@ import org.eclipse.microprofile.openapi.models.responses.APIResponse;
 import org.eclipse.microprofile.openapi.models.responses.APIResponses;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlow;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlows;
-import org.eclipse.microprofile.openapi.models.security.Scopes;
 import org.eclipse.microprofile.openapi.models.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.models.security.SecurityScheme;
 import org.eclipse.microprofile.openapi.models.servers.Server;
 import org.eclipse.microprofile.openapi.models.servers.ServerVariable;
-import org.eclipse.microprofile.openapi.models.servers.ServerVariables;
 import org.eclipse.microprofile.openapi.models.tags.Tag;
 import org.openapitools.empoa.extended.tck.specs.BigSpec;
 import org.openapitools.empoa.extended.tck.specs.HelloSpec;
@@ -317,12 +315,6 @@ public final class OASTestFactory {
             .addExtension("name", "value");
     }
 
-    public static Scopes createTestScopes() {
-        return createScopes()
-            .addScope("scope", "description")
-            .addExtension("x-xtensio", "scopes");
-    }
-
     public static SecurityRequirement createTestSecurityRequirement() {
         return createSecurityRequirement()
             .addScheme("basic-auth");
@@ -351,18 +343,6 @@ public final class OASTestFactory {
             .addEnumeration("v3")
             .defaultValue("v1")
             .addExtension("x-xtensio", "variable");
-    }
-
-    public static ServerVariables createTestServerVariables() {
-        return createServerVariables()
-            .addServerVariable(
-                "version", createTestServerVariable()
-            )
-            .addServerVariable(
-                "username", createServerVariable()
-                    .defaultValue("alice")
-                    .description("the developer username")
-            );
     }
 
     public static Tag createTestTag() {

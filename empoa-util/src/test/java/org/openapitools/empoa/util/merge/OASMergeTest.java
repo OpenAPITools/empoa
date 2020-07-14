@@ -56,12 +56,10 @@ import org.eclipse.microprofile.openapi.models.responses.APIResponse;
 import org.eclipse.microprofile.openapi.models.responses.APIResponses;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlow;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlows;
-import org.eclipse.microprofile.openapi.models.security.Scopes;
 import org.eclipse.microprofile.openapi.models.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.models.security.SecurityScheme;
 import org.eclipse.microprofile.openapi.models.servers.Server;
 import org.eclipse.microprofile.openapi.models.servers.ServerVariable;
-import org.eclipse.microprofile.openapi.models.servers.ServerVariables;
 import org.eclipse.microprofile.openapi.models.tags.Tag;
 import org.junit.jupiter.api.Test;
 import org.openapitools.empoa.extended.tck.OASTestFactory;
@@ -585,23 +583,6 @@ public class OASMergeTest {
     }
 
     @Test
-    public void testMergeScopes() throws Exception {
-        Scopes from1 = OASTestFactory.createTestScopes();
-        Scopes into1 = OASFactory.createScopes();
-        OASMerge.merge(from1, into1);
-        asJsonIsEqualTo(from1, into1);
-
-        Scopes from2 = OASFactory.createScopes();
-        Scopes into2 = OASTestFactory.createTestScopes();
-        OASMerge.merge(from2, into2);
-
-        Scopes from3 = OASTestFactory.createTestScopes();
-        Scopes into3 = OASTestFactory.createTestScopes();
-        OASMerge.merge(from3, into3);
-        asJsonIsEqualTo(from3, into3);
-    }
-
-    @Test
     public void testMergeSecurityRequirement() throws Exception {
         SecurityRequirement from1 = OASTestFactory.createTestSecurityRequirement();
         SecurityRequirement into1 = OASFactory.createSecurityRequirement();
@@ -665,23 +646,6 @@ public class OASMergeTest {
 
         ServerVariable from3 = OASTestFactory.createTestServerVariable();
         ServerVariable into3 = OASTestFactory.createTestServerVariable();
-        OASMerge.merge(from3, into3);
-        asJsonIsEqualTo(from3, into3);
-    }
-
-    @Test
-    public void testMergeServerVariables() throws Exception {
-        ServerVariables from1 = OASTestFactory.createTestServerVariables();
-        ServerVariables into1 = OASFactory.createServerVariables();
-        OASMerge.merge(from1, into1);
-        asJsonIsEqualTo(from1, into1);
-
-        ServerVariables from2 = OASFactory.createServerVariables();
-        ServerVariables into2 = OASTestFactory.createTestServerVariables();
-        OASMerge.merge(from2, into2);
-
-        ServerVariables from3 = OASTestFactory.createTestServerVariables();
-        ServerVariables into3 = OASTestFactory.createTestServerVariables();
         OASMerge.merge(from3, into3);
         asJsonIsEqualTo(from3, into3);
     }

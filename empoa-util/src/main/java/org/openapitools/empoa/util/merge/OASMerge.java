@@ -45,12 +45,10 @@ import org.eclipse.microprofile.openapi.models.responses.APIResponse;
 import org.eclipse.microprofile.openapi.models.responses.APIResponses;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlow;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlows;
-import org.eclipse.microprofile.openapi.models.security.Scopes;
 import org.eclipse.microprofile.openapi.models.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.models.security.SecurityScheme;
 import org.eclipse.microprofile.openapi.models.servers.Server;
 import org.eclipse.microprofile.openapi.models.servers.ServerVariable;
-import org.eclipse.microprofile.openapi.models.servers.ServerVariables;
 import org.eclipse.microprofile.openapi.models.tags.Tag;
 import org.openapitools.empoa.util.copy.OASCopy;
 import org.openapitools.empoa.util.equals.OASEquals;
@@ -907,13 +905,10 @@ public class OASMerge {
             if (fromRefreshUrl != null) {
                 into.setRefreshUrl(fromRefreshUrl);
             }
-            Scopes fromScopes = from.getScopes();
+            Map<String, String> fromScopes = from.getScopes();
             if (fromScopes != null) {
-                Scopes intoScopes = into.getScopes();
-                if (intoScopes != null) {
-                    merge(fromScopes, intoScopes);
-                } else {
-                    into.setScopes(OASCopy.copy(fromScopes));
+                for (Entry<String, String> entry : fromScopes.entrySet()) {
+                    into.addScope(entry.getKey(), entry.getValue());
                 }
             }
             Map<String, Object> extensions = from.getExtensions();
@@ -1664,26 +1659,6 @@ public class OASMerge {
         }
     }
 
-    public static void merge(Scopes from, Scopes into) {
-        if (into == null) {
-            throw new IllegalArgumentException("Scopes 'into' parameter can not be null");
-        }
-        if (from != null) {
-            Map<String, String> fromScopes = from.getScopes();
-            if (fromScopes != null) {
-                for (Entry<String, String> entry : fromScopes.entrySet()) {
-                    into.addScope(entry.getKey(), entry.getValue());
-                }
-            }
-            Map<String, Object> extensions = from.getExtensions();
-            if (extensions != null) {
-                for (Entry<String, Object> entry : extensions.entrySet()) {
-                    into.addExtension(entry.getKey(), entry.getValue());
-                }
-            }
-        }
-    }
-
     public static void merge(SecurityRequirement from, SecurityRequirement into) {
         if (into == null) {
             throw new IllegalArgumentException("SecurityRequirement 'into' parameter can not be null");
@@ -1766,13 +1741,21 @@ public class OASMerge {
             if (fromDescription != null) {
                 into.setDescription(fromDescription);
             }
-            ServerVariables fromVariables = from.getVariables();
+            Map<String, ServerVariable> fromVariables = from.getVariables();
             if (fromVariables != null) {
-                ServerVariables intoVariables = into.getVariables();
+                Map<String, ServerVariable> intoVariables = into.getVariables();
                 if (intoVariables != null) {
-                    merge(fromVariables, intoVariables);
+                    for (Entry<String, ServerVariable> entry : fromVariables.entrySet()) {
+                        if (intoVariables.containsKey(entry.getKey())) {
+                            merge(entry.getValue(), intoVariables.get(entry.getKey()));
+                        } else {
+                            into.addVariable(entry.getKey(), OASCopy.copy(entry.getValue()));
+                        }
+                    }
                 } else {
-                    into.setVariables(OASCopy.copy(fromVariables));
+                    for (Entry<String, ServerVariable> entry : fromVariables.entrySet()) {
+                        into.addVariable(entry.getKey(), OASCopy.copy(entry.getValue()));
+                    }
                 }
             }
             Map<String, Object> extensions = from.getExtensions();
@@ -1811,37 +1794,6 @@ public class OASMerge {
             String fromDescription = from.getDescription();
             if (fromDescription != null) {
                 into.setDescription(fromDescription);
-            }
-            Map<String, Object> extensions = from.getExtensions();
-            if (extensions != null) {
-                for (Entry<String, Object> entry : extensions.entrySet()) {
-                    into.addExtension(entry.getKey(), entry.getValue());
-                }
-            }
-        }
-    }
-
-    public static void merge(ServerVariables from, ServerVariables into) {
-        if (into == null) {
-            throw new IllegalArgumentException("ServerVariables 'into' parameter can not be null");
-        }
-        if (from != null) {
-            Map<String, ServerVariable> fromServerVariables = from.getServerVariables();
-            if (fromServerVariables != null) {
-                Map<String, ServerVariable> intoServerVariables = into.getServerVariables();
-                if (intoServerVariables != null) {
-                    for (Entry<String, ServerVariable> entry : fromServerVariables.entrySet()) {
-                        if (intoServerVariables.containsKey(entry.getKey())) {
-                            merge(entry.getValue(), intoServerVariables.get(entry.getKey()));
-                        } else {
-                            into.addServerVariable(entry.getKey(), OASCopy.copy(entry.getValue()));
-                        }
-                    }
-                } else {
-                    for (Entry<String, ServerVariable> entry : fromServerVariables.entrySet()) {
-                        into.addServerVariable(entry.getKey(), OASCopy.copy(entry.getValue()));
-                    }
-                }
             }
             Map<String, Object> extensions = from.getExtensions();
             if (extensions != null) {

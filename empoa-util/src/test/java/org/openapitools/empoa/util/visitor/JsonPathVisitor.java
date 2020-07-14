@@ -43,12 +43,10 @@ import org.eclipse.microprofile.openapi.models.responses.APIResponse;
 import org.eclipse.microprofile.openapi.models.responses.APIResponses;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlow;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlows;
-import org.eclipse.microprofile.openapi.models.security.Scopes;
 import org.eclipse.microprofile.openapi.models.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.models.security.SecurityScheme;
 import org.eclipse.microprofile.openapi.models.servers.Server;
 import org.eclipse.microprofile.openapi.models.servers.ServerVariable;
-import org.eclipse.microprofile.openapi.models.servers.ServerVariables;
 import org.eclipse.microprofile.openapi.models.tags.Tag;
 
 public class JsonPathVisitor implements OASVisitor {
@@ -204,12 +202,6 @@ public class JsonPathVisitor implements OASVisitor {
     }
 
     @Override
-    public OASVisitResult visit(Scopes scopes, String jsonPath) {
-        jsonPaths.add(jsonPath);
-        return OASVisitResult.CONTINUE;
-    }
-
-    @Override
     public OASVisitResult visit(SecurityRequirement securityRequirement, String jsonPath) {
         jsonPaths.add(jsonPath);
         return OASVisitResult.CONTINUE;
@@ -229,12 +221,6 @@ public class JsonPathVisitor implements OASVisitor {
 
     @Override
     public OASVisitResult visit(ServerVariable serverVariable, String jsonPath) {
-        jsonPaths.add(jsonPath);
-        return OASVisitResult.CONTINUE;
-    }
-
-    @Override
-    public OASVisitResult visit(ServerVariables serverVariables, String jsonPath) {
         jsonPaths.add(jsonPath);
         return OASVisitResult.CONTINUE;
     }

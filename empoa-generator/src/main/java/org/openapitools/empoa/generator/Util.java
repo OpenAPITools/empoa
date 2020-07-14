@@ -29,9 +29,7 @@ public class Util {
         case Callback:
         case Content:
         case APIResponses:
-        case Scopes:
         case SecurityRequirement:
-        case ServerVariables:
             List<MapMember> list = e.members.stream()
                 .filter(m -> m instanceof MapMember)
                 .map(m -> (MapMember) m)

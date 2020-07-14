@@ -42,12 +42,10 @@ import org.eclipse.microprofile.openapi.models.responses.APIResponse;
 import org.eclipse.microprofile.openapi.models.responses.APIResponses;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlow;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlows;
-import org.eclipse.microprofile.openapi.models.security.Scopes;
 import org.eclipse.microprofile.openapi.models.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.models.security.SecurityScheme;
 import org.eclipse.microprofile.openapi.models.servers.Server;
 import org.eclipse.microprofile.openapi.models.servers.ServerVariable;
-import org.eclipse.microprofile.openapi.models.servers.ServerVariables;
 import org.eclipse.microprofile.openapi.models.tags.Tag;
 import org.openapitools.empoa.extended.tck.AbstractElementSerializerTest;
 
@@ -179,11 +177,6 @@ public class ElementSerializerTckTest extends AbstractElementSerializerTest {
     }
 
     @Override
-    protected String convertToJson(Scopes scopes) throws IOException {
-        return OpenAPISerializer.serialize(scopes, OpenAPISerializer.Format.JSON);
-    }
-
-    @Override
     protected String convertToJson(SecurityRequirement securityRequirement) throws IOException {
         return OpenAPISerializer.serialize(securityRequirement, OpenAPISerializer.Format.JSON);
     }
@@ -201,11 +194,6 @@ public class ElementSerializerTckTest extends AbstractElementSerializerTest {
     @Override
     protected String convertToJson(ServerVariable serverVariable) throws IOException {
         return OpenAPISerializer.serialize(serverVariable, OpenAPISerializer.Format.JSON);
-    }
-
-    @Override
-    protected String convertToJson(ServerVariables serverVariables) throws IOException {
-        return OpenAPISerializer.serialize(serverVariables, OpenAPISerializer.Format.JSON);
     }
 
     @Override

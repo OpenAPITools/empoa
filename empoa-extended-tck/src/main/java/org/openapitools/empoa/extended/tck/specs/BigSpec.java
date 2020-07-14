@@ -54,20 +54,17 @@ public final class BigSpec {
                 createServer()
                     .url("http://{version}.example-test.com:8080/{username}/")
                     .description("Test server")
-                    .variables(
-                        createServerVariables()
-                            .addServerVariable(
-                                "version", createServerVariable()
-                                    .addEnumeration("v1")
-                                    .addEnumeration("v2")
-                                    .addEnumeration("v3")
-                                    .defaultValue("v1")
-                            )
-                            .addServerVariable(
-                                "username", createServerVariable()
-                                    .defaultValue("alice")
-                                    .description("the developer username")
-                            )
+                    .addVariable(
+                        "version", createServerVariable()
+                            .addEnumeration("v1")
+                            .addEnumeration("v2")
+                            .addEnumeration("v3")
+                            .defaultValue("v1")
+                    )
+                    .addVariable(
+                        "username", createServerVariable()
+                            .defaultValue("alice")
+                            .description("the developer username")
                     )
             )
             .addTag(

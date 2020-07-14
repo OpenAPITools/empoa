@@ -100,33 +100,47 @@ public class SwOAuthFlow implements OAuthFlow {
         _swOAuthFlow.setRefreshUrl(refreshUrl);
     }
 
-    private org.openapitools.empoa.swagger.core.internal.models.security.SwScopes _scopes;
-
-    private void initScopes() {
+    @Override
+    public java.util.Map<String, String> getScopes() {
         if (_swOAuthFlow.getScopes() == null) {
-            _scopes = null;
-        } else if (_scopes == null) {
-            _scopes = new org.openapitools.empoa.swagger.core.internal.models.security.SwScopes(_swOAuthFlow.getScopes());
+            return null;
+        }
+        java.util.LinkedHashMap<String, String> map = new java.util.LinkedHashMap<String, String>();
+        map.putAll(_swOAuthFlow.getScopes());
+        return java.util.Collections.unmodifiableMap(map);
+    }
+
+    @Override
+    public void setScopes(java.util.Map<String, String> scopes) {
+        if (scopes == null) {
+            _swOAuthFlow.setScopes(null);
+        } else {
+            io.swagger.v3.oas.models.security.Scopes swScopes = new io.swagger.v3.oas.models.security.Scopes();
+            swScopes.putAll(scopes);
+            _swOAuthFlow.setScopes(swScopes);
         }
     }
 
     @Override
-    public org.eclipse.microprofile.openapi.models.security.Scopes getScopes() {
-        initScopes();
-        return _scopes;
+    public OAuthFlow addScope(String key, String object) {
+        if (object == null) {
+            throw new IllegalArgumentException("Null value for key '" + key + "' is not allowed");
+        } else {
+            if (_swOAuthFlow.getScopes() == null) {
+                io.swagger.v3.oas.models.security.Scopes swScopes = new io.swagger.v3.oas.models.security.Scopes();
+                _swOAuthFlow.setScopes(swScopes);
+            }
+            _swOAuthFlow.getScopes()
+                .put(key, object);
+        }
+        return this;
     }
 
     @Override
-    public void setScopes(org.eclipse.microprofile.openapi.models.security.Scopes scopes) {
-        if (scopes != null) {
-            if (!(scopes instanceof org.openapitools.empoa.swagger.core.internal.models.security.SwScopes)) {
-                throw new IllegalArgumentException("Unexpected type: " + scopes);
-            }
-            _scopes = (org.openapitools.empoa.swagger.core.internal.models.security.SwScopes) scopes;
-            _swOAuthFlow.setScopes(_scopes.getSw());
-        } else {
-            _scopes = null;
-            _swOAuthFlow.setScopes(null);
+    public void removeScope(String key) {
+        if (_swOAuthFlow.getScopes() != null) {
+            _swOAuthFlow.getScopes()
+                .remove(key);
         }
     }
 

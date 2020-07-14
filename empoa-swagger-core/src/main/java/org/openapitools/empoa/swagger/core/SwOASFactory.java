@@ -82,8 +82,6 @@ public class SwOASFactory {
             return (T) SwAdapter.toOAuthFlow((io.swagger.v3.oas.models.security.OAuthFlow) sw);
         } else if (sw instanceof io.swagger.v3.oas.models.security.OAuthFlows) {
             return (T) SwAdapter.toOAuthFlows((io.swagger.v3.oas.models.security.OAuthFlows) sw);
-        } else if (sw instanceof io.swagger.v3.oas.models.security.Scopes) {
-            return (T) SwAdapter.toScopes((io.swagger.v3.oas.models.security.Scopes) sw);
         } else if (sw instanceof io.swagger.v3.oas.models.security.SecurityRequirement) {
             return (T) SwAdapter.toSecurityRequirement((io.swagger.v3.oas.models.security.SecurityRequirement) sw);
         } else if (sw instanceof io.swagger.v3.oas.models.security.SecurityScheme) {
@@ -92,8 +90,6 @@ public class SwOASFactory {
             return (T) SwAdapter.toServer((io.swagger.v3.oas.models.servers.Server) sw);
         } else if (sw instanceof io.swagger.v3.oas.models.servers.ServerVariable) {
             return (T) SwAdapter.toServerVariable((io.swagger.v3.oas.models.servers.ServerVariable) sw);
-        } else if (sw instanceof io.swagger.v3.oas.models.servers.ServerVariables) {
-            return (T) SwAdapter.toServerVariables((io.swagger.v3.oas.models.servers.ServerVariables) sw);
         } else if (sw instanceof io.swagger.v3.oas.models.tags.Tag) {
             return (T) SwAdapter.toTag((io.swagger.v3.oas.models.tags.Tag) sw);
         } else {

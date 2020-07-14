@@ -10,13 +10,13 @@ paths:
     get:
       operationId: pingGet
       responses:
-        200:
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PingObject'
-        4XX:
+        "4XX":
           $ref: '#/components/responses/BusinessErrorResponse'
         default:
           description: Server Error
@@ -27,7 +27,7 @@ paths:
     post:
       operationId: pingPost
       responses:
-        405:
+        "405":
           description: POST is not allowed
 components:
   schemas:
