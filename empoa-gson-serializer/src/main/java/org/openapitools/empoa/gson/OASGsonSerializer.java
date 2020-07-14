@@ -40,12 +40,10 @@ import org.eclipse.microprofile.openapi.models.responses.APIResponse;
 import org.eclipse.microprofile.openapi.models.responses.APIResponses;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlow;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlows;
-import org.eclipse.microprofile.openapi.models.security.Scopes;
 import org.eclipse.microprofile.openapi.models.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.models.security.SecurityScheme;
 import org.eclipse.microprofile.openapi.models.servers.Server;
 import org.eclipse.microprofile.openapi.models.servers.ServerVariable;
-import org.eclipse.microprofile.openapi.models.servers.ServerVariables;
 import org.eclipse.microprofile.openapi.models.tags.Tag;
 import org.openapitools.empoa.gson.intermal.serializers.ComponentsSerializer;
 import org.openapitools.empoa.gson.intermal.serializers.ExternalDocumentationSerializer;
@@ -72,12 +70,10 @@ import org.openapitools.empoa.gson.intermal.serializers.responses.APIResponseSer
 import org.openapitools.empoa.gson.intermal.serializers.responses.APIResponsesSerializer;
 import org.openapitools.empoa.gson.intermal.serializers.security.OAuthFlowSerializer;
 import org.openapitools.empoa.gson.intermal.serializers.security.OAuthFlowsSerializer;
-import org.openapitools.empoa.gson.intermal.serializers.security.ScopesSerializer;
 import org.openapitools.empoa.gson.intermal.serializers.security.SecurityRequirementSerializer;
 import org.openapitools.empoa.gson.intermal.serializers.security.SecuritySchemeSerializer;
 import org.openapitools.empoa.gson.intermal.serializers.servers.ServerSerializer;
 import org.openapitools.empoa.gson.intermal.serializers.servers.ServerVariableSerializer;
-import org.openapitools.empoa.gson.intermal.serializers.servers.ServerVariablesSerializer;
 import org.openapitools.empoa.gson.intermal.serializers.tags.TagSerializer;
 
 import com.google.gson.Gson;
@@ -112,12 +108,10 @@ public class OASGsonSerializer {
             .registerTypeHierarchyAdapter(APIResponses.class, new APIResponsesSerializer())
             .registerTypeHierarchyAdapter(OAuthFlow.class, new OAuthFlowSerializer())
             .registerTypeHierarchyAdapter(OAuthFlows.class, new OAuthFlowsSerializer())
-            .registerTypeHierarchyAdapter(Scopes.class, new ScopesSerializer())
             .registerTypeHierarchyAdapter(SecurityRequirement.class, new SecurityRequirementSerializer())
             .registerTypeHierarchyAdapter(SecurityScheme.class, new SecuritySchemeSerializer())
             .registerTypeHierarchyAdapter(Server.class, new ServerSerializer())
             .registerTypeHierarchyAdapter(ServerVariable.class, new ServerVariableSerializer())
-            .registerTypeHierarchyAdapter(ServerVariables.class, new ServerVariablesSerializer())
             .registerTypeHierarchyAdapter(Tag.class, new TagSerializer())
             .setPrettyPrinting()
             .create();

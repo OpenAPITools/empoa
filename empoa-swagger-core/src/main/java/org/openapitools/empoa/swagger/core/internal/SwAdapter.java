@@ -368,20 +368,6 @@ public class SwAdapter {
     }
 
     /**
-     * Create a MicroProfile {@link org.eclipse.microprofile.openapi.models.security.Scopes} instance wrapping the swagger-core {@link io.swagger.v3.oas.models.security.Scopes} instance
-     *
-     * @param swScopes
-     *            swagger-core instance
-     * @return scopes
-     */
-    public static org.eclipse.microprofile.openapi.models.security.Scopes toScopes(io.swagger.v3.oas.models.security.Scopes swScopes) {
-        if (swScopes == null) {
-            return new org.openapitools.empoa.swagger.core.internal.models.security.SwScopes();
-        }
-        return new org.openapitools.empoa.swagger.core.internal.models.security.SwScopes(swScopes);
-    }
-
-    /**
      * Create a MicroProfile {@link org.eclipse.microprofile.openapi.models.security.SecurityRequirement} instance wrapping the swagger-core {@link io.swagger.v3.oas.models.security.SecurityRequirement} instance
      *
      * @param swSecurityRequirement
@@ -435,20 +421,6 @@ public class SwAdapter {
             return new org.openapitools.empoa.swagger.core.internal.models.servers.SwServerVariable();
         }
         return new org.openapitools.empoa.swagger.core.internal.models.servers.SwServerVariable(swServerVariable);
-    }
-
-    /**
-     * Create a MicroProfile {@link org.eclipse.microprofile.openapi.models.servers.ServerVariables} instance wrapping the swagger-core {@link io.swagger.v3.oas.models.servers.ServerVariables} instance
-     *
-     * @param swServerVariables
-     *            swagger-core instance
-     * @return serverVariables
-     */
-    public static org.eclipse.microprofile.openapi.models.servers.ServerVariables toServerVariables(io.swagger.v3.oas.models.servers.ServerVariables swServerVariables) {
-        if (swServerVariables == null) {
-            return new org.openapitools.empoa.swagger.core.internal.models.servers.SwServerVariables();
-        }
-        return new org.openapitools.empoa.swagger.core.internal.models.servers.SwServerVariables(swServerVariables);
     }
 
     /**
@@ -816,20 +788,6 @@ public class SwAdapter {
     }
 
     /**
-     * Unwrap the swagger-core {@link io.swagger.v3.oas.models.security.Scopes} element contained in the MicroProfile {@link org.eclipse.microprofile.openapi.models.security.Scopes} instance
-     *
-     * @param mpScopes
-     *            MicroProfile instance
-     * @return Scopes
-     */
-    public static io.swagger.v3.oas.models.security.Scopes toSwScopes(org.eclipse.microprofile.openapi.models.security.Scopes mpScopes) {
-        if (mpScopes instanceof org.openapitools.empoa.swagger.core.internal.models.security.SwScopes) {
-            return ((org.openapitools.empoa.swagger.core.internal.models.security.SwScopes) mpScopes).getSw();
-        }
-        throw new IllegalArgumentException("Unxpected type for Scopes: " + mpScopes);
-    }
-
-    /**
      * Unwrap the swagger-core {@link io.swagger.v3.oas.models.security.SecurityRequirement} element contained in the MicroProfile {@link org.eclipse.microprofile.openapi.models.security.SecurityRequirement} instance
      *
      * @param mpSecurityRequirement
@@ -883,20 +841,6 @@ public class SwAdapter {
             return ((org.openapitools.empoa.swagger.core.internal.models.servers.SwServerVariable) mpServerVariable).getSw();
         }
         throw new IllegalArgumentException("Unxpected type for ServerVariable: " + mpServerVariable);
-    }
-
-    /**
-     * Unwrap the swagger-core {@link io.swagger.v3.oas.models.servers.ServerVariables} element contained in the MicroProfile {@link org.eclipse.microprofile.openapi.models.servers.ServerVariables} instance
-     *
-     * @param mpServerVariables
-     *            MicroProfile instance
-     * @return ServerVariables
-     */
-    public static io.swagger.v3.oas.models.servers.ServerVariables toSwServerVariables(org.eclipse.microprofile.openapi.models.servers.ServerVariables mpServerVariables) {
-        if (mpServerVariables instanceof org.openapitools.empoa.swagger.core.internal.models.servers.SwServerVariables) {
-            return ((org.openapitools.empoa.swagger.core.internal.models.servers.SwServerVariables) mpServerVariables).getSw();
-        }
-        throw new IllegalArgumentException("Unxpected type for ServerVariables: " + mpServerVariables);
     }
 
     /**

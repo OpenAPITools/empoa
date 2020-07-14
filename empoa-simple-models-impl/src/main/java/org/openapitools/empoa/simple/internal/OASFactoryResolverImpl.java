@@ -73,8 +73,6 @@ public class OASFactoryResolverImpl extends org.eclipse.microprofile.openapi.spi
             instance = (T) new org.openapitools.empoa.simple.internal.models.security.OAuthFlowImpl();
         } else if (clazz == org.eclipse.microprofile.openapi.models.security.OAuthFlows.class) {
             instance = (T) new org.openapitools.empoa.simple.internal.models.security.OAuthFlowsImpl();
-        } else if (clazz == org.eclipse.microprofile.openapi.models.security.Scopes.class) {
-            instance = (T) new org.openapitools.empoa.simple.internal.models.security.ScopesImpl();
         } else if (clazz == org.eclipse.microprofile.openapi.models.security.SecurityRequirement.class) {
             instance = (T) new org.openapitools.empoa.simple.internal.models.security.SecurityRequirementImpl();
         } else if (clazz == org.eclipse.microprofile.openapi.models.security.SecurityScheme.class) {
@@ -83,8 +81,6 @@ public class OASFactoryResolverImpl extends org.eclipse.microprofile.openapi.spi
             instance = (T) new org.openapitools.empoa.simple.internal.models.servers.ServerImpl();
         } else if (clazz == org.eclipse.microprofile.openapi.models.servers.ServerVariable.class) {
             instance = (T) new org.openapitools.empoa.simple.internal.models.servers.ServerVariableImpl();
-        } else if (clazz == org.eclipse.microprofile.openapi.models.servers.ServerVariables.class) {
-            instance = (T) new org.openapitools.empoa.simple.internal.models.servers.ServerVariablesImpl();
         } else if (clazz == org.eclipse.microprofile.openapi.models.tags.Tag.class) {
             instance = (T) new org.openapitools.empoa.simple.internal.models.tags.TagImpl();
         } else {

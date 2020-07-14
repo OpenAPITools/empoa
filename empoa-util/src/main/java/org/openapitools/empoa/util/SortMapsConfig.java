@@ -63,14 +63,11 @@ public class SortMapsConfig {
     private boolean sortRequestBodyExtensions = true;
     private boolean sortSchemaExtensions = true;
     private boolean sortSchemaProperties = true;
-    private boolean sortScopesExtensions = true;
-    private boolean sortScopesScopes = true;
     private boolean sortSecurityRequirementSchemes = true;
     private boolean sortSecuritySchemeExtensions = true;
     private boolean sortServerExtensions = true;
     private boolean sortServerVariableExtensions = true;
-    private boolean sortServerVariablesExtensions = true;
-    private boolean sortServerVariablesServerVariables = true;
+    private boolean sortServerVariables = true;
     private boolean sortTagExtensions = true;
     private boolean sortXMLExtensions = true;
 
@@ -672,32 +669,6 @@ public class SortMapsConfig {
         return this;
     }
 
-    public boolean getSortScopesExtensions() {
-        return sortScopesExtensions;
-    }
-
-    public void setSortScopesExtensions(boolean value) {
-        sortScopesExtensions = value;
-    }
-
-    public SortMapsConfig sortScopesExtensions(boolean value) {
-        sortScopesExtensions = value;
-        return this;
-    }
-
-    public boolean getSortScopesScopes() {
-        return sortScopesScopes;
-    }
-
-    public void setSortScopesScopes(boolean value) {
-        sortScopesScopes = value;
-    }
-
-    public SortMapsConfig sortScopesScopes(boolean value) {
-        sortScopesScopes = value;
-        return this;
-    }
-
     public boolean getSortSecurityRequirementSchemes() {
         return sortSecurityRequirementSchemes;
     }
@@ -750,29 +721,16 @@ public class SortMapsConfig {
         return this;
     }
 
-    public boolean getSortServerVariablesExtensions() {
-        return sortServerVariablesExtensions;
+    public boolean getSortServerVariables() {
+        return sortServerVariables;
     }
 
-    public void setSortServerVariablesExtensions(boolean value) {
-        sortServerVariablesExtensions = value;
+    public void setSortServerVariables(boolean value) {
+        sortServerVariables = value;
     }
 
-    public SortMapsConfig sortServerVariablesExtensions(boolean value) {
-        sortServerVariablesExtensions = value;
-        return this;
-    }
-
-    public boolean getSortServerVariablesServerVariables() {
-        return sortServerVariablesServerVariables;
-    }
-
-    public void setSortServerVariablesServerVariables(boolean value) {
-        sortServerVariablesServerVariables = value;
-    }
-
-    public SortMapsConfig sortServerVariablesServerVariables(boolean value) {
-        sortServerVariablesServerVariables = value;
+    public SortMapsConfig sortServerVariables(boolean value) {
+        sortServerVariables = value;
         return this;
     }
 

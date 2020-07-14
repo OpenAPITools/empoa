@@ -83,16 +83,44 @@ public class ServerImpl implements Server {
         _description = description;
     }
 
-    private org.eclipse.microprofile.openapi.models.servers.ServerVariables _variables;
+    private java.util.Map<String, org.eclipse.microprofile.openapi.models.servers.ServerVariable> _variables;
 
     @Override
-    public org.eclipse.microprofile.openapi.models.servers.ServerVariables getVariables() {
-        return _variables;
+    public java.util.Map<String, org.eclipse.microprofile.openapi.models.servers.ServerVariable> getVariables() {
+        if (_variables == null) {
+            return null;
+        }
+        return java.util.Collections.unmodifiableMap(_variables);
     }
 
     @Override
-    public void setVariables(org.eclipse.microprofile.openapi.models.servers.ServerVariables variables) {
-        _variables = variables;
+    public void setVariables(java.util.Map<String, org.eclipse.microprofile.openapi.models.servers.ServerVariable> variables) {
+        if (variables == null) {
+            _variables = null;
+        } else {
+            _variables = new java.util.LinkedHashMap<>();
+            _variables.putAll(variables);
+        }
+    }
+
+    @Override
+    public Server addVariable(String key, org.eclipse.microprofile.openapi.models.servers.ServerVariable serverVariable) {
+        if (serverVariable == null) {
+            throw new IllegalArgumentException("Null value for key '" + key + "' is not allowed");
+        } else {
+            if (_variables == null) {
+                _variables = new java.util.LinkedHashMap<>();
+            }
+            _variables.put(key, serverVariable);
+        }
+        return this;
+    }
+
+    @Override
+    public void removeVariable(String key) {
+        if (_variables != null) {
+            _variables.remove(key);
+        }
     }
 
 }

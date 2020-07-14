@@ -154,9 +154,7 @@ public class AcceptGenerator {
         case Callback_PathItems:
         case Content_MediaTypes:
         case APIResponses_APIResponses:
-        case Scopes_Scopes:
         case SecurityRequirement_Schemes:
-        case ServerVariables_ServerVariables:
             return "";
         default:
             String name = member.getterName.replace("get", "");

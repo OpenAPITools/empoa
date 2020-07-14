@@ -39,7 +39,7 @@ paths:
           - german
           - italian
       responses:
-        200:
+        "200":
           description: OK
           content:
             application/text:
@@ -51,7 +51,7 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/Hello'
-        4XX:
+        "4XX":
           description: Error
           content:
             '*/*':

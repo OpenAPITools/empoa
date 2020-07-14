@@ -174,7 +174,6 @@ public enum MemberType {
     OAuthFlows_Password(ElementType.OAuthFlows),
     OAuthFlows_ClientCredentials(ElementType.OAuthFlows),
     OAuthFlows_AuthorizationCode(ElementType.OAuthFlows),
-    Scopes_Scopes(ElementType.Scopes),
     SecurityRequirement_Schemes(ElementType.SecurityRequirement),
     SecurityScheme_Type(ElementType.SecurityScheme),
     SecurityScheme_Description(ElementType.SecurityScheme),
@@ -190,7 +189,6 @@ public enum MemberType {
     ServerVariable_Enumeration(ElementType.ServerVariable),
     ServerVariable_DefaultValue(ElementType.ServerVariable),
     ServerVariable_Description(ElementType.ServerVariable),
-    ServerVariables_ServerVariables(ElementType.ServerVariables),
     Tag_Name(ElementType.Tag),
     Tag_Description(ElementType.Tag),
     Tag_ExternalDocs(ElementType.Tag);

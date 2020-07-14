@@ -40,12 +40,10 @@ import org.eclipse.microprofile.openapi.models.responses.APIResponse;
 import org.eclipse.microprofile.openapi.models.responses.APIResponses;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlow;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlows;
-import org.eclipse.microprofile.openapi.models.security.Scopes;
 import org.eclipse.microprofile.openapi.models.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.models.security.SecurityScheme;
 import org.eclipse.microprofile.openapi.models.servers.Server;
 import org.eclipse.microprofile.openapi.models.servers.ServerVariable;
-import org.eclipse.microprofile.openapi.models.servers.ServerVariables;
 import org.eclipse.microprofile.openapi.models.tags.Tag;
 
 public interface OASVisitor {
@@ -98,8 +96,6 @@ public interface OASVisitor {
 
     OASVisitResult visit(Schema schema, String jsonPath);
 
-    OASVisitResult visit(Scopes scopes, String jsonPath);
-
     OASVisitResult visit(SecurityRequirement securityRequirement, String jsonPath);
 
     OASVisitResult visit(SecurityScheme securityScheme, String jsonPath);
@@ -107,8 +103,6 @@ public interface OASVisitor {
     OASVisitResult visit(Server server, String jsonPath);
 
     OASVisitResult visit(ServerVariable serverVariable, String jsonPath);
-
-    OASVisitResult visit(ServerVariables serverVariables, String jsonPath);
 
     OASVisitResult visit(Tag tag, String jsonPath);
 

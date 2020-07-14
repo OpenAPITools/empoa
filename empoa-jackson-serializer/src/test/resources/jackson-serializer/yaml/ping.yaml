@@ -10,5 +10,5 @@ paths:
     get:
       operationId: pingGet
       responses:
-        200:
+        "200":
           description: OK

@@ -90,33 +90,75 @@ public class SwServer implements Server {
         _swServer.setDescription(description);
     }
 
-    private org.openapitools.empoa.swagger.core.internal.models.servers.SwServerVariables _variables;
+    private java.util.Map<String, org.openapitools.empoa.swagger.core.internal.models.servers.SwServerVariable> _variables;
 
-    private void initVariables() {
+    private void initCallbacks() {
         if (_swServer.getVariables() == null) {
             _variables = null;
         } else if (_variables == null) {
-            _variables = new org.openapitools.empoa.swagger.core.internal.models.servers.SwServerVariables(_swServer.getVariables());
+            _variables = _swServer.getVariables()
+                .entrySet()
+                .stream()
+                .collect(
+                    java.util.stream.Collectors.toMap(
+                        java.util.Map.Entry::getKey,
+                        e -> new org.openapitools.empoa.swagger.core.internal.models.servers.SwServerVariable(e.getValue()),
+                        (k1, k2) -> {
+                            throw new IllegalStateException(String.format("Duplicate key %s", k1));
+                        },
+                        () -> new java.util.LinkedHashMap<String, org.openapitools.empoa.swagger.core.internal.models.servers.SwServerVariable>()
+                    )
+                );
         }
     }
 
     @Override
-    public org.eclipse.microprofile.openapi.models.servers.ServerVariables getVariables() {
-        initVariables();
-        return _variables;
+    public java.util.Map<String, org.eclipse.microprofile.openapi.models.servers.ServerVariable> getVariables() {
+        initCallbacks();
+        if (_variables == null) {
+            return null;
+        }
+        return java.util.Collections.unmodifiableMap(_variables);
     }
 
     @Override
-    public void setVariables(org.eclipse.microprofile.openapi.models.servers.ServerVariables variables) {
-        if (variables != null) {
-            if (!(variables instanceof org.openapitools.empoa.swagger.core.internal.models.servers.SwServerVariables)) {
-                throw new IllegalArgumentException("Unexpected type: " + variables);
+    public void setVariables(java.util.Map<String, org.eclipse.microprofile.openapi.models.servers.ServerVariable> callbacks) {
+        _swServer.setVariables(null);
+        if (callbacks != null) {
+            if (callbacks.isEmpty()) {
+                _swServer.setVariables(new io.swagger.v3.oas.models.servers.ServerVariables());
+            } else {
+                for (java.util.Map.Entry<String, org.eclipse.microprofile.openapi.models.servers.ServerVariable> e : callbacks.entrySet()) {
+                    this.addVariable(e.getKey(), e.getValue());
+                }
             }
-            _variables = (org.openapitools.empoa.swagger.core.internal.models.servers.SwServerVariables) variables;
-            _swServer.setVariables(_variables.getSw());
-        } else {
-            _variables = null;
-            _swServer.setVariables(null);
+        }
+    }
+
+    @Override
+    public Server addVariable(String key, org.eclipse.microprofile.openapi.models.servers.ServerVariable callback) {
+        if (!(callback instanceof org.openapitools.empoa.swagger.core.internal.models.servers.SwServerVariable)) {
+            throw new IllegalArgumentException("Unexpected type: " + callback);
+        }
+        org.openapitools.empoa.swagger.core.internal.models.servers.SwServerVariable value = (org.openapitools.empoa.swagger.core.internal.models.servers.SwServerVariable) callback;
+        initCallbacks();
+        if (_variables == null) {
+            _variables = new java.util.LinkedHashMap<>();
+            _swServer.setVariables(new io.swagger.v3.oas.models.servers.ServerVariables());
+        }
+        _variables.put(key, value);
+        _swServer.getVariables()
+            .put(key, value.getSw());
+        return this;
+    }
+
+    @Override
+    public void removeVariable(String key) {
+        initCallbacks();
+        if (_variables != null) {
+            _variables.remove(key);
+            _swServer.getVariables()
+                .remove(key);
         }
     }
 

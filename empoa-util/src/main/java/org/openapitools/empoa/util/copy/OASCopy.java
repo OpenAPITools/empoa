@@ -45,12 +45,10 @@ import org.eclipse.microprofile.openapi.models.responses.APIResponse;
 import org.eclipse.microprofile.openapi.models.responses.APIResponses;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlow;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlows;
-import org.eclipse.microprofile.openapi.models.security.Scopes;
 import org.eclipse.microprofile.openapi.models.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.models.security.SecurityScheme;
 import org.eclipse.microprofile.openapi.models.servers.Server;
 import org.eclipse.microprofile.openapi.models.servers.ServerVariable;
-import org.eclipse.microprofile.openapi.models.servers.ServerVariables;
 import org.eclipse.microprofile.openapi.models.tags.Tag;
 
 public class OASCopy {
@@ -463,7 +461,12 @@ public class OASCopy {
         to.setAuthorizationUrl(from.getAuthorizationUrl());
         to.setTokenUrl(from.getTokenUrl());
         to.setRefreshUrl(from.getRefreshUrl());
-        to.setScopes(copy(from.getScopes()));
+        Map<String, String> scopes = from.getScopes();
+        if (scopes != null) {
+            for (Entry<String, String> entry : scopes.entrySet()) {
+                to.addScope(entry.getKey(), entry.getValue());
+            }
+        }
         Map<String, Object> extensions = from.getExtensions();
         if (extensions != null) {
             for (Entry<String, Object> entry : extensions.entrySet()) {
@@ -735,26 +738,6 @@ public class OASCopy {
         return to;
     }
 
-    public static Scopes copy(Scopes from) {
-        if (from == null) {
-            return null;
-        }
-        Scopes to = OASFactory.createScopes();
-        Map<String, String> scopes = from.getScopes();
-        if (scopes != null) {
-            for (Entry<String, String> entry : scopes.entrySet()) {
-                to.addScope(entry.getKey(), entry.getValue());
-            }
-        }
-        Map<String, Object> extensions = from.getExtensions();
-        if (extensions != null) {
-            for (Entry<String, Object> entry : extensions.entrySet()) {
-                to.addExtension(entry.getKey(), entry.getValue());
-            }
-        }
-        return to;
-    }
-
     public static SecurityRequirement copy(SecurityRequirement from) {
         if (from == null) {
             return null;
@@ -799,7 +782,12 @@ public class OASCopy {
         Server to = OASFactory.createServer();
         to.setUrl(from.getUrl());
         to.setDescription(from.getDescription());
-        to.setVariables(copy(from.getVariables()));
+        Map<String, ServerVariable> variables = from.getVariables();
+        if (variables != null) {
+            for (Entry<String, ServerVariable> entry : variables.entrySet()) {
+                to.addVariable(entry.getKey(), copy(entry.getValue()));
+            }
+        }
         Map<String, Object> extensions = from.getExtensions();
         if (extensions != null) {
             for (Entry<String, Object> entry : extensions.entrySet()) {
@@ -822,26 +810,6 @@ public class OASCopy {
         }
         to.setDefaultValue(from.getDefaultValue());
         to.setDescription(from.getDescription());
-        Map<String, Object> extensions = from.getExtensions();
-        if (extensions != null) {
-            for (Entry<String, Object> entry : extensions.entrySet()) {
-                to.addExtension(entry.getKey(), entry.getValue());
-            }
-        }
-        return to;
-    }
-
-    public static ServerVariables copy(ServerVariables from) {
-        if (from == null) {
-            return null;
-        }
-        ServerVariables to = OASFactory.createServerVariables();
-        Map<String, ServerVariable> serverVariables = from.getServerVariables();
-        if (serverVariables != null) {
-            for (Entry<String, ServerVariable> entry : serverVariables.entrySet()) {
-                to.addServerVariable(entry.getKey(), copy(entry.getValue()));
-            }
-        }
         Map<String, Object> extensions = from.getExtensions();
         if (extensions != null) {
             for (Entry<String, Object> entry : extensions.entrySet()) {

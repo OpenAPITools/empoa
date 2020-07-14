@@ -44,12 +44,10 @@ import org.eclipse.microprofile.openapi.models.responses.APIResponse;
 import org.eclipse.microprofile.openapi.models.responses.APIResponses;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlow;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlows;
-import org.eclipse.microprofile.openapi.models.security.Scopes;
 import org.eclipse.microprofile.openapi.models.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.models.security.SecurityScheme;
 import org.eclipse.microprofile.openapi.models.servers.Server;
 import org.eclipse.microprofile.openapi.models.servers.ServerVariable;
-import org.eclipse.microprofile.openapi.models.servers.ServerVariables;
 import org.eclipse.microprofile.openapi.models.tags.Tag;
 
 public class OASAccept {
@@ -382,10 +380,7 @@ public class OASAccept {
 
     public static void accept(OASVisitor visitor, OAuthFlow oAuthFlow, String jsonPath) {
         if (oAuthFlow != null) {
-            OASVisitResult result = visitor.visit(oAuthFlow, jsonPath);
-            if (result == OASVisitResult.CONTINUE) {
-                accept(visitor, oAuthFlow.getScopes(), jsonPath + ".scopes");
-            }
+            visitor.visit(oAuthFlow, jsonPath);
         }
     }
 
@@ -577,16 +572,6 @@ public class OASAccept {
         }
     }
 
-    public static void accept(OASVisitor visitor, Scopes scopes) {
-        accept(visitor, scopes, "$");
-    }
-
-    public static void accept(OASVisitor visitor, Scopes scopes, String jsonPath) {
-        if (scopes != null) {
-            visitor.visit(scopes, jsonPath);
-        }
-    }
-
     public static void accept(OASVisitor visitor, SecurityRequirement securityRequirement) {
         accept(visitor, securityRequirement, "$");
     }
@@ -618,7 +603,12 @@ public class OASAccept {
         if (server != null) {
             OASVisitResult result = visitor.visit(server, jsonPath);
             if (result == OASVisitResult.CONTINUE) {
-                accept(visitor, server.getVariables(), jsonPath + ".variables");
+                Map<String, ServerVariable> map = server.getVariables();
+                if (map != null) {
+                    for (Entry<String, ServerVariable> item : map.entrySet()) {
+                        accept(visitor, item.getValue(), jsonPath + ".variables.['" + item.getKey() + "']");
+                    }
+                }
             }
         }
     }
@@ -630,24 +620,6 @@ public class OASAccept {
     public static void accept(OASVisitor visitor, ServerVariable serverVariable, String jsonPath) {
         if (serverVariable != null) {
             visitor.visit(serverVariable, jsonPath);
-        }
-    }
-
-    public static void accept(OASVisitor visitor, ServerVariables serverVariables) {
-        accept(visitor, serverVariables, "$");
-    }
-
-    public static void accept(OASVisitor visitor, ServerVariables serverVariables, String jsonPath) {
-        if (serverVariables != null) {
-            OASVisitResult result = visitor.visit(serverVariables, jsonPath);
-            if (result == OASVisitResult.CONTINUE) {
-                Map<String, ServerVariable> map = serverVariables.getServerVariables();
-                if (map != null) {
-                    for (Entry<String, ServerVariable> item : map.entrySet()) {
-                        accept(visitor, item.getValue(), jsonPath + ".['" + item.getKey() + "']");
-                    }
-                }
-            }
         }
     }
 

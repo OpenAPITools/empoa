@@ -41,12 +41,10 @@ import org.eclipse.microprofile.openapi.models.responses.APIResponse;
 import org.eclipse.microprofile.openapi.models.responses.APIResponses;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlow;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlows;
-import org.eclipse.microprofile.openapi.models.security.Scopes;
 import org.eclipse.microprofile.openapi.models.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.models.security.SecurityScheme;
 import org.eclipse.microprofile.openapi.models.servers.Server;
 import org.eclipse.microprofile.openapi.models.servers.ServerVariable;
-import org.eclipse.microprofile.openapi.models.servers.ServerVariables;
 import org.eclipse.microprofile.openapi.models.tags.Tag;
 
 public final class OASElement {
@@ -200,16 +198,12 @@ public final class OASElement {
     }
 
     public static OAuthFlow createOAuthFlow() {
-        return OASFactory.createOAuthFlow();
+        return OASFactory.createOAuthFlow()
+            .addScope("myScope", "Some description");
     }
 
     public static OAuthFlows createOAuthFlows() {
         return OASFactory.createOAuthFlows();
-    }
-
-    public static Scopes createScopes() {
-        return OASFactory.createScopes()
-            .addScope("myScope", "Some description");
     }
 
     public static SecurityRequirement createSecurityRequirement() {
@@ -231,11 +225,6 @@ public final class OASElement {
     public static ServerVariable createServerVariable() {
         return OASFactory.createServerVariable()
             .description("Some description");
-    }
-
-    public static ServerVariables createServerVariables() {
-        return OASFactory.createServerVariables()
-            .addServerVariable("somevar", createServerVariable());
     }
 
     public static Tag createTag() {

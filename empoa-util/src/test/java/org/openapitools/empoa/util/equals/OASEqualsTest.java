@@ -43,12 +43,10 @@ import org.eclipse.microprofile.openapi.models.responses.APIResponse;
 import org.eclipse.microprofile.openapi.models.responses.APIResponses;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlow;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlows;
-import org.eclipse.microprofile.openapi.models.security.Scopes;
 import org.eclipse.microprofile.openapi.models.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.models.security.SecurityScheme;
 import org.eclipse.microprofile.openapi.models.servers.Server;
 import org.eclipse.microprofile.openapi.models.servers.ServerVariable;
-import org.eclipse.microprofile.openapi.models.servers.ServerVariables;
 import org.eclipse.microprofile.openapi.models.tags.Tag;
 import org.junit.jupiter.api.Test;
 import org.openapitools.empoa.extended.tck.OASTestFactory;
@@ -437,21 +435,6 @@ public class OASEqualsTest {
     }
 
     @Test
-    public void testCopyScopes() throws Exception {
-        Scopes a1 = OASFactory.createScopes();
-        Scopes b1 = OASFactory.createScopes();
-        assertThat(a1).isNotSameAs(b1);
-        assertThat(OASEquals.equals(a1, b1)).isTrue();
-
-        Scopes a2 = OASTestFactory.createTestScopes();
-        Scopes b2 = OASTestFactory.createTestScopes();
-        assertThat(a2).isNotSameAs(b2);
-        assertThat(OASEquals.equals(a2, b2)).isTrue();
-
-        assertThat(OASEquals.equals(a1, a2)).isFalse();
-    }
-
-    @Test
     public void testCopySecurityRequirement() throws Exception {
         SecurityRequirement a1 = OASFactory.createSecurityRequirement();
         SecurityRequirement b1 = OASFactory.createSecurityRequirement();
@@ -505,21 +488,6 @@ public class OASEqualsTest {
 
         ServerVariable a2 = OASTestFactory.createTestServerVariable();
         ServerVariable b2 = OASTestFactory.createTestServerVariable();
-        assertThat(a2).isNotSameAs(b2);
-        assertThat(OASEquals.equals(a2, b2)).isTrue();
-
-        assertThat(OASEquals.equals(a1, a2)).isFalse();
-    }
-
-    @Test
-    public void testCopyServerVariables() throws Exception {
-        ServerVariables a1 = OASFactory.createServerVariables();
-        ServerVariables b1 = OASFactory.createServerVariables();
-        assertThat(a1).isNotSameAs(b1);
-        assertThat(OASEquals.equals(a1, b1)).isTrue();
-
-        ServerVariables a2 = OASTestFactory.createTestServerVariables();
-        ServerVariables b2 = OASTestFactory.createTestServerVariables();
         assertThat(a2).isNotSameAs(b2);
         assertThat(OASEquals.equals(a2, b2)).isTrue();
 

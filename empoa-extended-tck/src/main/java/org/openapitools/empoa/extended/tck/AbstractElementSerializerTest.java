@@ -45,12 +45,10 @@ import org.eclipse.microprofile.openapi.models.responses.APIResponse;
 import org.eclipse.microprofile.openapi.models.responses.APIResponses;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlow;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlows;
-import org.eclipse.microprofile.openapi.models.security.Scopes;
 import org.eclipse.microprofile.openapi.models.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.models.security.SecurityScheme;
 import org.eclipse.microprofile.openapi.models.servers.Server;
 import org.eclipse.microprofile.openapi.models.servers.ServerVariable;
-import org.eclipse.microprofile.openapi.models.servers.ServerVariables;
 import org.eclipse.microprofile.openapi.models.tags.Tag;
 import org.junit.jupiter.api.Test;
 import org.openapitools.empoa.extended.tck.specs.OASElement;
@@ -233,13 +231,6 @@ public abstract class AbstractElementSerializerTest {
     }
 
     @Test
-    public void testEmptyScopesToJson() throws Exception {
-        Scopes scopes = OASFactory.createScopes();
-        String json = convertToJson(scopes);
-        assertThatJson(json).isEqualTo("{}");
-    }
-
-    @Test
     public void testEmptySecurityRequirementToJson() throws Exception {
         SecurityRequirement securityRequirement = OASFactory.createSecurityRequirement();
         String json = convertToJson(securityRequirement);
@@ -264,13 +255,6 @@ public abstract class AbstractElementSerializerTest {
     public void testEmptyServerVariableToJson() throws Exception {
         ServerVariable serverVariable = OASFactory.createServerVariable();
         String json = convertToJson(serverVariable);
-        assertThatJson(json).isEqualTo("{}");
-    }
-
-    @Test
-    public void testEmptyServerVariablesToJson() throws Exception {
-        ServerVariables serverVariables = OASFactory.createServerVariables();
-        String json = convertToJson(serverVariables);
         assertThatJson(json).isEqualTo("{}");
     }
 
@@ -795,7 +779,11 @@ public abstract class AbstractElementSerializerTest {
 
         assertThatJson(json).isEqualTo(
             "" +
-                "{}"
+                "{\n" +
+                "  \"scopes\": {\n" +
+                "    \"myScope\": \"Some description\"\n" +
+                "  }\n" +
+                "}"
         );
     }
 
@@ -807,19 +795,6 @@ public abstract class AbstractElementSerializerTest {
         assertThatJson(json).isEqualTo(
             "" +
                 "{}"
-        );
-    }
-
-    @Test
-    public void testScopesToJson() throws Exception {
-        Scopes scopes = OASElement.createScopes();
-        String json = convertToJson(scopes);
-
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"myScope\": \"Some description\"\n" +
-                "}"
         );
     }
 
@@ -872,21 +847,6 @@ public abstract class AbstractElementSerializerTest {
             "" +
                 "{\n" +
                 "  \"description\": \"Some description\"\n" +
-                "}"
-        );
-    }
-
-    @Test
-    public void testServerVariablesToJson() throws Exception {
-        ServerVariables serverVariables = OASElement.createServerVariables();
-        String json = convertToJson(serverVariables);
-
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"somevar\": {\n" +
-                "    \"description\": \"Some description\"\n" +
-                "  }\n" +
                 "}"
         );
     }
@@ -1117,8 +1077,6 @@ public abstract class AbstractElementSerializerTest {
 
     protected abstract String convertToJson(OAuthFlows oAuthFlows) throws IOException;
 
-    protected abstract String convertToJson(Scopes scopes) throws IOException;
-
     protected abstract String convertToJson(SecurityRequirement securityRequirement) throws IOException;
 
     protected abstract String convertToJson(SecurityScheme securityScheme) throws IOException;
@@ -1126,8 +1084,6 @@ public abstract class AbstractElementSerializerTest {
     protected abstract String convertToJson(Server server) throws IOException;
 
     protected abstract String convertToJson(ServerVariable serverVariable) throws IOException;
-
-    protected abstract String convertToJson(ServerVariables serverVariables) throws IOException;
 
     protected abstract String convertToJson(Tag tag) throws IOException;
 

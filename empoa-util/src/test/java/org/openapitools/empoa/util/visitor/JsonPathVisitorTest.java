@@ -338,7 +338,6 @@ public class JsonPathVisitorTest extends AbstractSpecTest {
                 "$.servers[0]",
                 "$.servers[1].variables.['username']",
                 "$.servers[1].variables.['version']",
-                "$.servers[1].variables",
                 "$.servers[1]",
                 "$.tags[0]",
                 "$"

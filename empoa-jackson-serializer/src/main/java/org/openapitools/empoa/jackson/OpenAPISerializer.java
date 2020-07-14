@@ -50,12 +50,10 @@ import org.eclipse.microprofile.openapi.models.responses.APIResponse;
 import org.eclipse.microprofile.openapi.models.responses.APIResponses;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlow;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlows;
-import org.eclipse.microprofile.openapi.models.security.Scopes;
 import org.eclipse.microprofile.openapi.models.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.models.security.SecurityScheme;
 import org.eclipse.microprofile.openapi.models.servers.Server;
 import org.eclipse.microprofile.openapi.models.servers.ServerVariable;
-import org.eclipse.microprofile.openapi.models.servers.ServerVariables;
 import org.eclipse.microprofile.openapi.models.tags.Tag;
 import org.openapitools.empoa.jackson.internal.JsonUtil;
 import org.openapitools.empoa.jackson.internal.OpenAPIConstants;
@@ -466,21 +464,6 @@ public class OpenAPISerializer {
     }
 
     /**
-     * Serializes the given {@link Scopes} object into either JSON or YAML and returns it as a string.
-     *
-     * @param model
-     *            the Scopes object
-     * @param format
-     *            the serialization format
-     * @return Scopes object as a String
-     * @throws IOException
-     *             Errors in processing the JSON
-     */
-    public static final String serialize(Scopes model, Format format) throws IOException {
-        return serialize(model, OpenAPISerializer::writeScopesToNode, format);
-    }
-
-    /**
      * Serializes the given {@link SecurityRequirement} object into either JSON or YAML and returns it as a string.
      *
      * @param model
@@ -538,21 +521,6 @@ public class OpenAPISerializer {
      */
     public static final String serialize(ServerVariable model, Format format) throws IOException {
         return serialize(model, OpenAPISerializer::writeServerVariableToNode, format);
-    }
-
-    /**
-     * Serializes the given {@link ServerVariables} object into either JSON or YAML and returns it as a string.
-     *
-     * @param model
-     *            the ServerVariables object
-     * @param format
-     *            the serialization format
-     * @return ServerVariables object as a String
-     * @throws IOException
-     *             Errors in processing the JSON
-     */
-    public static final String serialize(ServerVariables model, Format format) throws IOException {
-        return serialize(model, OpenAPISerializer::writeServerVariablesToNode, format);
     }
 
     /**
@@ -798,27 +766,13 @@ public class OpenAPISerializer {
      * @param serverNode
      * @param variables
      */
-    private static void writeServerVariables(ObjectNode serverNode, ServerVariables variables) {
+    private static void writeServerVariables(ObjectNode serverNode, Map<String, ServerVariable> variables) {
         if (variables == null) {
             return;
         }
         ObjectNode variablesNode = serverNode.putObject(OpenAPIConstants.PROP_VARIABLES);
-        writeServerVariablesToNode(variablesNode, variables);
-    }
-
-    /**
-     * Writes the {@link ServerVariables} model to the given JSON node.
-     *
-     * @param node
-     * @param variables
-     */
-    private static void writeServerVariablesToNode(ObjectNode node, ServerVariables variables) {
-        if (variables.getServerVariables() != null) {
-            for (String varName : variables.getServerVariables()
-                .keySet()) {
-                writeServerVariable(node, varName, variables.getServerVariable(varName));
-            }
-            writeExtensions(node, variables);
+        for (String varName : variables.keySet()) {
+            writeServerVariable(variablesNode, varName, variables.get(varName));
         }
     }
 
@@ -1757,25 +1711,9 @@ public class OpenAPISerializer {
         JsonUtil.stringProperty(node, OpenAPIConstants.PROP_REFRESH_URL, model.getRefreshUrl());
         if (model.getScopes() != null) {
             writeStringMap(
-                node, model.getScopes()
-                    .getScopes(), OpenAPIConstants.PROP_SCOPES
+                node, model.getScopes(), OpenAPIConstants.PROP_SCOPES
             );
             writeExtensions(node, model);
-        }
-    }
-
-    /**
-     * Writes a {@link Scopes} object to the given JSON node.
-     *
-     * @param node
-     * @param scopes
-     */
-    private static void writeScopesToNode(ObjectNode node, Scopes scopes) {
-        if (scopes.getScopes() != null) {
-            for (Entry<String, String> entry : scopes.getScopes()
-                .entrySet()) {
-                node.put(entry.getKey(), entry.getValue());
-            }
         }
     }
 

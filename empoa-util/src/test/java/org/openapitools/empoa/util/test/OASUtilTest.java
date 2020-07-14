@@ -30,7 +30,6 @@ import static org.eclipse.microprofile.openapi.OASFactory.createPaths;
 import static org.eclipse.microprofile.openapi.OASFactory.createSchema;
 import static org.eclipse.microprofile.openapi.OASFactory.createServer;
 import static org.eclipse.microprofile.openapi.OASFactory.createServerVariable;
-import static org.eclipse.microprofile.openapi.OASFactory.createServerVariables;
 
 import java.util.List;
 
@@ -85,12 +84,9 @@ public class OASUtilTest {
                 createServer()
                     .url("http://api.com/{a}/{b}/{c}")
                     .description("Main server")
-                    .variables(
-                        createServerVariables()
-                            .addServerVariable("b", createServerVariable().description("b var"))
-                            .addServerVariable("c", createServerVariable().description("c var"))
-                            .addServerVariable("a", createServerVariable().description("a var"))
-                    )
+                    .addVariable("b", createServerVariable().description("b var"))
+                    .addVariable("c", createServerVariable().description("c var"))
+                    .addVariable("a", createServerVariable().description("a var"))
             )
             .paths(
                 createPaths()

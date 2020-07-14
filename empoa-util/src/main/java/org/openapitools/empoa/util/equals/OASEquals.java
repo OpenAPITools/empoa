@@ -44,12 +44,10 @@ import org.eclipse.microprofile.openapi.models.responses.APIResponse;
 import org.eclipse.microprofile.openapi.models.responses.APIResponses;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlow;
 import org.eclipse.microprofile.openapi.models.security.OAuthFlows;
-import org.eclipse.microprofile.openapi.models.security.Scopes;
 import org.eclipse.microprofile.openapi.models.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.models.security.SecurityScheme;
 import org.eclipse.microprofile.openapi.models.servers.Server;
 import org.eclipse.microprofile.openapi.models.servers.ServerVariable;
-import org.eclipse.microprofile.openapi.models.servers.ServerVariables;
 import org.eclipse.microprofile.openapi.models.tags.Tag;
 
 public class OASEquals {
@@ -818,7 +816,7 @@ public class OASEquals {
         if (!Objects.equals(a.getRefreshUrl(), b.getRefreshUrl())) {
             return false;
         }
-        if (!equals(a.getScopes(), b.getScopes())) {
+        if (!Objects.equals(a.getScopes(), b.getScopes())) {
             return false;
         }
         if (!Objects.equals(a.getExtensions(), b.getExtensions())) {
@@ -1341,22 +1339,6 @@ public class OASEquals {
         return true;
     }
 
-    public static boolean equals(Scopes a, Scopes b) {
-        if (a == null) {
-            return b == null;
-        }
-        if (b == null) {
-            return false;
-        }
-        if (!Objects.equals(a.getScopes(), b.getScopes())) {
-            return false;
-        }
-        if (!Objects.equals(a.getExtensions(), b.getExtensions())) {
-            return false;
-        }
-        return true;
-    }
-
     public static boolean equals(SecurityRequirement a, SecurityRequirement b) {
         if (a == null) {
             return b == null;
@@ -1423,7 +1405,7 @@ public class OASEquals {
         if (!Objects.equals(a.getDescription(), b.getDescription())) {
             return false;
         }
-        if (!equals(a.getVariables(), b.getVariables())) {
+        if (!Objects.equals(a.getVariables(), b.getVariables())) {
             return false;
         }
         if (!Objects.equals(a.getExtensions(), b.getExtensions())) {
@@ -1447,38 +1429,6 @@ public class OASEquals {
         }
         if (!Objects.equals(a.getDescription(), b.getDescription())) {
             return false;
-        }
-        if (!Objects.equals(a.getExtensions(), b.getExtensions())) {
-            return false;
-        }
-        return true;
-    }
-
-    public static boolean equals(ServerVariables a, ServerVariables b) {
-        if (a == null) {
-            return b == null;
-        }
-        if (b == null) {
-            return false;
-        }
-        Map<String, ServerVariable> aServerVariables = a.getServerVariables();
-        Map<String, ServerVariable> bServerVariables = b.getServerVariables();
-        if (aServerVariables == null && bServerVariables != null) {
-            return false;
-        } else if (aServerVariables != null && bServerVariables == null) {
-            return false;
-        } else if (aServerVariables != null && bServerVariables != null) {
-            if (aServerVariables.size() != bServerVariables.size()) {
-                return false;
-            }
-            if (!Objects.equals(aServerVariables.keySet(), bServerVariables.keySet())) {
-                return false;
-            }
-            for (String key : aServerVariables.keySet()) {
-                if (!equals(aServerVariables.get(key), bServerVariables.get(key))) {
-                    return false;
-                }
-            }
         }
         if (!Objects.equals(a.getExtensions(), b.getExtensions())) {
             return false;
