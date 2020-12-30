@@ -18,6 +18,7 @@ package org.openapitools.empoa.extended.tck.models;
 import static org.assertj.core.api.Assertions.*;
 
 import org.eclipse.microprofile.openapi.OASFactory;
+import org.eclipse.microprofile.openapi.models.Operation;
 import org.eclipse.microprofile.openapi.models.PathItem;
 import org.junit.jupiter.api.Test;
 
@@ -27,6 +28,14 @@ public class PathItemTest {
     public void testCreatePathItem() {
         PathItem pathItem = OASFactory.createPathItem();
         assertThat(pathItem).isNotNull();
+    }
+
+    @Test
+    public void testPathItemSetOperation() {
+        PathItem pathItem = OASFactory.createPathItem();
+        Operation operation = OASFactory.createOperation()
+            .description("This is some op");
+        assertThatThrownBy(() -> pathItem.setOperation(null, operation)).isInstanceOf(RuntimeException.class);
     }
 
 }
