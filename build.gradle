@@ -45,9 +45,9 @@ subprojects {
         // mavenLocal()
         mavenCentral()
         jcenter()
-        maven {
-            url "http://dl.bintray.com/jmini/maven/"
-        }
+        // maven {
+        //     url "http://dl.bintray.com/jmini/maven/"
+        // }
     }
 
     nexusPublishing {

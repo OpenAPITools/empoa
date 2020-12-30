@@ -15,6 +15,7 @@
  ******************************************************************************/
 package org.openapitools.empoa.simple.internal.models;
 
+import org.eclipse.microprofile.openapi.models.Operation;
 import org.eclipse.microprofile.openapi.models.PathItem;
 
 public class PathItemImpl implements PathItem {
@@ -223,6 +224,41 @@ public class PathItemImpl implements PathItem {
             map.put(HttpMethod.TRACE, getTRACE());
         }
         return java.util.Collections.unmodifiableMap(map);
+    }
+
+    @Override
+    public void setOperation(HttpMethod httpMethod, Operation operation) {
+        if (httpMethod == null) {
+            throw new IllegalArgumentException("parameter httpMethod can not be null");
+        }
+        switch (httpMethod) {
+        case DELETE:
+            setDELETE(operation);
+            break;
+        case GET:
+            setGET(operation);
+            break;
+        case HEAD:
+            setHEAD(operation);
+            break;
+        case OPTIONS:
+            setOPTIONS(operation);
+            break;
+        case PATCH:
+            setPATCH(operation);
+            break;
+        case POST:
+            setPOST(operation);
+            break;
+        case PUT:
+            setPUT(operation);
+            break;
+        case TRACE:
+            setTRACE(operation);
+            break;
+        default:
+            throw new IllegalArgumentException("Unexpected httpMethod: " + httpMethod);
+        }
     }
 
     private java.util.List<org.eclipse.microprofile.openapi.models.servers.Server> _servers;

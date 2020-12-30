@@ -319,41 +319,18 @@ public class OASUtil {
         return allParameters;
     }
 
+    /**
+     * @deprecated Use {@link PathItem#setOperation(HttpMethod, Operation)} instead
+     * @param pathItem
+     * @param httpMethod
+     * @param operation
+     */
+    @Deprecated
     public static void setOperation(PathItem pathItem, HttpMethod httpMethod, Operation operation) {
         if (pathItem == null) {
             throw new IllegalArgumentException("parameter pathItem can not be null");
         }
-        if (httpMethod == null) {
-            throw new IllegalArgumentException("parameter httpMethod can not be null");
-        }
-        switch (httpMethod) {
-        case DELETE:
-            pathItem.setDELETE(operation);
-            break;
-        case GET:
-            pathItem.setGET(operation);
-            break;
-        case HEAD:
-            pathItem.setHEAD(operation);
-            break;
-        case OPTIONS:
-            pathItem.setOPTIONS(operation);
-            break;
-        case PATCH:
-            pathItem.setPATCH(operation);
-            break;
-        case POST:
-            pathItem.setPOST(operation);
-            break;
-        case PUT:
-            pathItem.setPUT(operation);
-            break;
-        case TRACE:
-            pathItem.setTRACE(operation);
-            break;
-        default:
-            throw new IllegalArgumentException("Unexpected httpMethod: " + httpMethod);
-        }
+        pathItem.setOperation(httpMethod, operation);
     }
 
 }
