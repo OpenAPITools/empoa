@@ -9,7 +9,7 @@ buildscript {
 
 plugins {
     id 'com.diffplug.spotless' version '5.1.1' apply false
-    id 'org.asciidoctor.convert' version '2.4.0'
+    id 'org.asciidoctor.jvm.convert' version '3.3.0'
     id 'org.ajoberstar.git-publish' version '3.0.0'
     id 'de.marcphilipp.nexus-publish' version '0.3.0' apply false
     id 'net.researchgate.release' version '2.6.0'
@@ -70,13 +70,19 @@ def buildDate() {
     return new Date().format('yyyy-MM-dd')
 }
 
+configurations {
+    asciidoctorExtensions
+}
+
 asciidoctorj {
     version = "$asciidoctorjVersion"
 }
 
 asciidoctor {
+    configurations 'asciidoctorExtensions'
     sourceDir = file('docs')
-    outputDir = file('build/docs')
+    baseDirFollowsSourceFile()
+    outputDir = file('build/docs/html5')
     attributes = ['revdate'           : "${buildDate()}",
                   'project-version'   : "$version",
                   'artifacts-version' : "$lastVersion",
@@ -96,7 +102,7 @@ asciidoctor {
         mavenCentral()
     }
     dependencies {
-        asciidoctor "fr.jmini.asciidoctorj:git-link:3.2.1"
+        asciidoctorExtensions 'fr.jmini.asciidoctorj:git-link:3.2.1'
     }
 }
 
