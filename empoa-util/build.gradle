@@ -19,9 +19,9 @@ dependencies {
     testImplementation project(':empoa-gson-serializer')
     testImplementation "com.jayway.jsonpath:json-path:$jsonpathVersion"
 
-    testRuntime project(':empoa-simple-models-impl')
-    testRuntime "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
-    testRuntime "ch.qos.logback:logback-classic:$logbackVersion"
+    testRuntimeOnly project(':empoa-simple-models-impl')
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    testRuntimeOnly "ch.qos.logback:logback-classic:$logbackVersion"
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {

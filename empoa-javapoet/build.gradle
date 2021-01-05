@@ -18,7 +18,7 @@ dependencies {
     testImplementation project(':empoa-simple-models-impl')
     testImplementation project(':empoa-extended-tck')
 
-    testRuntime "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {

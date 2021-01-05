@@ -17,8 +17,8 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
     testImplementation "org.assertj:assertj-core:$assertjVersion"
 
-    testRuntime "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
-    testRuntime "ch.qos.logback:logback-classic:$logbackVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    testRuntimeOnly "ch.qos.logback:logback-classic:$logbackVersion"
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
