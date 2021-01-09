@@ -127,10 +127,22 @@ release {
 
 task releaseBuild {
     dependsOn(
+            'checkLastVersionValue',
             'clean',
             'build',
             'publish',
             'asciidoctor',
             'gitPublishPush'
     )
+}
+
+task checkLastVersionValue {
+    doLast {
+        if(version.endsWith('SNAPSHOT')) {
+            throw new GradleException("version '$version' ends with SNAPSHOT, this is not a release build!")
+        }
+        if(lastVersion != version) {
+            throw new GradleException("lastVersion '$lastVersion' does not match version '$version', fix it in the 'gradle.properties' file.")
+        }
+    }
 }
