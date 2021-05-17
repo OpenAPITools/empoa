@@ -2,7 +2,7 @@ buildscript {
   configurations.classpath {
     resolutionStrategy {
       //This is required by 'git-publish' version '3.0.0':
-      force 'org.eclipse.jgit:org.eclipse.jgit:5.10.0.202012080955-r'
+      force 'org.eclipse.jgit:org.eclipse.jgit:5.11.1.202105131744-r'
     }
   }
 }
