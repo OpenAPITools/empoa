@@ -56,6 +56,10 @@ public class OASUtil {
         OASAccept.accept(visitor, openAPI);
     }
 
+    public static String toRefAPIResponse(String simpleName) {
+        return toRef(REF_PREFIX_API_RESPONSE, simpleName);
+    }
+
     public static boolean containsAPIResponse(OpenAPI openAPI, String refValue) {
         String simpleName = toSimpleName(REF_PREFIX_API_RESPONSE, refValue);
         return openAPI.getComponents() != null &&
@@ -80,6 +84,10 @@ public class OASUtil {
                 .getResponses()
                 .get(simpleName)
         );
+    }
+
+    public static String toRefCallback(String simpleName) {
+        return toRef(REF_PREFIX_CALLBACK, simpleName);
     }
 
     public static boolean containsCallback(OpenAPI openAPI, String refValue) {
@@ -108,6 +116,10 @@ public class OASUtil {
         );
     }
 
+    public static String toRefExample(String simpleName) {
+        return toRef(REF_PREFIX_EXAMPLE, simpleName);
+    }
+
     public static boolean containsExample(OpenAPI openAPI, String refValue) {
         String simpleName = toSimpleName(REF_PREFIX_EXAMPLE, refValue);
         return openAPI.getComponents() != null &&
@@ -132,6 +144,10 @@ public class OASUtil {
                 .getExamples()
                 .get(simpleName)
         );
+    }
+
+    public static String toRefHeader(String simpleName) {
+        return toRef(REF_PREFIX_HEADER, simpleName);
     }
 
     public static boolean containsHeader(OpenAPI openAPI, String refValue) {
@@ -160,6 +176,10 @@ public class OASUtil {
         );
     }
 
+    public static String toRefLink(String simpleName) {
+        return toRef(REF_PREFIX_LINK, simpleName);
+    }
+
     public static boolean containsLink(OpenAPI openAPI, String refValue) {
         String simpleName = toSimpleName(REF_PREFIX_LINK, refValue);
         return openAPI.getComponents() != null &&
@@ -184,6 +204,10 @@ public class OASUtil {
                 .getLinks()
                 .get(simpleName)
         );
+    }
+
+    public static String toRefParameter(String simpleName) {
+        return toRef(REF_PREFIX_PARAMETER, simpleName);
     }
 
     public static boolean containsParameter(OpenAPI openAPI, String refValue) {
@@ -212,6 +236,10 @@ public class OASUtil {
         );
     }
 
+    public static String toRefRequestBody(String simpleName) {
+        return toRef(REF_PREFIX_REQUEST_BODY, simpleName);
+    }
+
     public static boolean containsRequestBody(OpenAPI openAPI, String refValue) {
         String simpleName = toSimpleName(REF_PREFIX_REQUEST_BODY, refValue);
         return openAPI.getComponents() != null &&
@@ -238,6 +266,10 @@ public class OASUtil {
         );
     }
 
+    public static String toRefSecurityScheme(String simpleName) {
+        return toRef(REF_PREFIX_SECURITY_SCHEME, simpleName);
+    }
+
     public static boolean containsSecurityScheme(OpenAPI openAPI, String refValue) {
         String simpleName = toSimpleName(REF_PREFIX_SECURITY_SCHEME, refValue);
         return openAPI.getComponents() != null &&
@@ -262,6 +294,10 @@ public class OASUtil {
                 .getSecuritySchemes()
                 .get(simpleName)
         );
+    }
+
+    public static String toRefSchema(String simpleName) {
+        return toRef(REF_PREFIX_SCHEMA, simpleName);
     }
 
     public static boolean containsSchema(OpenAPI openAPI, String refValue) {
@@ -294,6 +330,10 @@ public class OASUtil {
         if (openAPI.getComponents() == null) {
             openAPI.setComponents(OASFactory.createComponents());
         }
+    }
+
+    private static String toRef(String refPrefix, String simpleName) {
+        return refPrefix + simpleName;
     }
 
     private static String toSimpleName(String refPrefix, String refValue) {
