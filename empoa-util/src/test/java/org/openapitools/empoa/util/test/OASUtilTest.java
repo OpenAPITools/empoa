@@ -272,6 +272,51 @@ public class OASUtilTest {
     }
 
     @Test
+    public void testToRefAPIResponse() {
+        assertThat(OASUtil.toRefAPIResponse("Foo")).isEqualTo("#/components/responses/Foo");
+    }
+
+    @Test
+    public void testToRefCallback() {
+        assertThat(OASUtil.toRefCallback("Foo")).isEqualTo("#/components/callbacks/Foo");
+    }
+
+    @Test
+    public void testToRefExample() {
+        assertThat(OASUtil.toRefExample("Foo")).isEqualTo("#/components/examples/Foo");
+    }
+
+    @Test
+    public void testToRefHeader() {
+        assertThat(OASUtil.toRefHeader("Foo")).isEqualTo("#/components/headers/Foo");
+    }
+
+    @Test
+    public void testToRefLink() {
+        assertThat(OASUtil.toRefLink("Foo")).isEqualTo("#/components/links/Foo");
+    }
+
+    @Test
+    public void testToRefParameter() {
+        assertThat(OASUtil.toRefParameter("Foo")).isEqualTo("#/components/parameters/Foo");
+    }
+
+    @Test
+    public void testToRefRequestBody() {
+        assertThat(OASUtil.toRefRequestBody("Foo")).isEqualTo("#/components/requestBodies/Foo");
+    }
+
+    @Test
+    public void testToRefSecurityScheme() {
+        assertThat(OASUtil.toRefSecurityScheme("Foo")).isEqualTo("#/components/securitySchemes/Foo");
+    }
+
+    @Test
+    public void testToRefSchema() {
+        assertThat(OASUtil.toRefSchema("Foo")).isEqualTo("#/components/schemas/Foo");
+    }
+
+    @Test
     public void testContainsAPIResponse() throws Exception {
         assertThat(OASUtil.containsAPIResponse(PingSpec.create(), "Empty")).isFalse();
         OpenAPI openAPI = BigSpec.create();
