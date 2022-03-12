@@ -1,8 +1,8 @@
 buildscript {
   configurations.classpath {
     resolutionStrategy {
-      //This is required by 'git-publish' version '3.0.0':
-      force 'org.eclipse.jgit:org.eclipse.jgit:5.10.0.202012080955-r'
+      //This is required by 'grgit' version '4.1.1':
+      force 'org.eclipse.jgit:org.eclipse.jgit:5.13.0.202109080827-r'
     }
   }
 }
@@ -10,7 +10,8 @@ buildscript {
 plugins {
     id 'com.diffplug.spotless' version '5.1.1' apply false
     id 'org.asciidoctor.jvm.convert' version '3.3.0'
-    id 'org.ajoberstar.git-publish' version '3.0.0'
+    id 'org.ajoberstar.git-publish' version '3.0.1'
+    id 'org.ajoberstar.grgit' version '4.1.1'
     id 'de.marcphilipp.nexus-publish' version '0.4.0' apply false
     id 'net.researchgate.release' version '2.6.0'
     id 'io.codearte.nexus-staging' version '0.22.0'
