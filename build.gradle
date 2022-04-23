@@ -8,7 +8,7 @@ buildscript {
 }
 
 plugins {
-    id 'com.diffplug.spotless' version '5.1.1' apply false
+    id 'com.diffplug.spotless' version '6.5.0' apply false
     id 'org.asciidoctor.jvm.convert' version '3.3.0'
     id 'org.ajoberstar.git-publish' version '3.0.1'
     id 'org.ajoberstar.grgit' version '4.1.1'
@@ -145,5 +145,20 @@ task checkLastVersionValue {
         if(lastVersion != version) {
             throw new GradleException("lastVersion '$lastVersion' does not match version '$version', fix it in the 'gradle.properties' file.")
         }
+    }
+}
+
+def updateLastVersionValueTask = tasks.register('updateLastVersionValue') {
+    doLast {
+        def propertiesFile = file('gradle.properties')
+        def content = propertiesFile.text
+        content = content.replaceAll("lastVersion=[0-9\\.]+", "lastVersion=" + version.replace('-SNAPSHOT', ''))
+        propertiesFile.text = content
+    }
+}
+
+model {
+    tasks.unSnapshotVersion {
+        dependsOn updateLastVersionValueTask
     }
 }
