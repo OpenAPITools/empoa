@@ -1,0 +1,11 @@
+{
+  "title" : "A title",
+  "description" : "A description",
+  "type" : "object",
+  "additionalProperties" : {
+    "format" : "int32",
+    "title" : "Title",
+    "description" : "Some description",
+    "type" : "integer"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "title": "Title",
+  "type": "object",
+  "properties": {
+    "id": {
+      "title": "Title",
+      "type": "integer",
+      "description": "Some description",
+      "format": "int32"
+    },
+    "name": {
+      "title": "Title",
+      "type": "string",
+      "description": "Some description"
+    }
+  },
+  "description": "Some description"
+}

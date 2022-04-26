@@ -135,7 +135,6 @@ public final class OASElement {
     public static Encoding createEncoding() {
         return OASFactory.createEncoding()
             .contentType("application/json");
-
     }
 
     public static MediaType createMediaType() {
@@ -152,6 +151,22 @@ public final class OASElement {
             .description("Some description")
             .addProperty("id", createIntSchema())
             .addProperty("name", createStringSchema());
+    }
+
+    public static Schema createSchemaWithAdditionalPropertesSchema() {
+        return OASFactory.createSchema()
+            .type(Schema.SchemaType.OBJECT)
+            .title("A title")
+            .description("A description")
+            .additionalPropertiesSchema(OASElement.createIntSchema());
+    }
+
+    public static Schema createSchemaWithAdditionalPropertesBoolean() {
+        return OASFactory.createSchema()
+            .type(Schema.SchemaType.OBJECT)
+            .title("This title")
+            .description("This description")
+            .additionalPropertiesBoolean(true);
     }
 
     public static Schema createStringSchema() {
@@ -233,4 +248,53 @@ public final class OASElement {
             .description("Some description");
     }
 
+    public static PathItem createPathItemWithReference() {
+        return OASFactory.createPathItem()
+            .ref("#/components/pathItems/SomePathItem");
+    }
+
+    public static Callback createCallbackWithReference() {
+        return OASFactory.createCallback()
+            .ref("#/components/callbacks/SomeCallback");
+    }
+
+    public static Example createExampleWithReference() {
+        return OASFactory.createExample()
+            .ref("#/components/examples/SomeExample");
+    }
+
+    public static Header createHeaderWithReference() {
+        return OASFactory.createHeader()
+            .ref("#/components/headers/SomeHeader");
+    }
+
+    public static Link createLinkWithReference() {
+        return OASFactory.createLink()
+            .ref("#/components/links/SomeLink");
+    }
+
+    public static Schema createSchemaWithReference() {
+        return OASFactory.createSchema()
+            .ref("#/components/schemas/SomeSchema");
+    }
+
+    public static Parameter createParameterWithReference() {
+        return OASFactory.createParameter()
+            .ref("#/components/parameters/SomeParameter");
+    }
+
+    public static RequestBody createRequestBodyWithReference() {
+        return OASFactory.createRequestBody()
+            .ref("#/components/requestBodies/SomeRequestBody");
+    }
+
+    public static APIResponse createAPIResponseWithReference() {
+        return OASFactory.createAPIResponse()
+            .ref("#/components/responses/SomeAPIResponse");
+    }
+
+    public static SecurityScheme createSecuritySchemeWithReference() {
+        return OASFactory.createSecurityScheme()
+            .ref("#/components/securitySchemes/SomeSecurityScheme");
+    }
 }

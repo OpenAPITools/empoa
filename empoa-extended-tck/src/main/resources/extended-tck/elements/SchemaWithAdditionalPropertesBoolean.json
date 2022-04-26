@@ -1,0 +1,6 @@
+{
+  "title" : "This title",
+  "description" : "This description",
+  "type" : "object",
+  "additionalProperties" : true
+}
