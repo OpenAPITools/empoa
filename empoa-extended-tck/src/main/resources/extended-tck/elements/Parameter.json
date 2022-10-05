@@ -1,0 +1,10 @@
+{
+  "name": "SomeName",
+  "in": "query",
+  "description": "Some description",
+  "schema": {
+    "title": "Title",
+    "type": "string",
+    "description": "Some description"
+  }
+}

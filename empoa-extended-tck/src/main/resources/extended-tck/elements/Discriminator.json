@@ -1,0 +1,7 @@
+{
+  "propertyName": "type",
+  "mapping": {
+    "a": "value_a",
+    "b": "value_b"
+  }
+}

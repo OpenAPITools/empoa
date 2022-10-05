@@ -1,0 +1,23 @@
+{
+  "call-me-back": {
+    "description": "Some description",
+    "get": {
+      "tags": [
+        "Tag"
+      ],
+      "description": "Some description",
+      "parameters": [
+        {
+          "name": "SomeName",
+          "in": "query",
+          "description": "Some description",
+          "schema": {
+            "title": "Title",
+            "type": "string",
+            "description": "Some description"
+          }
+        }
+      ]
+    }
+  }
+}

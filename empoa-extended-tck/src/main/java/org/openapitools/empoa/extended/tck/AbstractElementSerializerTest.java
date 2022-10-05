@@ -270,31 +270,7 @@ public abstract class AbstractElementSerializerTest {
         Components components = OASElement.createComponents();
         String json = convertToJson(components);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"schemas\": {\n" +
-                "    \"SomeObject\": {\n" +
-                "      \"title\": \"Title\",\n" +
-                "      \"type\": \"object\",\n" +
-                "      \"properties\": {\n" +
-                "        \"id\": {\n" +
-                "          \"title\": \"Title\",\n" +
-                "          \"type\": \"integer\",\n" +
-                "          \"description\": \"Some description\",\n" +
-                "          \"format\": \"int32\"\n" +
-                "        },\n" +
-                "        \"name\": {\n" +
-                "          \"title\": \"Title\",\n" +
-                "          \"type\": \"string\",\n" +
-                "          \"description\": \"Some description\"\n" +
-                "        }\n" +
-                "      },\n" +
-                "      \"description\": \"Some description\"\n" +
-                "    }\n" +
-                "  }\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("Components"));
     }
 
     @Test
@@ -302,12 +278,7 @@ public abstract class AbstractElementSerializerTest {
         ExternalDocumentation externalDocumentation = OASElement.createExternalDocumentation();
         String json = convertToJson(externalDocumentation);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"description\": \"Some description\"\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("ExternalDocumentation"));
     }
 
     @Test
@@ -315,12 +286,7 @@ public abstract class AbstractElementSerializerTest {
         OpenAPI openAPI = OASElement.createOpenAPI();
         String json = convertToJson(openAPI);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"openapi\": \"3.0.1\"\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("OpenAPI"));
     }
 
     @Test
@@ -328,27 +294,7 @@ public abstract class AbstractElementSerializerTest {
         Operation operation = OASElement.createOperation();
         String json = convertToJson(operation);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"tags\": [\n" +
-                "    \"Tag\"\n" +
-                "  ],\n" +
-                "  \"description\": \"Some description\",\n" +
-                "  \"parameters\": [\n" +
-                "    {\n" +
-                "      \"name\": \"SomeName\",\n" +
-                "      \"in\": \"query\",\n" +
-                "      \"description\": \"Some description\",\n" +
-                "      \"schema\": {\n" +
-                "        \"title\": \"Title\",\n" +
-                "        \"type\": \"string\",\n" +
-                "        \"description\": \"Some description\"\n" +
-                "      }\n" +
-                "    }\n" +
-                "  ]\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("Operation"));
     }
 
     @Test
@@ -356,30 +302,7 @@ public abstract class AbstractElementSerializerTest {
         PathItem pathItem = OASElement.createPathItem();
         String json = convertToJson(pathItem);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"description\": \"Some description\",\n" +
-                "  \"get\": {\n" +
-                "    \"tags\": [\n" +
-                "      \"Tag\"\n" +
-                "    ],\n" +
-                "    \"description\": \"Some description\",\n" +
-                "    \"parameters\": [\n" +
-                "      {\n" +
-                "        \"name\": \"SomeName\",\n" +
-                "        \"in\": \"query\",\n" +
-                "        \"description\": \"Some description\",\n" +
-                "        \"schema\": {\n" +
-                "          \"title\": \"Title\",\n" +
-                "          \"type\": \"string\",\n" +
-                "          \"description\": \"Some description\"\n" +
-                "        }\n" +
-                "      }\n" +
-                "    ]\n" +
-                "  }\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("PathItem"));
     }
 
     @Test
@@ -387,32 +310,7 @@ public abstract class AbstractElementSerializerTest {
         Paths paths = OASElement.createPaths();
         String json = convertToJson(paths);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"ping\": {\n" +
-                "    \"description\": \"Some description\",\n" +
-                "    \"get\": {\n" +
-                "      \"tags\": [\n" +
-                "        \"Tag\"\n" +
-                "      ],\n" +
-                "      \"description\": \"Some description\",\n" +
-                "      \"parameters\": [\n" +
-                "        {\n" +
-                "          \"name\": \"SomeName\",\n" +
-                "          \"in\": \"query\",\n" +
-                "          \"description\": \"Some description\",\n" +
-                "          \"schema\": {\n" +
-                "            \"title\": \"Title\",\n" +
-                "            \"type\": \"string\",\n" +
-                "            \"description\": \"Some description\"\n" +
-                "          }\n" +
-                "        }\n" +
-                "      ]\n" +
-                "    }\n" +
-                "  }\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("Paths"));
     }
 
     @Test
@@ -420,32 +318,10 @@ public abstract class AbstractElementSerializerTest {
         Callback callback = OASElement.createCallback();
         String json = convertToJson(callback);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"call-me-back\": {\n" +
-                "    \"description\": \"Some description\",\n" +
-                "    \"get\": {\n" +
-                "      \"tags\": [\n" +
-                "        \"Tag\"\n" +
-                "      ],\n" +
-                "      \"description\": \"Some description\",\n" +
-                "      \"parameters\": [\n" +
-                "        {\n" +
-                "          \"name\": \"SomeName\",\n" +
-                "          \"in\": \"query\",\n" +
-                "          \"description\": \"Some description\",\n" +
-                "          \"schema\": {\n" +
-                "            \"title\": \"Title\",\n" +
-                "            \"type\": \"string\",\n" +
-                "            \"description\": \"Some description\"\n" +
-                "          }\n" +
-                "        }\n" +
-                "      ]\n" +
-                "    }\n" +
-                "  }\n" +
-                "}"
-        );
+        String readExpected = readExpected("Callback");
+        System.out.println("expected:" + readExpected);
+        System.out.println("json:" + json);
+        assertThatJson(json).isEqualTo(readExpected);
     }
 
     @Test
@@ -453,12 +329,7 @@ public abstract class AbstractElementSerializerTest {
         Example example = OASElement.createExample();
         String json = convertToJson(example);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"description\": \"Some description\"\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("Example"));
     }
 
     @Test
@@ -466,17 +337,7 @@ public abstract class AbstractElementSerializerTest {
         Header header = OASElement.createHeader();
         String json = convertToJson(header);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"description\": \"Some description\",\n" +
-                "  \"schema\": {\n" +
-                "    \"title\": \"Title\",\n" +
-                "    \"type\": \"string\",\n" +
-                "    \"description\": \"Some description\"\n" +
-                "  }\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("Header"));
     }
 
     @Test
@@ -484,13 +345,7 @@ public abstract class AbstractElementSerializerTest {
         Contact contact = OASElement.createContact();
         String json = convertToJson(contact);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"name\": \"SomeName\",\n" +
-                "  \"email\": \"example@company.com\"\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("Contact"));
     }
 
     @Test
@@ -498,13 +353,7 @@ public abstract class AbstractElementSerializerTest {
         Info info = OASElement.createInfo();
         String json = convertToJson(info);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"title\": \"Title\",\n" +
-                "  \"description\": \"Some description\"\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("Info"));
     }
 
     @Test
@@ -512,12 +361,7 @@ public abstract class AbstractElementSerializerTest {
         License license = OASElement.createLicense();
         String json = convertToJson(license);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"name\": \"SomeName\"\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("License"));
     }
 
     @Test
@@ -525,12 +369,7 @@ public abstract class AbstractElementSerializerTest {
         Link link = OASElement.createLink();
         String json = convertToJson(link);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"description\": \"Some description\"\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("Link"));
     }
 
     @Test
@@ -538,31 +377,7 @@ public abstract class AbstractElementSerializerTest {
         Content content = OASElement.createContent();
         String json = convertToJson(content);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"application/json\": {\n" +
-                "    \"schema\": {\n" +
-                "      \"title\": \"Title\",\n" +
-                "      \"type\": \"object\",\n" +
-                "      \"properties\": {\n" +
-                "        \"id\": {\n" +
-                "          \"title\": \"Title\",\n" +
-                "          \"type\": \"integer\",\n" +
-                "          \"description\": \"Some description\",\n" +
-                "          \"format\": \"int32\"\n" +
-                "        },\n" +
-                "        \"name\": {\n" +
-                "          \"title\": \"Title\",\n" +
-                "          \"type\": \"string\",\n" +
-                "          \"description\": \"Some description\"\n" +
-                "        }\n" +
-                "      },\n" +
-                "      \"description\": \"Some description\"\n" +
-                "    }\n" +
-                "  }\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("Content"));
     }
 
     @Test
@@ -570,16 +385,7 @@ public abstract class AbstractElementSerializerTest {
         Discriminator discriminator = OASElement.createDiscriminator();
         String json = convertToJson(discriminator);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"propertyName\": \"type\",\n" +
-                "  \"mapping\": {\n" +
-                "    \"a\": \"value_a\",\n" +
-                "    \"b\": \"value_b\"\n" +
-                "  }\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("Discriminator"));
     }
 
     @Test
@@ -587,12 +393,7 @@ public abstract class AbstractElementSerializerTest {
         Encoding encoding = OASElement.createEncoding();
         String json = convertToJson(encoding);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"contentType\": \"application/json\"\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("Encoding"));
     }
 
     @Test
@@ -600,29 +401,7 @@ public abstract class AbstractElementSerializerTest {
         MediaType mediaType = OASElement.createMediaType();
         String json = convertToJson(mediaType);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"schema\": {\n" +
-                "    \"title\": \"Title\",\n" +
-                "    \"type\": \"object\",\n" +
-                "    \"properties\": {\n" +
-                "      \"id\": {\n" +
-                "        \"title\": \"Title\",\n" +
-                "        \"type\": \"integer\",\n" +
-                "        \"description\": \"Some description\",\n" +
-                "        \"format\": \"int32\"\n" +
-                "      },\n" +
-                "      \"name\": {\n" +
-                "        \"title\": \"Title\",\n" +
-                "        \"type\": \"string\",\n" +
-                "        \"description\": \"Some description\"\n" +
-                "      }\n" +
-                "    },\n" +
-                "    \"description\": \"Some description\"\n" +
-                "  }\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("MediaType"));
     }
 
     @Test
@@ -630,85 +409,15 @@ public abstract class AbstractElementSerializerTest {
         Schema schema = OASElement.createSchema();
         String json = convertToJson(schema);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"title\": \"Title\",\n" +
-                "  \"type\": \"object\",\n" +
-                "  \"properties\": {\n" +
-                "    \"id\": {\n" +
-                "      \"title\": \"Title\",\n" +
-                "      \"type\": \"integer\",\n" +
-                "      \"description\": \"Some description\",\n" +
-                "      \"format\": \"int32\"\n" +
-                "    },\n" +
-                "    \"name\": {\n" +
-                "      \"title\": \"Title\",\n" +
-                "      \"type\": \"string\",\n" +
-                "      \"description\": \"Some description\"\n" +
-                "    }\n" +
-                "  },\n" +
-                "  \"description\": \"Some description\"\n" +
-                "}"
-        );
-    }
-
-    @Test
-    public void testSchemaWithAdditionalPropertesSchema() throws Exception {
-        Schema schema = OASFactory.createSchema()
-            .type(Schema.SchemaType.OBJECT)
-            .title("A title")
-            .description("A description")
-            .additionalPropertiesSchema(OASElement.createIntSchema());
-        String json = convertToJson(schema);
-
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"title\" : \"A title\",\n" +
-                "  \"description\" : \"A description\",\n" +
-                "  \"type\" : \"object\",\n" +
-                "  \"additionalProperties\" : {\n" +
-                "    \"format\" : \"int32\",\n" +
-                "    \"title\" : \"Title\",\n" +
-                "    \"description\" : \"Some description\",\n" +
-                "    \"type\" : \"integer\"\n" +
-                "  }\n" +
-                "}"
-        );
-    }
-
-    @Test
-    public void testSchemaWithAdditionalPropertesBoolean() throws Exception {
-        Schema schema = OASFactory.createSchema()
-            .type(Schema.SchemaType.OBJECT)
-            .title("A title")
-            .description("A description")
-            .additionalPropertiesBoolean(true);
-        String json = convertToJson(schema);
-
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"title\" : \"A title\",\n" +
-                "  \"description\" : \"A description\",\n" +
-                "  \"type\" : \"object\",\n" +
-                "  \"additionalProperties\" : true\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("Schema"));
     }
 
     @Test
     public void testXMLToJson() throws Exception {
-        XML xML = OASElement.createXML();
-        String json = convertToJson(xML);
+        XML xml = OASElement.createXML();
+        String json = convertToJson(xml);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"name\": \"SomeName\"\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("XML"));
     }
 
     @Test
@@ -716,19 +425,7 @@ public abstract class AbstractElementSerializerTest {
         Parameter parameter = OASElement.createParameter();
         String json = convertToJson(parameter);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"name\": \"SomeName\",\n" +
-                "  \"in\": \"query\",\n" +
-                "  \"description\": \"Some description\",\n" +
-                "  \"schema\": {\n" +
-                "    \"title\": \"Title\",\n" +
-                "    \"type\": \"string\",\n" +
-                "    \"description\": \"Some description\"\n" +
-                "  }\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("Parameter"));
     }
 
     @Test
@@ -736,12 +433,7 @@ public abstract class AbstractElementSerializerTest {
         RequestBody requestBody = OASElement.createRequestBody();
         String json = convertToJson(requestBody);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"description\": \"Some description\"\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("RequestBody"));
     }
 
     @Test
@@ -749,12 +441,7 @@ public abstract class AbstractElementSerializerTest {
         APIResponse apiResponse = OASElement.createAPIResponse();
         String json = convertToJson(apiResponse);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"description\": \"Some description\"\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("APIResponse"));
     }
 
     @Test
@@ -762,14 +449,7 @@ public abstract class AbstractElementSerializerTest {
         APIResponses apiResponses = OASElement.createAPIResponses();
         String json = convertToJson(apiResponses);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"200\": {\n" +
-                "    \"description\": \"Some description\"\n" +
-                "  }\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("APIResponses"));
     }
 
     @Test
@@ -777,14 +457,7 @@ public abstract class AbstractElementSerializerTest {
         OAuthFlow oAuthFlow = OASElement.createOAuthFlow();
         String json = convertToJson(oAuthFlow);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"scopes\": {\n" +
-                "    \"myScope\": \"Some description\"\n" +
-                "  }\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("OAuthFlow"));
     }
 
     @Test
@@ -792,10 +465,7 @@ public abstract class AbstractElementSerializerTest {
         OAuthFlows oAuthFlows = OASElement.createOAuthFlows();
         String json = convertToJson(oAuthFlows);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("OAuthFlows"));
     }
 
     @Test
@@ -803,12 +473,7 @@ public abstract class AbstractElementSerializerTest {
         SecurityRequirement securityRequirement = OASElement.createSecurityRequirement();
         String json = convertToJson(securityRequirement);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"BasicAuth\": []\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("SecurityRequirement"));
     }
 
     @Test
@@ -816,13 +481,7 @@ public abstract class AbstractElementSerializerTest {
         SecurityScheme securityScheme = OASElement.createSecurityScheme();
         String json = convertToJson(securityScheme);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"description\": \"Some description\",\n" +
-                "  \"name\": \"SomeName\"\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("SecurityScheme"));
     }
 
     @Test
@@ -830,12 +489,7 @@ public abstract class AbstractElementSerializerTest {
         Server server = OASElement.createServer();
         String json = convertToJson(server);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"description\": \"Some description\"\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("Server"));
     }
 
     @Test
@@ -843,12 +497,7 @@ public abstract class AbstractElementSerializerTest {
         ServerVariable serverVariable = OASElement.createServerVariable();
         String json = convertToJson(serverVariable);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"description\": \"Some description\"\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("ServerVariable"));
     }
 
     @Test
@@ -856,13 +505,23 @@ public abstract class AbstractElementSerializerTest {
         Tag tag = OASElement.createTag();
         String json = convertToJson(tag);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{\n" +
-                "  \"name\": \"SomeName\",\n" +
-                "  \"description\": \"Some description\"\n" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("Tag"));
+    }
+
+    @Test
+    public void testSchemaWithAdditionalPropertesSchemaToJson() throws Exception {
+        Schema schema = OASElement.createSchemaWithAdditionalPropertesSchema();
+        String json = convertToJson(schema);
+
+        assertThatJson(json).isEqualTo(readExpected("SchemaWithAdditionalPropertesSchema"));
+    }
+
+    @Test
+    public void testSchemaWithAdditionalPropertesBooleanToJson() throws Exception {
+        Schema schema = OASElement.createSchemaWithAdditionalPropertesBoolean();
+        String json = convertToJson(schema);
+
+        assertThatJson(json).isEqualTo(readExpected("SchemaWithAdditionalPropertesBoolean"));
     }
 
     @Test
@@ -873,12 +532,7 @@ public abstract class AbstractElementSerializerTest {
 
         String json = convertToJson(pathItem);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{" +
-                "    \"$ref\": \"#/components/pathItems/SomePathItem\"" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("PathItemWithReference"));
     }
 
     @Test
@@ -888,12 +542,7 @@ public abstract class AbstractElementSerializerTest {
 
         String json = convertToJson(callback);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{" +
-                "    \"$ref\": \"#/components/callbacks/SomeCallback\"" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("CallbackWithReference"));
     }
 
     @Test
@@ -904,12 +553,7 @@ public abstract class AbstractElementSerializerTest {
 
         String json = convertToJson(example);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{" +
-                "    \"$ref\": \"#/components/examples/SomeExample\"" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("ExampleWithReference"));
     }
 
     @Test
@@ -920,12 +564,7 @@ public abstract class AbstractElementSerializerTest {
 
         String json = convertToJson(header);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{" +
-                "    \"$ref\": \"#/components/headers/SomeHeader\"" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("HeaderWithReference"));
     }
 
     @Test
@@ -936,12 +575,7 @@ public abstract class AbstractElementSerializerTest {
 
         String json = convertToJson(link);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{" +
-                "    \"$ref\": \"#/components/links/SomeLink\"" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("LinkWithReference"));
     }
 
     @Test
@@ -953,12 +587,7 @@ public abstract class AbstractElementSerializerTest {
 
         String json = convertToJson(schema);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{" +
-                "    \"$ref\": \"#/components/schemas/SomeSchema\"" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("SchemaWithReference"));
     }
 
     @Test
@@ -970,12 +599,7 @@ public abstract class AbstractElementSerializerTest {
 
         String json = convertToJson(parameter);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{" +
-                "    \"$ref\": \"#/components/parameters/SomeParameter\"" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("ParameterWithReference"));
     }
 
     @Test
@@ -986,12 +610,7 @@ public abstract class AbstractElementSerializerTest {
 
         String json = convertToJson(requestBody);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{" +
-                "    \"$ref\": \"#/components/requestBodies/SomeRequestBody\"" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("RequestBodyWithReference"));
     }
 
     @Test
@@ -1002,12 +621,7 @@ public abstract class AbstractElementSerializerTest {
 
         String json = convertToJson(apiResponse);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{" +
-                "    \"$ref\": \"#/components/responses/SomeAPIResponse\"" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("APIResponseWithReference"));
     }
 
     @Test
@@ -1019,12 +633,11 @@ public abstract class AbstractElementSerializerTest {
 
         String json = convertToJson(securityScheme);
 
-        assertThatJson(json).isEqualTo(
-            "" +
-                "{" +
-                "    \"$ref\": \"#/components/securitySchemes/SomeSecurityScheme\"" +
-                "}"
-        );
+        assertThatJson(json).isEqualTo(readExpected("SecuritySchemeWithReference"));
+    }
+
+    private String readExpected(String name) throws IOException {
+        return AbstractSpecTest.read(getClass().getResourceAsStream("/extended-tck/elements/" + name + ".json"));
     }
 
     protected abstract String convertToJson(Components components) throws IOException;
