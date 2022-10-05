@@ -558,9 +558,11 @@ public class OpenAPISerializer {
                 return mapper.writerWithDefaultPrettyPrinter()
                     .writeValueAsString(tree);
             } else {
-                YAMLFactory factory = new YAMLFactory();
-                factory.enable(YAMLGenerator.Feature.MINIMIZE_QUOTES);
-                factory.enable(YAMLGenerator.Feature.ALWAYS_QUOTE_NUMBERS_AS_STRINGS);
+                YAMLFactory factory = YAMLFactory.builder()
+                    .enable(YAMLGenerator.Feature.MINIMIZE_QUOTES)
+                    .enable(YAMLGenerator.Feature.ALWAYS_QUOTE_NUMBERS_AS_STRINGS)
+                    .disable(YAMLGenerator.Feature.SPLIT_LINES)
+                    .build();
                 mapper = new ObjectMapper(factory);
                 return mapper.writer()
                     .writeValueAsString(tree);

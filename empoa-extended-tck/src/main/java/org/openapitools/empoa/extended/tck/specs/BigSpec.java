@@ -80,6 +80,7 @@ public final class BigSpec {
                                 createOperation()
                                     .addTag("WIP")
                                     .summary("Return a tree of nodes")
+                                    .description("This is a long description, really long. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dignissim, velit in egestas consectetur, metus dui dignissim ipsum, et lacinia tellus purus vitae tortor.")
                                     .operationId("tree")
                                     .addParameter(
                                         createParameter()
