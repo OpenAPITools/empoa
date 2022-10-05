@@ -15,7 +15,7 @@ info:
 servers:
 - url: http://api.example.com/
   description: Main server
-- url: http://{version}.example-test.com:8080/{username}/
+- url: "http://{version}.example-test.com:8080/{username}/"
   description: Test server
   variables:
     version:
@@ -36,6 +36,7 @@ paths:
       tags:
       - WIP
       summary: Return a tree of nodes
+      description: "This is a long description, really long. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dignissim, velit in egestas consectetur, metus dui dignissim ipsum, et lacinia tellus purus vitae tortor."
       operationId: tree
       parameters:
       - name: name
