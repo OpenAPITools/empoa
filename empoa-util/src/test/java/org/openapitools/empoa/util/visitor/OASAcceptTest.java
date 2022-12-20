@@ -24,6 +24,7 @@ import org.junit.jupiter.api.Test;
 import org.openapitools.empoa.extended.tck.specs.BigSpec;
 import org.openapitools.empoa.extended.tck.specs.MultipleResponsesSpec;
 import org.openapitools.empoa.extended.tck.specs.PingSpec;
+import org.openapitools.empoa.util.visitor.example.OperationIdVisitor;
 
 public class OASAcceptTest {
 

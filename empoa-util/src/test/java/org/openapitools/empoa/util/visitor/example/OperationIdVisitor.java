@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
-package org.openapitools.empoa.util.visitor;
+package org.openapitools.empoa.util.visitor.example;
 
 //tag::usage[]
 import java.util.Collections;
@@ -22,6 +22,8 @@ import java.util.Map;
 
 import org.eclipse.microprofile.openapi.models.Components;
 import org.eclipse.microprofile.openapi.models.Operation;
+import org.openapitools.empoa.util.visitor.OASVisitResult;
+import org.openapitools.empoa.util.visitor.OASVisitorAdapter;
 
 public class OperationIdVisitor extends OASVisitorAdapter {
 
