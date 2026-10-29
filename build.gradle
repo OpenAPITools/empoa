@@ -1,5 +1,4 @@
 plugins {
-    alias(libs.plugins.spotless) apply false
     alias(libs.plugins.asciidoctor.convert)
     alias(libs.plugins.git.publish)
     alias(libs.plugins.jreleaser)
@@ -11,53 +10,6 @@ wrapper {
 }
 
 def repositoryPath = 'build/staging-deploy'
-
-allprojects {
-    apply plugin: 'maven-publish'
-
-    group = 'org.openapitools.empoa'
-}
-
-subprojects {
-    apply plugin: 'com.diffplug.spotless'
-
-    spotless {
-        java {
-            importOrder 'java', 'javax', 'org', 'com', ''
-            removeUnusedImports()
-
-            // available versions are: https://github.com/diffplug/spotless/tree/master/lib-extra/src/main/resources/com/diffplug/spotless/extra/eclipse_jdt_formatter
-            eclipse('4.13.0').configFile('.settings/org.eclipse.jdt.core.prefs')
-        }
-    }
-
-    repositories {
-        // mavenLocal()
-        mavenCentral()
-    }
-
-    pluginManager.withPlugin('java') {
-        java {
-            toolchain {
-                languageVersion = JavaLanguageVersion.of(8)
-            }
-            withSourcesJar()
-            withJavadocJar()
-        }
-
-        dependencies {
-            testRuntimeOnly libs.junit.platform.launcher
-        }
-    }
-
-    publishing {
-        repositories {
-            maven {
-                url = rootProject.file(repositoryPath)
-            }
-        }
-    }
-}
 
 jreleaser {
     signing {

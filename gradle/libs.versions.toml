@@ -11,6 +11,7 @@ junit-platform = "1.7.1"
 logback = "1.2.3"
 mp-openapi = "2.0"
 smallrye = "2.1.0-RC1"
+spotless = "7.2.1"
 swagger-core = "2.1.2"
 swagger-parser = "2.0.20"
 
@@ -31,6 +32,7 @@ logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "lo
 microprofile-openapi-api = { module = "org.eclipse.microprofile.openapi:microprofile-openapi-api", version.ref = "mp-openapi" }
 microprofile-openapi-tck = { module = "org.eclipse.microprofile.openapi:microprofile-openapi-tck", version.ref = "mp-openapi" }
 smallrye-open-api = { module = "io.smallrye:smallrye-open-api", version.ref = "smallrye" }
+spotless-plugin-gradle = { module = "com.diffplug.spotless:spotless-plugin-gradle", version.ref = "spotless" }
 swagger-models = { module = "io.swagger.core.v3:swagger-models", version.ref = "swagger-core" }
 swagger-parser = { module = "io.swagger.parser.v3:swagger-parser", version.ref = "swagger-parser" }
 
@@ -39,4 +41,3 @@ asciidoctor-convert = { id = "org.asciidoctor.jvm.convert", version = "4.0.5" }
 git-publish = { id = "org.ajoberstar.git-publish", version = "5.1.3" }
 jreleaser = { id = "org.jreleaser", version = "1.26.0" }
 release = { id = "net.researchgate.release", version = "3.2.0" }
-spotless = { id = "com.diffplug.spotless", version = "7.2.1" }

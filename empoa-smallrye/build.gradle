@@ -1,9 +1,5 @@
 plugins {
-    id 'java-library'
-}
-
-test {
-    useJUnitPlatform() 
+    id 'empoa.java-library-conventions'
 }
 
 dependencies {
@@ -18,34 +14,9 @@ dependencies {
     testRuntimeOnly libs.logback.classic
 }
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            pom {
-                name = 'EMPOA SmallRye'
-                description = 'Validation project for EMPOA Extended TCK'
-                packaging = 'jar'
-                url = 'https://' + "$githubRepositoryOwner" + '.github.io/' + "$githubRepositoryName" + '/'
-                licenses {
-                    license {
-                        name = 'Apache 2.0 License'
-                        url = 'http://www.apache.org/licenses/LICENSE-2.0'
-                    }
-                }
-                developers {
-                    developer {
-                        id = 'jmini'
-                        name = 'Jeremie Bresson'
-                        email = 'dev@jmini.fr'
-                    }
-                }
-                scm {
-                    connection = 'scm:git:https://github.com/' + "$githubRepositoryOwner" + '/' + "$githubRepositoryName" + '.git'
-                    developerConnection = 'scm:git:https://github.com/' + "$githubRepositoryOwner" + '/' + "$githubRepositoryName" + '.git'
-                    url = 'https://github.com/' + "$githubRepositoryOwner" + '/' + "$githubRepositoryName" + '/'
-                }
-            }
-            from components.java
-        }
+publishing.publications.named('mavenJava') {
+    pom {
+        name = 'EMPOA SmallRye'
+        description = 'Validation project for EMPOA Extended TCK'
     }
 }

@@ -1,0 +1,76 @@
+// Conventions shared by all the empoa modules: Java 8 toolchain, JUnit 5, Spotless and the Maven publication.
+// Each module adds its dependencies and the name and description of its POM.
+
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'com.diffplug.spotless'
+}
+
+def libs = versionCatalogs.named('libs')
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
+    withSourcesJar()
+    withJavadocJar()
+}
+
+dependencies {
+    testRuntimeOnly libs.findLibrary('junit-platform-launcher').get()
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+spotless {
+    java {
+        importOrder 'java', 'javax', 'org', 'com', ''
+        removeUnusedImports()
+
+        // available versions are: https://github.com/diffplug/spotless/tree/master/lib-extra/src/main/resources/com/diffplug/spotless/extra/eclipse_jdt_formatter
+        eclipse('4.13.0').configFile('.settings/org.eclipse.jdt.core.prefs')
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            pom {
+                packaging = 'jar'
+                url = 'https://' + "$githubRepositoryOwner" + '.github.io/' + "$githubRepositoryName" + '/'
+                licenses {
+                    license {
+                        name = 'Apache 2.0 License'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'jmini'
+                        name = 'Jeremie Bresson'
+                        email = 'dev@jmini.fr'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:https://github.com/' + "$githubRepositoryOwner" + '/' + "$githubRepositoryName" + '.git'
+                    developerConnection = 'scm:git:https://github.com/' + "$githubRepositoryOwner" + '/' + "$githubRepositoryName" + '.git'
+                    url = 'https://github.com/' + "$githubRepositoryOwner" + '/' + "$githubRepositoryName" + '/'
+                }
+            }
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            // staging folder read by 'jreleaserDeploy' in the root build
+            url = isolated.rootProject.projectDirectory.dir('build/staging-deploy')
+        }
+    }
+}
