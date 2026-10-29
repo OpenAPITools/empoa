@@ -1,30 +1,19 @@
-buildscript {
-  configurations.classpath {
-    resolutionStrategy {
-      //This is required by 'grgit' version '4.1.1':
-      force 'org.eclipse.jgit:org.eclipse.jgit:5.13.0.202109080827-r'
-    }
-  }
-}
-
 plugins {
-    id 'com.diffplug.spotless' version '5.1.1' apply false
-    id 'org.asciidoctor.jvm.convert' version '3.3.2'
-    id 'org.ajoberstar.git-publish' version '3.0.1'
-    id 'org.ajoberstar.grgit' version '4.1.1'
-    id 'de.marcphilipp.nexus-publish' version '0.4.0' apply false
-    id 'net.researchgate.release' version '2.6.0'
-    id 'io.codearte.nexus-staging' version '0.22.0'
+    id 'com.diffplug.spotless' version '7.2.1' apply false
+    id 'org.asciidoctor.jvm.convert' version '4.0.5'
+    id 'org.ajoberstar.git-publish' version '5.1.3'
+    id 'org.jreleaser' version '1.26.0'
+    id 'net.researchgate.release' version '3.2.0'
 }
 
 wrapper {
-    gradleVersion = '7.3.3'
+    gradleVersion = '9.8.2'
 }
+
+def repositoryPath = 'build/staging-deploy'
 
 allprojects {
     apply plugin: 'maven-publish'
-    apply plugin: 'signing'
-    apply plugin: 'de.marcphilipp.nexus-publish'
 
     group = 'org.openapitools.empoa'
 }
@@ -45,26 +34,79 @@ subprojects {
     repositories {
         // mavenLocal()
         mavenCentral()
-        jcenter()
-        // maven {
-        //     url "http://dl.bintray.com/jmini/maven/"
-        // }
     }
 
-    nexusPublishing {
+    pluginManager.withPlugin('java') {
+        java {
+            toolchain {
+                languageVersion = JavaLanguageVersion.of(8)
+            }
+            withSourcesJar()
+            withJavadocJar()
+        }
+
+        dependencies {
+            testRuntimeOnly "org.junit.platform:junit-platform-launcher:$junitPlatformVersion"
+        }
+    }
+
+    publishing {
         repositories {
-            sonatype {
-                username = project.findProperty('sonatypeUser') ?: ''
-                password = project.findProperty('sonatypePassword') ?: ''
+            maven {
+                url = rootProject.file(repositoryPath)
             }
         }
     }
 }
 
-nexusStaging {
-    packageGroup = 'org.openapitools'
-    username = project.findProperty('sonatypeUser') ?: ''
-    password = project.findProperty('sonatypePassword') ?: ''
+jreleaser {
+    signing {
+        active = 'RELEASE'
+        armored = true
+    }
+    deploy {
+        maven {
+            mavenCentral {
+                openapitools {
+                    active = 'RELEASE'
+                    namespace = 'org.openapitools'
+                    url = 'https://central.sonatype.com/api/v1/publisher'
+                    stagingRepository(repositoryPath)
+                    retryDelay = 30
+                    maxRetries = 150
+                }
+            }
+        }
+    }
+    release {
+        github {
+            enabled = true
+            repoOwner = "$githubRepositoryOwner"
+            name = "$githubRepositoryName"
+            tagName = '{{projectVersion}}'
+            overwrite = true
+            skipTag = true
+            releaseNotes {
+                enabled = true
+            }
+            changelog {
+                enabled = false
+            }
+            milestone {
+                close = true
+            }
+            issues {
+                enabled = true
+                comment = 'This issue has been resolved in `{{tagName}}` ([Release Notes]({{releaseNotesUrl}}))'
+                applyMilestone = 'ALWAYS'
+                label {
+                    name = 'released'
+                    color = '#FF0000'
+                    description = 'Issue has been released'
+                }
+            }
+        }
+    }
 }
 
 def buildDate() {
@@ -103,7 +145,9 @@ asciidoctor {
         mavenCentral()
     }
     dependencies {
-        asciidoctorExtensions 'fr.jmini.asciidoctorj:git-link:3.2.1'
+        asciidoctorExtensions('fr.jmini.asciidoctorj:git-link:3.2.2') {
+            transitive = false
+        }
     }
 }
 
@@ -123,21 +167,21 @@ gitPublish {
 }
 
 release {
-    buildTasks = ['releaseBuild']
+    buildTasks = [
+        'checkLastVersionValue',
+        'clean',
+        'build',
+        'publish',
+        'jreleaserDeploy',
+        'asciidoctor',
+        'gitPublishPush'
+    ]
+    git {
+        requireBranch.set('master')
+    }
 }
 
-task releaseBuild {
-    dependsOn(
-            'checkLastVersionValue',
-            'clean',
-            'build',
-            'publish',
-            'asciidoctor',
-            'gitPublishPush'
-    )
-}
-
-task checkLastVersionValue {
+tasks.register('checkLastVersionValue') {
     doLast {
         if(version.endsWith('SNAPSHOT')) {
             throw new GradleException("version '$version' ends with SNAPSHOT, this is not a release build!")
@@ -152,13 +196,12 @@ def updateLastVersionValueTask = tasks.register('updateLastVersionValue') {
     doLast {
         def propertiesFile = file('gradle.properties')
         def content = propertiesFile.text
-        content = content.replaceAll("lastVersion=[0-9\\.]+", "lastVersion=" + version.replace('-SNAPSHOT', ''))
+        def newVersion = project.findProperty('release.releaseVersion') ?: version.replace('-SNAPSHOT', '')
+        content = content.replaceAll("lastVersion=[0-9a-z\\.\\-]+", "lastVersion=" + newVersion)
         propertiesFile.text = content
     }
 }
 
-model {
-    tasks.unSnapshotVersion {
-        dependsOn updateLastVersionValueTask
-    }
+tasks.named('unSnapshotVersion') {
+    dependsOn updateLastVersionValueTask
 }

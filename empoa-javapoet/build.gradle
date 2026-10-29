@@ -2,9 +2,6 @@ plugins {
     id 'java-library'
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
 test {
     useJUnitPlatform() 
 }
@@ -19,27 +16,6 @@ dependencies {
     testImplementation project(':empoa-extended-tck')
 
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
-}
-
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
-}
-
-task javadocJar(type: Jar) {
-    from javadoc
-    classifier = 'javadoc'
-}
-
-signing {
-    useGpgCmd()
-    sign(publishing.publications)
-}
-
-tasks.withType(Sign) {
-    onlyIf {
-        project.hasProperty('signing.gnupg.keyName')
-    }
 }
 
 publishing {
@@ -70,8 +46,6 @@ publishing {
                 }
             }
             from components.java
-            artifact sourcesJar
-            artifact javadocJar
         }
     }
 }

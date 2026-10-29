@@ -103,15 +103,10 @@ include::../empoa-smallrye/README.adoc[leveloffset=3]
 
 The artifacts are hosted on maven central.
 
-Snapshots version are hosted in the sonatype repository:
-
-----
-https://oss.sonatype.org/content/repositories/snapshots/
-----
-
 == Build
 
 This project is using gradle.
+Gradle runs on Java 17 or newer; the modules are compiled and tested with a Java 8 toolchain (Gradle looks for a local JDK 8 and downloads one if none is found).
 
 Command to build the sources locally:
 
@@ -135,14 +130,14 @@ The output of this command is an HTML page located at `<git repo root>/build/doc
 
 === For project maintainers
 
-`signing.gnupg.keyName` and `signing.gnupg.passphrase` are expected to be set in your local `gradle.properties` file to be able to sign.
-`sonatypeUser` and `sonatypePassword` are expected to be set in order to be able to publish to a distant repository.
-					
-Command to build and publish the result to maven central:
+Publishing to Maven Central is done with https://jreleaser.org/[JReleaser].
+`./gradlew publish` writes the artifacts to a local staging folder (`<git repo root>/build/staging-deploy`), `./gradlew jreleaserDeploy` signs them and uploads that folder to the Maven Central Portal.
+Both only do something for a release version (not for a `-SNAPSHOT`).
 
-----
-./gradlew publishToSonatype
-----
+JReleaser reads its credentials from environment variables or from `~/.jreleaser/config.properties`:
+the Maven Central Portal user token (`JRELEASER_MAVENCENTRAL_USERNAME`, `JRELEASER_MAVENCENTRAL_PASSWORD`),
+the GPG keys (`JRELEASER_GPG_PUBLIC_KEY`, `JRELEASER_GPG_SECRET_KEY`, `JRELEASER_GPG_PASSPHRASE`)
+and a GitHub token (`JRELEASER_GITHUB_TOKEN`).
 
 Command to upload the documentation page on GitHub pages:
 
