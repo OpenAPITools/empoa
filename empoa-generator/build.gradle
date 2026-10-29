@@ -3,8 +3,8 @@ plugins {
 }
 
 dependencies {
-    implementation "org.eclipse.microprofile.openapi:microprofile-openapi-api:$mpOpenAPIVersion"
-    implementation "io.swagger.core.v3:swagger-models:$swaggerCoreVersion"
+    implementation libs.microprofile.openapi.api
+    implementation libs.swagger.models
 }
 
 publishing {

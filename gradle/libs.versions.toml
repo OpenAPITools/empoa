@@ -1,0 +1,42 @@
+[versions]
+asciidoctorj = "2.5.13"
+assertj = "3.11.1"
+gson = "2.8.5"
+jackson = "2.12.7"
+javapoet = "1.11.1"
+jsonpath = "2.4.0"
+json-unit = "2.2.0"
+junit = "5.7.1"
+junit-platform = "1.7.1"
+logback = "1.2.3"
+mp-openapi = "2.0"
+smallrye = "2.1.0-RC1"
+swagger-core = "2.1.2"
+swagger-parser = "2.0.20"
+
+[libraries]
+assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
+asciidoctorj-git-link = { module = "fr.jmini.asciidoctorj:git-link", version = "3.2.2" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+jackson-core = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jackson" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+jackson-dataformat-yaml = { module = "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml", version.ref = "jackson" }
+javapoet = { module = "com.squareup:javapoet", version.ref = "javapoet" }
+json-path = { module = "com.jayway.jsonpath:json-path", version.ref = "jsonpath" }
+json-unit-assertj = { module = "net.javacrumbs.json-unit:json-unit-assertj", version.ref = "json-unit" }
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
+junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit-platform" }
+logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+microprofile-openapi-api = { module = "org.eclipse.microprofile.openapi:microprofile-openapi-api", version.ref = "mp-openapi" }
+microprofile-openapi-tck = { module = "org.eclipse.microprofile.openapi:microprofile-openapi-tck", version.ref = "mp-openapi" }
+smallrye-open-api = { module = "io.smallrye:smallrye-open-api", version.ref = "smallrye" }
+swagger-models = { module = "io.swagger.core.v3:swagger-models", version.ref = "swagger-core" }
+swagger-parser = { module = "io.swagger.parser.v3:swagger-parser", version.ref = "swagger-parser" }
+
+[plugins]
+asciidoctor-convert = { id = "org.asciidoctor.jvm.convert", version = "4.0.5" }
+git-publish = { id = "org.ajoberstar.git-publish", version = "5.1.3" }
+jreleaser = { id = "org.jreleaser", version = "1.26.0" }
+release = { id = "net.researchgate.release", version = "3.2.0" }
+spotless = { id = "com.diffplug.spotless", version = "7.2.1" }

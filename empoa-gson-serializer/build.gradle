@@ -7,15 +7,15 @@ test {
 }
 
 dependencies {
-    api "org.eclipse.microprofile.openapi:microprofile-openapi-api:$mpOpenAPIVersion"
-    api "com.google.code.gson:gson:$gsonVersion"
+    api libs.microprofile.openapi.api
+    api libs.gson
 
     testImplementation project(':empoa-extended-tck')
-    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
-    testImplementation "org.assertj:assertj-core:$assertjVersion"
+    testImplementation libs.junit.jupiter.api
+    testImplementation libs.assertj.core
 
     testRuntimeOnly project(':empoa-simple-models-impl')
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    testRuntimeOnly libs.junit.jupiter.engine
 }
 
 publishing {

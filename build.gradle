@@ -1,9 +1,9 @@
 plugins {
-    id 'com.diffplug.spotless' version '7.2.1' apply false
-    id 'org.asciidoctor.jvm.convert' version '4.0.5'
-    id 'org.ajoberstar.git-publish' version '5.1.3'
-    id 'org.jreleaser' version '1.26.0'
-    id 'net.researchgate.release' version '3.2.0'
+    alias(libs.plugins.spotless) apply false
+    alias(libs.plugins.asciidoctor.convert)
+    alias(libs.plugins.git.publish)
+    alias(libs.plugins.jreleaser)
+    alias(libs.plugins.release)
 }
 
 wrapper {
@@ -46,7 +46,7 @@ subprojects {
         }
 
         dependencies {
-            testRuntimeOnly "org.junit.platform:junit-platform-launcher:$junitPlatformVersion"
+            testRuntimeOnly libs.junit.platform.launcher
         }
     }
 
@@ -118,7 +118,7 @@ configurations {
 }
 
 asciidoctorj {
-    version = "$asciidoctorjVersion"
+    version = libs.versions.asciidoctorj.get()
 }
 
 asciidoctor {
@@ -129,7 +129,7 @@ asciidoctor {
     attributes = ['revdate'           : "${buildDate()}",
                   'project-version'   : "$version",
                   'artifacts-version' : "$lastVersion",
-                  'mp-openapi-version': "$mpOpenAPIVersion",
+                  'mp-openapi-version': libs.versions.mp.openapi.get(),
                   'gh-repo-owner'     : "$githubRepositoryOwner",
                   'gh-repo-name'      : "$githubRepositoryName",
                   'source-highlighter': 'coderay',
@@ -145,7 +145,7 @@ asciidoctor {
         mavenCentral()
     }
     dependencies {
-        asciidoctorExtensions('fr.jmini.asciidoctorj:git-link:3.2.2') {
+        asciidoctorExtensions(libs.asciidoctorj.git.link) {
             transitive = false
         }
     }

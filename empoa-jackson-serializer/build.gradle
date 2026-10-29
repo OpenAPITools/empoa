@@ -7,17 +7,17 @@ test {
 }
 
 dependencies {
-    api "org.eclipse.microprofile.openapi:microprofile-openapi-api:$mpOpenAPIVersion"
-    api "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
-    api "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
-    api "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jacksonVersion"
+    api libs.microprofile.openapi.api
+    api libs.jackson.core
+    api libs.jackson.databind
+    api libs.jackson.dataformat.yaml
 
     testImplementation project(':empoa-extended-tck')
-    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
-    testImplementation "org.assertj:assertj-core:$assertjVersion"
+    testImplementation libs.junit.jupiter.api
+    testImplementation libs.assertj.core
 
     testRuntimeOnly project(':empoa-simple-models-impl')
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    testRuntimeOnly libs.junit.jupiter.engine
 }
 
 publishing {

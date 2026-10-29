@@ -7,11 +7,11 @@ test {
 }
 
 dependencies {
-    api "org.eclipse.microprofile.openapi:microprofile-openapi-api:$mpOpenAPIVersion"
-    api "org.junit.jupiter:junit-jupiter-api:$junitVersion"
-    implementation "org.eclipse.microprofile.openapi:microprofile-openapi-tck:$mpOpenAPIVersion"
-    implementation "org.assertj:assertj-core:$assertjVersion"
-    implementation "net.javacrumbs.json-unit:json-unit-assertj:$jsonUnitVersion"
+    api libs.microprofile.openapi.api
+    api libs.junit.jupiter.api
+    implementation libs.microprofile.openapi.tck
+    implementation libs.assertj.core
+    implementation libs.json.unit.assertj
 }
 
 publishing {

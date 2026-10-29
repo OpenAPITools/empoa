@@ -7,15 +7,15 @@ test {
 }
 
 dependencies {
-    api "org.eclipse.microprofile.openapi:microprofile-openapi-api:$mpOpenAPIVersion"
-    implementation "com.squareup:javapoet:$javaPoetVersion"
+    api libs.microprofile.openapi.api
+    implementation libs.javapoet
 
-    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
-    testImplementation "org.assertj:assertj-core:$assertjVersion"
+    testImplementation libs.junit.jupiter.api
+    testImplementation libs.assertj.core
     testImplementation project(':empoa-simple-models-impl')
     testImplementation project(':empoa-extended-tck')
 
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    testRuntimeOnly libs.junit.jupiter.engine
 }
 
 publishing {

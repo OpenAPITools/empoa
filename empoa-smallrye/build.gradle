@@ -7,15 +7,15 @@ test {
 }
 
 dependencies {
-    api "org.eclipse.microprofile.openapi:microprofile-openapi-api:$mpOpenAPIVersion"
-    implementation "io.smallrye:smallrye-open-api:$smallryeVersion"
+    api libs.microprofile.openapi.api
+    implementation libs.smallrye.open.api
 
     testImplementation project(':empoa-extended-tck')
-    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
-    testImplementation "org.assertj:assertj-core:$assertjVersion"
+    testImplementation libs.junit.jupiter.api
+    testImplementation libs.assertj.core
 
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
-    testRuntimeOnly "ch.qos.logback:logback-classic:$logbackVersion"
+    testRuntimeOnly libs.junit.jupiter.engine
+    testRuntimeOnly libs.logback.classic
 }
 
 publishing {

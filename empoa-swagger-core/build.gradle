@@ -7,16 +7,16 @@ test {
 }
 
 dependencies {
-    api "org.eclipse.microprofile.openapi:microprofile-openapi-api:$mpOpenAPIVersion"
-    implementation "io.swagger.core.v3:swagger-models:$swaggerCoreVersion"
+    api libs.microprofile.openapi.api
+    implementation libs.swagger.models
 
-    testImplementation "io.swagger.parser.v3:swagger-parser:$swaggerParserVersion"
+    testImplementation libs.swagger.parser
     testImplementation project(':empoa-extended-tck')
     testImplementation project(':empoa-gson-serializer')
-    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
-    testImplementation "org.assertj:assertj-core:$assertjVersion"
+    testImplementation libs.junit.jupiter.api
+    testImplementation libs.assertj.core
 
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    testRuntimeOnly libs.junit.jupiter.engine
 }
 
 publishing {
